@@ -29,7 +29,7 @@
           var gender = patient.gender;
           var dob = new Date(patient.birthDate);
           var day = dob.getDate();
-          var contact = patient.Contact;
+          var contact = patient.contact();
           var monthIndex = dob.getMonth() + 1;
           var year = dob.getFullYear();
 

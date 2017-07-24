@@ -63,7 +63,7 @@
               p.contact.phone = contact.telecom.phone ? contact.telnet.phone : '';
            }
             p.contact.relationship = contact.relationship ? contact.relationship: '';
-            p.contact.address = contact.address? contact.address : '';
+            p.contact.address = contact.address ? contact.address : '';
           }
 
           if (typeof systolicbp != 'undefined')  {

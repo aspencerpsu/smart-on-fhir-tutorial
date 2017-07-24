@@ -29,6 +29,7 @@
           var gender = patient.gender;
           var dob = new Date(patient.birthDate);
           var day = dob.getDate();
+          var contact = patient.contact;
           var monthIndex = dob.getMonth() + 1;
           var year = dob.getFullYear();
 
@@ -54,6 +55,11 @@
           p.lname = lname;
           p.age = parseInt(calculateAge(dob));
           p.height = getQuantityValueAndUnit(height[0]);
+          p.contact.name = contact.name;
+          p.contact.email = contact.telnet.email;
+          p.contact.cell = contact.telnet.cell;
+          p.contact.relationship = contact.relationship;
+          p.contact.address = contact.address;
 
           if (typeof systolicbp != 'undefined')  {
             p.systolicbp = systolicbp;
@@ -90,6 +96,7 @@
       diastolicbp: {value: ''},
       ldl: {value: ''},
       hdl: {value: ''},
+      contact: {value: {}}
     };
   }
 
@@ -160,7 +167,6 @@
     $('#cell').html(p.contact.telecom.cell);
     $('#email').html(p.contact.telecome.email);
     $('#relationship').html(p.contact);
-    var collect_obj = p;
   };
 
 })(window);

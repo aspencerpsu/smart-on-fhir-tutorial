@@ -157,8 +157,8 @@
     $('#hdl').html(p.hdl);
     $('#kin_name').html(p.contact.name);
     $('#address').html(p.contact.address);
-    $('#cell').html(p.contact.telecom.address);
-    $('#email').html(p.contact.telecome.address);
+    $('#cell').html(p.contact.telecom.cell);
+    $('#email').html(p.contact.telecome.email);
     $('#relationship').html(p.contact);
     var collect_obj = p;
   };

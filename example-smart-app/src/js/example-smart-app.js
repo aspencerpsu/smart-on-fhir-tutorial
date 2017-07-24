@@ -155,6 +155,12 @@
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
+    $('#kin_name').html(p.contact.name);
+    $('#address').html(p.contact.address);
+    $('#cell').html(p.contact.telecom.address);
+    $('#email').html(p.contact.telecome.address);
+    $('#relationship').html(p.contact);
+    var collect_obj = p;
   };
 
 })(window);

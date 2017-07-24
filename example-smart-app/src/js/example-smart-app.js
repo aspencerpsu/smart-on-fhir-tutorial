@@ -57,6 +57,9 @@
           p.height = getQuantityValueAndUnit(height[0]);
           if (contact && typeof contact !== 'undefined') {
             p.contact.name = contact.name;
+            console.log(p.contact);
+            console.log(p.contact.name);
+            console.log(contact);
             if (contact.telecom && typeof contact.telecom !== 'undefined'){
               p.contact.email = contact.telecom.email ? contact.telnet.email : '';
               p.contact.cell = contact.telecom.cell ? contact.telnet.cell : '';

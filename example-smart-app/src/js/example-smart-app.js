@@ -57,9 +57,11 @@
           p.height = getQuantityValueAndUnit(height[0]);
           if (contact && typeof contact !== 'undefined') {
             p.contact.name = contact.name;
+            if (contact.telnet && typeof contact.telnet !== 'undefined'){
             p.contact.email = contact.telnet.email ? contact.telnet.email : '';
             p.contact.cell = contact.telnet.cell ? contact.telnet.cell : '';
             p.contact.phone = contact.telnet.phone ? contact.telnet.phone : '';
+           }
             p.contact.relationship = contact.relationship ? contact.relationship: '';
             p.contact.address = contact.address? contact.address : '';
           }

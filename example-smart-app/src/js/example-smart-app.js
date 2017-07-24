@@ -55,11 +55,14 @@
           p.lname = lname;
           p.age = parseInt(calculateAge(dob));
           p.height = getQuantityValueAndUnit(height[0]);
-          p.contact.name = contact.name;
-          p.contact.email = contact.telnet.email;
-          p.contact.cell = contact.telnet.cell;
-          p.contact.relationship = contact.relationship;
-          p.contact.address = contact.address;
+          if (contact && typeof contact !== 'undefined') {
+            p.contact.name = contact.name;
+            p.contact.email = contact.telnet.email ? contact.telnet.email : '';
+            p.contact.cell = contact.telnet.cell ? contact.telnet.cell : '';
+            p.contact.phone = contact.telnet.phone ? contact.telnet.phone : '';
+            p.contact.relationship = contact.relationship ? contact.relationship: '';
+            p.contact.address = contact.address? contact.address : '';
+          }
 
           if (typeof systolicbp != 'undefined')  {
             p.systolicbp = systolicbp;
@@ -165,6 +168,7 @@
     $('#kin_name').html(p.contact.name);
     $('#address').html(p.contact.address);
     $('#cell').html(p.contact.telecom.cell);
+    $('#phone').html(p.contact.phone);
     $('#email').html(p.contact.telecome.email);
     $('#relationship').html(p.contact);
   };

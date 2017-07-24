@@ -65,6 +65,9 @@
             p.contact.relationship = contact.relationship ? contact.relationship: '';
             p.contact.address = contact.address ? contact.address : '';
           }
+          else {
+            console.log("The patient has no emergency contacts within the system");
+         }
 
           if (typeof systolicbp != 'undefined')  {
             p.systolicbp = systolicbp;

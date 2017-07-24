@@ -169,10 +169,10 @@
     $('#hdl').html(p.hdl);
     $('#kin_name').html(p.contact.name);
     $('#address').html(p.contact.address);
-    $('#cell').html(p.contact.telecom.cell);
+    $('#cell').html(p.contact.cell);
     $('#phone').html(p.contact.phone);
-    $('#email').html(p.contact.telecom.email);
-    $('#relationship').html(p.contact);
+    $('#email').html(p.contact.email);
+    $('#relationship').html(p.contact.relationship);
   };
 
 })(window);

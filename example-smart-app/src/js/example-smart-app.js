@@ -57,10 +57,10 @@
           p.height = getQuantityValueAndUnit(height[0]);
           if (contact && typeof contact !== 'undefined') {
             p.contact.name = contact.name;
-            if (contact.telnet && typeof contact.telnet !== 'undefined'){
-            p.contact.email = contact.telnet.email ? contact.telnet.email : '';
-            p.contact.cell = contact.telnet.cell ? contact.telnet.cell : '';
-            p.contact.phone = contact.telnet.phone ? contact.telnet.phone : '';
+            if (contact.telecom && typeof contact.telecom !== 'undefined'){
+              p.contact.email = contact.telecom.email ? contact.telnet.email : '';
+              p.contact.cell = contact.telecom.cell ? contact.telnet.cell : '';
+              p.contact.phone = contact.telecom.phone ? contact.telnet.phone : '';
            }
             p.contact.relationship = contact.relationship ? contact.relationship: '';
             p.contact.address = contact.address? contact.address : '';
@@ -171,7 +171,7 @@
     $('#address').html(p.contact.address);
     $('#cell').html(p.contact.telecom.cell);
     $('#phone').html(p.contact.phone);
-    $('#email').html(p.contact.telecome.email);
+    $('#email').html(p.contact.telecom.email);
     $('#relationship').html(p.contact);
   };
 

@@ -70,13 +70,13 @@
                 kin.value.telecom.forEach(function(){
                   _sys = this.system
                   kintribute.telecom[_sys] ? kintribute.telecom.push([this.use, this.value]) : kintribute.telecom[_sys] = [];
-                }
+                });
               }
               if(kin.value.relationship && typeof kin.value.relationship !== 'undefined'){
                  kintribute.relationship = '';
                  kin.value.relationship.forEach(function(relation){
                    kintribute.relationship.concat(' '+relation.text);
-                 }
+                 });
               }
               p.contact.push(kinstance); //finished assignements for 1 contact
             } while(kin.done !== false);
@@ -188,7 +188,7 @@
       if (this==person.telecom['phone']){
         this.forEach(function(port){
           port[0] == 'home' ? $('#phones').append('<td>'+port[1]+'</td>') : port[0] == 'cell' ? $('#cells').append('<td>'+port[1]+'</td>') : console.log('nothing');
-        }
+        });
       }
       else if (this==person.telecom['email']){
         person.relationship ? $('#relationships').append('<td>'+person.relationship+'</td>'); : console.log('nothing');
@@ -197,7 +197,7 @@
       else {
         console.log('no telecom from patient...');
       }
-    };
+    });
   }
 
 

@@ -68,7 +68,8 @@
                 kintribute.name.concat(' '+obj.name.family[0]);
               }
               kintribute.telecom = {};
-              
+              console.log(kintribute); 
+              console.log(obj);
               if(typeof obj.telecom !== undefined){
                 obj.telecom.forEach(function(_system){
                   _sys = _system.system;

@@ -63,7 +63,7 @@
             object = contact[kin.value]
             do {
               kintribute = {};
-              kintribute.address = object.address.text ? object.address.text : '';
+              kintribute.address = object.address !== 'undefined' ? object.address.text : '';
               kintribute.name = object.name.given[0].join('  ');
               kintribute.name.concat(' '+object.family[0]);
               kintribute.telecom = {};

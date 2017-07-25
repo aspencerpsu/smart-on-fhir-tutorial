@@ -72,6 +72,8 @@
               if(typeof object.telecom !== 'undefined'){
                 object.telecom.forEach(function(){
                   _sys = this.system
+                  console.log(_sys);
+                  conole.log(kintribute.telecom);
                   kintribute.telecom[_sys] !== undefined ? kintribute.telecom.push([this.use, this.value]) : kintribute.telecom[_sys] = [];
                 });
               }

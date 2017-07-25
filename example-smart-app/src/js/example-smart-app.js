@@ -77,7 +77,7 @@
                   kintribute.telecom[_sys] !== undefined ? kintribute.telecom.push([this.use, this.value]) : kintribute.telecom[_sys] = [];
                 });
               }
-              if(typeof object.relationship !== 'undefined'){
+              if(typeof object.relationship !== undefined){
                  kintribute.relationship = '';
                  object.relationship.forEach(function(relation){
                    kintribute.relationship.concat(' '+relation.text);

@@ -74,7 +74,7 @@
                   _sys = _system.system;
                   console.log(_sys);
                   console.log(kintribute.telecom);
-                  kintribute.telecom[_sys] !== undefined ? kintribute.telecom.push([this.use, this.value]) : kintribute.telecom[_sys] = [];
+                  kintribute.telecom[_sys] !== undefined ? kintribute.telecom[_sys].push([this.use, this.value]) : kintribute.telecom[_sys] = [];
                 });
               }
               if(typeof object.relationship !== undefined){

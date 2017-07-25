@@ -59,9 +59,9 @@
           var kinstance;
           if (contact && typeof contact !== 'undefined') {
             kinstance = contact.keys()
+            kin = kinstance.next(); //INIT it;
             do {
               kintribute = {};
-              kin = kinstance.next();
               kintribute.address = kin.value.address.text ? kin.value.address.text : '';
               kintribute.name = kin.value.name.given[0].join('  ');
               kintribute.name.concat(' '+kin.name.family[0]);
@@ -79,6 +79,7 @@
                  });
               }
               p.contact.push(kinstance); //finished assignements for 1 contact
+              kin = kinstance.next();
             } while(kin.done !== false);
          }
 

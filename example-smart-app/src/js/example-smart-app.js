@@ -72,15 +72,14 @@
               if(typeof object.telecom !== undefined){
                 object.telecom.forEach(function(_system){
                   _sys = _system.system;
-                  console.log(_sys);
                   console.log(kintribute.telecom);
-                  kintribute.telecom[_sys] !== undefined ? kintribute.telecom[_sys].push([this.use, this.value]) : kintribute.telecom[_sys] = [];
+                  kintribute.telecom[_sys] !== undefined ? kintribute.telecom[_sys].push([_system.use, _system.value]) : kintribute.telecom[_sys] = [];
                 });
               }
               if(typeof object.relationship !== undefined){
                  kintribute.relationship = '';
                  object.relationship.forEach(function(relation){
-                   kintribute.relationship.concat(' '+relation.text);
+                   kintribute.relationship.concat(' '+relation.relationship.text);
                  });
               }
               p.contacts.value.push(kintribute); //finished assignements for 1 contact
@@ -109,7 +108,7 @@
     FHIR.oauth2.ready(onReady, onError);
     return ret.promise();
 
-  };
+  }
 
   function defaultPatient(){
     return {
@@ -190,20 +189,22 @@
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
     console.log(p.contacts);
-    p.contacts.forEach(function(person){
+    p.contacts.value.forEach(function(person){
       person.name ? $('#names').append('<td>'+person.name+'</td>') : console.log('no names');
-      if (this==person.telecom['phone']){
-        this.forEach(function(port){
+      if (person.telecom['phone']!==undefined){
+        person.forEach(function(port){
           port[0] == 'home' ? $('#phones').append('<td>'+port[1]+'</td>') : port[0] == 'cell' ? $('#cells').append('<td>'+port[1]+'</td>') : console.log('nothing');
         });
       }
-      else if (this==person.telecom['email']){
-        person.relationship ? $('#relationships').append('<td>'+person.relationship+'</td>') : console.log('nothing');
-        person.address ? $('#addresses').append('<td>'+person.address+'</td>') : console.log('nothing');
+      else if (person.telecom['email']!==undefined){
+        $('#email').append('<td>'+person.telecom['email'][1]+'</td>');
       }
       else {
         console.log('no telecom from patient...');
-      }
+      };
+
+      person.relationship ? $('#relationships').append('<td>'+person.relationship+'</td>') : console.log('nothing');
+      person.address ? $('#addresses').append('<td>'+person.address+'</td>') : console.log('nothing');
     });
   }
 

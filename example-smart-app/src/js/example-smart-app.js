@@ -191,8 +191,8 @@
         });
       }
       else if (this==person.telecom['email']){
-        person.relationship ? $('#relationships').append('<td>'+person.relationship+'</td>'); : console.log('nothing');
-        person.address ? $('#addresses').append('<td>'+person.address+'</td>'); : console.log('nothing');
+        person.relationship ? $('#relationships').append('<td>'+person.relationship+'</td>') : console.log('nothing');
+        person.address ? $('#addresses').append('<td>'+person.address+'</td>') : console.log('nothing');
       }
       else {
         console.log('no telecom from patient...');

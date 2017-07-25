@@ -56,21 +56,30 @@
           p.lname = lname;
           p.age = parseInt(calculateAge(dob));
           p.height = getQuantityValueAndUnit(height[0]);
+          var kinstance;
           if (contact && typeof contact !== 'undefined') {
-            p.contact.name = contact.name;
-            console.log(p.contact);
-            console.log(p.contact.name);
-            console.log(contact);
-            if (contact.telecom && typeof contact.telecom !== 'undefined'){
-              p.contact.email = contact.telecom.email ? contact.telnet.email : '';
-              p.contact.cell = contact.telecom.cell ? contact.telnet.cell : '';
-              p.contact.phone = contact.telecom.phone ? contact.telnet.phone : '';
-           }
-            p.contact.relationship = contact.relationship ? contact.relationship: '';
-            p.contact.address = contact.address ? contact.address : '';
-          }
-          else {
-            console.log("The patient has no emergency contacts within the system");
+            kinstance = contact.keys()
+            do {
+              kintribute = {};
+              kin = kinstance.next();
+              kintribute.address = kin.value.address.text ? kin.value.address.text : '';
+              kintribute.name = kin.value.name.given[0].join('  ');
+              kintribute.name.concat(' '+kin.name.family[0]);
+              kintribute.telecom = {};
+              if(kin.value.telecom && typeof kin.value.telecom !== 'undefined'){
+                kin.value.telecom.forEach(function(){
+                  _sys = this.system
+                  kintribute.telecom[_sys] ? kintribute.telecom.push([this.use, this.value]) : kintribute.telecom[_sys] = [];
+                }
+              }
+              if(kin.value.relationship && typeof kin.value.relationship !== 'undefined'){
+                 kintribute.relationship = '';
+                 kin.value.relationship.forEach(function(relation){
+                   kintribute.relationship.concat(' '+relation.text);
+                 }
+              }
+              p.contact.push(kinstance); //finished assignements for 1 contact
+            } while(kin.done !== false);
          }
 
           if (typeof systolicbp != 'undefined')  {
@@ -108,7 +117,7 @@
       diastolicbp: {value: ''},
       ldl: {value: ''},
       hdl: {value: ''},
-      contact: {value: {}}
+      contacts: {value: []}
     };
   }
 
@@ -174,12 +183,22 @@
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
-    $('#kin_name').html(p.contact.name);
-    $('#address').html(p.contact.address);
-    $('#cell').html(p.contact.cell);
-    $('#phone').html(p.contact.phone);
-    $('#email').html(p.contact.email);
-    $('#relationship').html(p.contact.relationship);
-  };
+    p.contacts.forEach(function(person){
+      person.name ? $('#names').append('<td>'+person.name+'</td>'); : continue;
+      if (this==person.telecom['phone']){
+        this.forEach(function(port){
+          port[0] == 'home' ? $('#phones').append('<td>'+port[1]+'</td>') : port[0] == 'cell' ? $('#cells').append('<td>'+port[1]+'</td>') : console.log('nothing');
+        }
+      }
+      else if (this==person.telecom['email']){
+        person.relationship ? $('#relationships').append('<td>'+person.relationship+'</td>'); : console.log('nothing');
+        person.address ? $('#addresses').append('<td>'+person.address+'</td>'); : console.log('nothing');
+      }
+      else {
+        console.log('no telecom from patient...');
+      }
+    };
+  }
+
 
 })(window);

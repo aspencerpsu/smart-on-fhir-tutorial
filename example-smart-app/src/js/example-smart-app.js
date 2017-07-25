@@ -64,8 +64,10 @@
             do {
               kintribute = {};
               kintribute.address = object.address !== 'undefined' ? object.address.text : '';
-              kintribute.name = object.name.given[0].join('  ');
-              kintribute.name.concat(' '+object.family[0]);
+              if (kintribute.name && kintribute.name !== 'undefined') {
+                kintribute.name = object.name.given[0].join('  ');
+                kintribute.name.concat(' '+object.family[0]);
+              }
               kintribute.telecom = {};
               if(object.telecom && typeof object.telecom !== 'undefined'){
                 object.telecom.forEach(function(){

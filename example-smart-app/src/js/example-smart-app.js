@@ -84,7 +84,7 @@
               }
               p.contacts.value.push(kintribute); //finished assignements for 1 contact
               kin = kinstance.next();
-            } while(kin.done !== false || kin.value !== undefined);
+            } while(kin.done !== false);
          }
 
           if (typeof systolicbp != 'undefined')  {

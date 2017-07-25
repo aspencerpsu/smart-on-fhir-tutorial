@@ -63,20 +63,20 @@
             do {
               kintribute = {};
               kintribute.address = obj.address !== undefined ? obj.address.text : '';
-              if (typeof obj.name !== undefined) {
+              if (obj.name !== undefined) {
                 kintribute.name = obj.name.given[0].concat('  ');
                 kintribute.name = kintribute.name + " " +obj.name.family[0];
               }
               kintribute.telecom = {};
               console.log(kintribute); 
               console.log(obj);
-              if(typeof obj.telecom !== undefined){
+              if(obj.telecom !== undefined){
                 obj.telecom.forEach(function(_system){
                   _sys = _system.system;
                   kintribute.telecom[_sys] !== undefined ? kintribute.telecom[_sys].push([_system.use, _system.value]) : kintribute.telecom[_sys] = [];
                 });
               }
-              if(typeof obj.relationship !== undefined){
+              if(obj.relationship !== undefined){
                  kintribute.relationship = '';
                  obj.relationship.forEach(function(relation){
                    kintribute.relationship=kintribute.relationship + relation.text;

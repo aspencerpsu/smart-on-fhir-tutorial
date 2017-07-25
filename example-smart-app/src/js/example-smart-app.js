@@ -70,10 +70,10 @@
               }
               kintribute.telecom = {};
               if(typeof object.telecom !== undefined){
-                object.telecom.forEach(function(){
-                  _sys = this.system;
+                object.telecom.forEach(function(_system){
+                  _sys = _system.system;
                   console.log(_sys);
-                  conole.log(kintribute.telecom);
+                  console.log(kintribute.telecom);
                   kintribute.telecom[_sys] !== undefined ? kintribute.telecom.push([this.use, this.value]) : kintribute.telecom[_sys] = [];
                 });
               }

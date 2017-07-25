@@ -25,7 +25,6 @@
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
-          console.log(patient);
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
           var dob = new Date(patient.birthDate);
@@ -79,7 +78,7 @@
                    kintribute.relationship.concat(' '+relation.text);
                  });
               }
-              p.contact.push(kinstance); //finished assignements for 1 contact
+              p.contacts.push(kinstance); //finished assignements for 1 contact
               kin = kinstance.next();
             } while(kin.done !== false);
          }

@@ -83,7 +83,7 @@
                    kintribute.relationship.concat(' '+relation.text);
                  });
               }
-              p.contacts.push(kinstance); //finished assignements for 1 contact
+              p.contacts.value.push(kintribute); //finished assignements for 1 contact
               kin = kinstance.next();
             } while(kin.done !== false);
          }

@@ -79,6 +79,7 @@
               if(typeof object.relationship !== undefined){
                  kintribute.relationship = '';
                  object.relationship.forEach(function(relation){
+                   console.log(relation.text);
                    kintribute.relationship.concat(' '+relation.text);
                  });
               }
@@ -192,7 +193,7 @@
     p.contacts.value.forEach(function(person){
       person.name ? $('#names').append('<td>'+person.name+'</td>') : console.log('no names');
       if (person.telecom['phone']!==undefined){
-        person.forEach(function(port){
+        person.telecom.forEach(function(port){
           port[0] == 'home' ? $('#phones').append('<td>'+port[1]+'</td>') : port[0] == 'cell' ? $('#cells').append('<td>'+port[1]+'</td>') : console.log('nothing');
         });
       }

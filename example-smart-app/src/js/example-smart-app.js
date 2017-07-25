@@ -65,7 +65,7 @@
               kintribute.address = obj.address !== undefined ? obj.address.text : '';
               if (typeof obj.name !== undefined) {
                 kintribute.name = obj.name.given[0].concat('  ');
-                kintribute.name.concat(' '+obj.name.family[0]);
+                kintribute.name = kintribute.name + " " +obj.name.family[0];
               }
               kintribute.telecom = {};
               console.log(kintribute); 
@@ -79,7 +79,7 @@
               if(typeof obj.relationship !== undefined){
                  kintribute.relationship = '';
                  obj.relationship.forEach(function(relation){
-                   kintribute.relationship.concat(relation.text);
+                   kintribute.relationship=kintribute.relationship + relation.text;
                  });
               }
               p.contacts.value.push(kintribute); //finished assignements for 1 contact
@@ -192,7 +192,7 @@
       person.name ? $('#names').append('<td>'+person.name+'</td>') : console.log('no names');
       if (person.telecom['phone']!==undefined){
         person.telecom['phone'].forEach(function(port){
-          port[0] == 'home' ? $('#phones').append('<td>'+port[1]+'</td>') : port[0] == 'cell' ? $('#cells').append('<td>'+port[1]+'</td>') : console.log('nothing');
+          port[0] == 'home' ? $('#phones').append('<td>'+port[1]+'</td>') : port[0] == 'mobile' ? $('#cells').append('<td>'+port[1]+'</td>') : console.log('nothing');
         });
       }
       else if (person.telecom['email']!==undefined){

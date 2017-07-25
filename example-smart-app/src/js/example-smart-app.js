@@ -184,7 +184,7 @@
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
     p.contacts.forEach(function(person){
-      person.name ? $('#names').append('<td>'+person.name+'</td>'); : continue;
+      person.name ? $('#names').append('<td>'+person.name+'</td>') : continue;
       if (this==person.telecom['phone']){
         this.forEach(function(port){
           port[0] == 'home' ? $('#phones').append('<td>'+port[1]+'</td>') : port[0] == 'cell' ? $('#cells').append('<td>'+port[1]+'</td>') : console.log('nothing');

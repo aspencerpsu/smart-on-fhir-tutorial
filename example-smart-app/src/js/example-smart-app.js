@@ -79,7 +79,7 @@
               if(typeof object.relationship !== undefined){
                  kintribute.relationship = '';
                  object.relationship.forEach(function(relation){
-                   kintribute.relationship.concat(' '+relation.relationship.text);
+                   kintribute.relationship.concat(' '+relation.text);
                  });
               }
               p.contacts.value.push(kintribute); //finished assignements for 1 contact

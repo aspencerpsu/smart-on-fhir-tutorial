@@ -59,26 +59,25 @@
           if (contact && typeof contact !== 'undefined') {
             kinstance = contact.keys()
             kin = kinstance.next(); //INIT it;
-            object = contact[kin.value]
+            obj = contact[kin.value]
             do {
               kintribute = {};
-              kintribute.address = object.address !== undefined ? object.address.text : '';
-              if (typeof object.name !== undefined) {
-                kintribute.name = object.name.given[0].concat('  ');
-                kintribute.name.concat(' '+object.name.family[0]);
+              kintribute.address = obj.address !== undefined ? obj.address.text : '';
+              if (typeof obj.name !== undefined) {
+                kintribute.name = obj.name.given[0].concat('  ');
+                kintribute.name.concat(' '+obj.name.family[0]);
               }
               kintribute.telecom = {};
-              /*
-              if(typeof object.telecom !== undefined){
-                object.telecom.forEach(function(_system){
+              
+              if(typeof obj.telecom !== undefined){
+                obj.telecom.forEach(function(_system){
                   _sys = _system.system;
                   kintribute.telecom[_sys] !== undefined ? kintribute.telecom[_sys].push([_system.use, _system.value]) : kintribute.telecom[_sys] = [];
                 });
               }
-              */
-              if(typeof object.relationship !== undefined){
+              if(typeof obj.relationship !== undefined){
                  kintribute.relationship = '';
-                 object.relationship.forEach(function(relation){
+                 obj.relationship.forEach(function(relation){
                    kintribute.relationship.concat(relation.text);
                  });
               }

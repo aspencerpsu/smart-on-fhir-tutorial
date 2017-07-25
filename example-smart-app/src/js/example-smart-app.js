@@ -66,7 +66,7 @@
               kintribute.address = object.address !== 'undefined' ? object.address.text : '';
               if (typeof object.name !== 'undefined') {
                 kintribute.name = object.name.given[0].concat('  ');
-                kintribute.name.concat(' '+object.family[0]);
+                kintribute.name.concat(' '+object.name.family[0]);
               }
               kintribute.telecom = {};
               if(typeof object.telecom !== 'undefined'){

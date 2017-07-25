@@ -68,12 +68,14 @@
                 kintribute.name.concat(' '+object.name.family[0]);
               }
               kintribute.telecom = {};
+              /*
               if(typeof object.telecom !== undefined){
                 object.telecom.forEach(function(_system){
                   _sys = _system.system;
                   kintribute.telecom[_sys] !== undefined ? kintribute.telecom[_sys].push([_system.use, _system.value]) : kintribute.telecom[_sys] = [];
                 });
               }
+              */
               if(typeof object.relationship !== undefined){
                  kintribute.relationship = '';
                  object.relationship.forEach(function(relation){

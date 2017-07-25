@@ -60,21 +60,22 @@
           if (contact && typeof contact !== 'undefined') {
             kinstance = contact.keys()
             kin = kinstance.next(); //INIT it;
+            object = contact[kin.value]
             do {
               kintribute = {};
               kintribute.address = kin.value.address.text ? kin.value.address.text : '';
-              kintribute.name = kin.value.name.given[0].join('  ');
+              kintribute.name = object.name.given[0].join('  ');
               kintribute.name.concat(' '+kin.name.family[0]);
               kintribute.telecom = {};
-              if(kin.value.telecom && typeof kin.value.telecom !== 'undefined'){
-                kin.value.telecom.forEach(function(){
+              if(object.telecom && typeof object.telecom !== 'undefined'){
+                object.telecom.forEach(function(){
                   _sys = this.system
                   kintribute.telecom[_sys] ? kintribute.telecom.push([this.use, this.value]) : kintribute.telecom[_sys] = [];
                 });
               }
-              if(kin.value.relationship && typeof kin.value.relationship !== 'undefined'){
+              if(object.relationship && typeof object.relationship !== 'undefined'){
                  kintribute.relationship = '';
-                 kin.value.relationship.forEach(function(relation){
+                 object.relationship.forEach(function(relation){
                    kintribute.relationship.concat(' '+relation.text);
                  });
               }

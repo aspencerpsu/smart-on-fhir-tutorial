@@ -183,6 +183,7 @@
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
+    console.log(p.contacts);
     p.contacts.forEach(function(person){
       person.name ? $('#names').append('<td>'+person.name+'</td>') : console.log('no names');
       if (this==person.telecom['phone']){

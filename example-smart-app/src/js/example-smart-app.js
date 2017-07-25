@@ -57,6 +57,7 @@
           p.height = getQuantityValueAndUnit(height[0]);
           var kinstance;
           if (contact && typeof contact !== 'undefined') {
+            console.log(contact);
             kinstance = contact.keys()
             kin = kinstance.next(); //INIT it;
             object = contact[kin.value]

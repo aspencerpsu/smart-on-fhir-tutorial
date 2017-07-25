@@ -61,6 +61,7 @@
             kinstance = contact.keys()
             kin = kinstance.next(); //INIT it;
             object = contact[kin.value]
+            console.log(object, kin.value);
             do {
               kintribute = {};
               kintribute.address = object.address !== undefined ? object.address.text : '';
@@ -72,20 +73,18 @@
               if(typeof object.telecom !== undefined){
                 object.telecom.forEach(function(_system){
                   _sys = _system.system;
-                  console.log(kintribute.telecom);
                   kintribute.telecom[_sys] !== undefined ? kintribute.telecom[_sys].push([_system.use, _system.value]) : kintribute.telecom[_sys] = [];
                 });
               }
               if(typeof object.relationship !== undefined){
                  kintribute.relationship = '';
                  object.relationship.forEach(function(relation){
-                   console.log(relation.text);
-                   kintribute.relationship.concat(' '+relation.text);
+                   kintribute.relationship.concat(relation.text);
                  });
               }
               p.contacts.value.push(kintribute); //finished assignements for 1 contact
               kin = kinstance.next();
-            } while(kin.done !== false);
+            } while(kin.done !== false || kin.value !== undefined);
          }
 
           if (typeof systolicbp != 'undefined')  {
@@ -193,7 +192,7 @@
     p.contacts.value.forEach(function(person){
       person.name ? $('#names').append('<td>'+person.name+'</td>') : console.log('no names');
       if (person.telecom['phone']!==undefined){
-        person.telecom.forEach(function(port){
+        person.telecom.['phone']forEach(function(port){
           port[0] == 'home' ? $('#phones').append('<td>'+port[1]+'</td>') : port[0] == 'cell' ? $('#cells').append('<td>'+port[1]+'</td>') : console.log('nothing');
         });
       }

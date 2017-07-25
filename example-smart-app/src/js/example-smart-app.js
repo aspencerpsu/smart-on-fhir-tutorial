@@ -64,18 +64,18 @@
             do {
               kintribute = {};
               kintribute.address = object.address !== 'undefined' ? object.address.text : '';
-              if (kintribute.name && kintribute.name !== 'undefined') {
+              if (typeof object.name !== 'undefined') {
                 kintribute.name = object.name.given[0].join('  ');
                 kintribute.name.concat(' '+object.family[0]);
               }
               kintribute.telecom = {};
-              if(object.telecom && typeof object.telecom !== 'undefined'){
+              if(typeof object.telecom !== 'undefined'){
                 object.telecom.forEach(function(){
                   _sys = this.system
                   kintribute.telecom[_sys] ? kintribute.telecom.push([this.use, this.value]) : kintribute.telecom[_sys] = [];
                 });
               }
-              if(object.relationship && typeof object.relationship !== 'undefined'){
+              if(typeof object.relationship !== 'undefined'){
                  kintribute.relationship = '';
                  object.relationship.forEach(function(relation){
                    kintribute.relationship.concat(' '+relation.text);

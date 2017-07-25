@@ -57,11 +57,9 @@
           p.height = getQuantityValueAndUnit(height[0]);
           var kinstance;
           if (contact && typeof contact !== 'undefined') {
-            console.log(contact);
             kinstance = contact.keys()
             kin = kinstance.next(); //INIT it;
             object = contact[kin.value]
-            console.log(object, kin.value);
             do {
               kintribute = {};
               kintribute.address = object.address !== undefined ? object.address.text : '';
@@ -108,7 +106,7 @@
     FHIR.oauth2.ready(onReady, onError);
     return ret.promise();
 
-  }
+  };
 
   function defaultPatient(){
     return {
@@ -188,7 +186,6 @@
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
-    console.log(p.contacts);
     p.contacts.value.forEach(function(person){
       person.name ? $('#names').append('<td>'+person.name+'</td>') : console.log('no names');
       if (person.telecom['phone']!==undefined){
@@ -197,16 +194,15 @@
         });
       }
       else if (person.telecom['email']!==undefined){
-        $('#email').append('<td>'+person.telecom['email'][1]+'</td>');
+        $('#emails').append('<td>'+person.telecom['email'][1]+'</td>');
       }
       else {
         console.log('no telecom from patient...');
       };
 
-      person.relationship ? $('#relationships').append('<td>'+person.relationship+'</td>') : console.log('nothing');
-      person.address ? $('#addresses').append('<td>'+person.address+'</td>') : console.log('nothing');
+      person.relationship !== undefined ? $('#relationships').append('<td>'+person.relationship+'</td>') : console.log('nothing');
+      person.address !== undefined ? $('#addresses').append('<td>'+person.address+'</td>') : console.log('nothing');
     });
   }
-
 
 })(window);

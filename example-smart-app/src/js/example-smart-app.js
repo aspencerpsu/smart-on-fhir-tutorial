@@ -37,7 +37,7 @@
           var fname = '';
           var lname = '';
 
-          if (typeof patient.name[0] !== 'undefined') {
+          if (typeof patient.name[0] !== undefined) {
             fname = patient.name[0].given.join(' ');
             lname = patient.name[0].family.join(' ');
           }
@@ -63,15 +63,15 @@
             object = contact[kin.value]
             do {
               kintribute = {};
-              kintribute.address = object.address !== 'undefined' ? object.address.text : '';
-              if (typeof object.name !== 'undefined') {
+              kintribute.address = object.address !== undefined ? object.address.text : '';
+              if (typeof object.name !== undefined) {
                 kintribute.name = object.name.given[0].concat('  ');
                 kintribute.name.concat(' '+object.name.family[0]);
               }
               kintribute.telecom = {};
-              if(typeof object.telecom !== 'undefined'){
+              if(typeof object.telecom !== undefined){
                 object.telecom.forEach(function(){
-                  _sys = this.system
+                  _sys = this.system;
                   console.log(_sys);
                   conole.log(kintribute.telecom);
                   kintribute.telecom[_sys] !== undefined ? kintribute.telecom.push([this.use, this.value]) : kintribute.telecom[_sys] = [];

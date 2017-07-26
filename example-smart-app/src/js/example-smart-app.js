@@ -21,13 +21,21 @@
                       }
                     }
                   });
-        var con = smart.patient.api.fetchAll({
-                       type: 'Contact',
-                       });
 
-        $.when(pt, obv,con).fail(onError);
+        var care = smart.patient.api.fetchAll({
+                    type:'CarePlan',
+                    query: {
+                       subject: patient,
+                       status: 'proposed|active|completed|cancelled',
+                       author: patient,
+                       note
+                    }
+        })
 
-        $.when(pt, obv).done(function(patient, obv, con) {
+        $.when(pt, obv, care).fail(onError);
+
+        $.when(pt, obv, care).done(function(patient, obv, care) {
+          console.log(care);
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
           var dob = new Date(patient.birthDate);

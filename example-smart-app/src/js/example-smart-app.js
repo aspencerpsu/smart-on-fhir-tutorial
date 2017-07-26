@@ -40,7 +40,7 @@
           var contact = patient.contact;
           var monthIndex = dob.getMonth() + 1;
           var year = dob.getFullYear();
-          console.log(con); //Experiment
+          console.log(care); //Experiment
           var dobStr = monthIndex + '/' + day + '/' + year;
           var fname = '';
           var lname = '';

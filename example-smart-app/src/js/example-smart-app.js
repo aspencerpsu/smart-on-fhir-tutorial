@@ -32,7 +32,6 @@
         $.when(pt, obv, care).fail(onError);
 
         $.when(pt, obv, care).done(function(patient, obv, care) {
-          console.log(care);
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
           var dob = new Date(patient.birthDate);
@@ -40,7 +39,6 @@
           var contact = patient.contact;
           var monthIndex = dob.getMonth() + 1;
           var year = dob.getFullYear();
-          console.log(care); //Experiment
           var dobStr = monthIndex + '/' + day + '/' + year;
           var fname = '';
           var lname = '';

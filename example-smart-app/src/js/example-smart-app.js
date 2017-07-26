@@ -22,12 +22,12 @@
                     }
                   });
 
-        var care = smart.patient.api.fetchAll({
+        var care = smart.patient.api.search{
                     type:'CarePlan',
                     query: {
                       subject: "Patient/"+pt._id,
                       status: {
-                        $contains: "active"
+                        $or: ["active", "proposed", "draft", "unknown"]
                       }
                     }
         });

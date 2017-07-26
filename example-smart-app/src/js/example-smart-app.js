@@ -22,7 +22,7 @@
                     }
                   });
 
-        var care = smart.patient.api.search{
+        var care = smart.patient.api.search({
                     type:'CarePlan',
                     query: {
                       subject: "Patient/"+pt._id,

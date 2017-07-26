@@ -22,7 +22,7 @@
                     }
                   });
 
-        var care = smart.api.patient.fetchAll({
+        var care = smart.patient.api.fetchAll({
                     type:'CarePlan',
                     query: {
                       subject: "Patient/"+pt._id

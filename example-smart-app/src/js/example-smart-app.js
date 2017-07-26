@@ -26,7 +26,7 @@
                     type:'CarePlan',
                     query: {
                       subject: "Patient/"+pt._id,
-                      status: "active proposed draft"
+                      status: "active"
                     }
         });
 

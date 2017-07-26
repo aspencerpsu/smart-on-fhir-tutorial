@@ -27,7 +27,7 @@
                     query: {
                       subject: "Patient/"+pt._id,
                       status: {
-                        $contain: "active"
+                        $contains: "active"
                       }
                     }
         });

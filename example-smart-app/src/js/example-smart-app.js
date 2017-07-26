@@ -7,7 +7,7 @@
       ret.reject();
     }
 
-    function onReady(smart)  {
+    function onReady(smart) {
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
         var pt = patient.read();
@@ -27,8 +27,7 @@
                     query: {
                        subject: patient,
                        status: 'proposed|active|completed|cancelled',
-                       author: patient,
-                       note
+                       author: patient
                     }
         })
 

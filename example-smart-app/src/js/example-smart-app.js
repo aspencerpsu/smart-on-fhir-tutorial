@@ -8,6 +8,7 @@
     }
 
     function onReady(smart)  {
+      console.log(smart);
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
         var pt = patient.read();
@@ -192,7 +193,7 @@
       person.name ? $('#names').append('<td>'+person.name+'</td>') : console.log('no names');
       if (person.telecom['phone']!==undefined){
         person.telecom['phone'].forEach(function(port){
-          port[0] == 'home' ? $('#phones').append('<td>'+port[1]+'</td>') : port[0] == 'mobile' ? $('#cells').append('<td>'+port[1]+'</td>') : console.log('nothing');
+          port[0] == 'home' ? $('#phones').append('<td>'+port[1]+'</td>') : port[0] == 'mobile' ? $('#cells').append('<td>'+port[1]+'</td>') : console.log('no phone systems...');
         });
       }
       else if (person.telecom['email']!==undefined){
@@ -202,7 +203,7 @@
         console.log('no telecom from patient...');
       };
 
-      person.relationship !== undefined ? $('#relationships').append('<td>'+person.relationship+'</td>') : console.log('nothing');
+      person.relationship !== undefined ? $('#relationships').append('<td>'+person.relationship+'</td>') : console.log('no relationships...');
       person.address !== undefined ? $('#addresses').append('<td>'+person.address+'</td>') : console.log('nothing');
     });
   }

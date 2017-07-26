@@ -27,7 +27,7 @@
                     query: {
                       subject: "Patient/"+pt._id,
                       status: {
-                          $not: "completed cancelled"
+                          $not: "completed | cancelled"
                       }
                     }
         });

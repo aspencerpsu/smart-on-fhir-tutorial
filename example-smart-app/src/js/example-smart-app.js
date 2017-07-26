@@ -26,9 +26,7 @@
                     type:'CarePlan',
                     query: {
                       subject: "Patient/"+pt._id,
-                      status: {
-                          $not: "completed | cancelled"
-                      }
+                      status: "active proposed draft"
                     }
         });
 

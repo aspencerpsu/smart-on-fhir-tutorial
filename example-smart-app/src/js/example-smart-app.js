@@ -22,14 +22,12 @@
                     }
                   });
 
-        var care = smart.patient.api.fetchAll({
+        var care = smart.api.fetchAll({
                     type:'CarePlan',
                     query: {
-                       subject: patient,
-                       status: 'proposed|active|completed|cancelled',
-                       author: patient
+                      subject: "Patient/"+pt._id;
                     }
-        })
+        });
 
         $.when(pt, obv, care).fail(onError);
 

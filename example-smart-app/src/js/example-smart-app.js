@@ -8,12 +8,9 @@
     }
 
     function onReady(smart)  {
-      console.log(smart);
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
-        console.log(patient);
         var pt = patient.read();
-        console.log(pt);
         var obv = smart.patient.api.fetchAll({
                     type: 'Observation',
                     query: {
@@ -24,10 +21,13 @@
                       }
                     }
                   });
+        var con = smart.patient.api.fetchAll({
+                       type: 'Contact',
+                       });
 
-        $.when(pt, obv).fail(onError);
+        $.when(pt, obv,con).fail(onError);
 
-        $.when(pt, obv).done(function(patient, obv) {
+        $.when(pt, obv).done(function(patient, obv, con) {
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
           var dob = new Date(patient.birthDate);
@@ -35,7 +35,7 @@
           var contact = patient.contact;
           var monthIndex = dob.getMonth() + 1;
           var year = dob.getFullYear();
-
+          console.log(con); //Experiment
           var dobStr = monthIndex + '/' + day + '/' + year;
           var fname = '';
           var lname = '';

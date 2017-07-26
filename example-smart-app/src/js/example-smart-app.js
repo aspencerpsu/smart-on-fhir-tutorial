@@ -25,7 +25,7 @@
         var care = smart.patient.api.fetchAll({
                     type:'CarePlan',
                     query: {
-                      subject: "Patient/"
+                      subject: "Patient/"+pt._id
                     }
         });
 

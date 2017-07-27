@@ -78,7 +78,7 @@
              }
              person.relationship = '';
              if (contact.relationship !== undefined){
-               contact.relationship.forEach(relation){
+               contact.relationship.forEach(function(relation){
                  person.relationship = person.relationship + ' ' + relation.text;
                });
              }

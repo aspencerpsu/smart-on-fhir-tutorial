@@ -26,7 +26,7 @@
                     type:'CarePlan',
                     query: {
                       status: {
-                        $monkey: "http://hl7.org/fhir/care-plan-status|completed"
+                        $or: 'http://hl7.org/fhir/care-plan-status|active'
                       }
                     }
         });

@@ -111,7 +111,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script>
       var data = extractData();
-      if (data[0].state() == 'resolved' && data[1] == 'resolved' && data[2] == 'resolved') {
+      if (data[0].state() == 'resolved' && data[1].state() == 'resolved' && data[2].state() == 'resolved') {
         drawvisualization(data);
       } else if (data[0].state() == 'pending' || 
                  data[1].state() == 'pending' ||

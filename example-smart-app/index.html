@@ -110,23 +110,28 @@
     <script src='./lib/fhir-client-cerner-additions-1.0.0.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script>
+      var camethrough = true;
       var data = extractData();
-      if (data[0].state() == 'resolved' 
-          && data[1].state() == 'resolved' 
-          && data[2].state() == 'resolved') {
-            drawvisualization(data);
-      } else if (data[0].state() == 'pending' || 
-                 data[1].state() == 'pending' ||
-                 data[2].state() == 'pending' ) { 
-        /* wait for object to come into the stratosphere */
-        console.log('pending');
-      } else if (data[0].state() == 'rejected' ||
-                 data[1].state() == 'rejected' ||
-                 data[2].state() == 'rejected') {
-        throw "Error with patient's metrics";
-        $('#loading').hide();
-        $('#errors').html('<p> Failed to call FHIR Service </p>');
-      };
+      while (camethrough){
+        if (data[0].state() == 'resolved' 
+            && data[1].state() == 'resolved' 
+            && data[2].state() == 'resolved' ) {
+              drawvisualization(data);
+              camethrough = false;
+              return
+        } else if (data[0].state() == 'pending' || 
+                   data[1].state() == 'pending' ||
+                   data[2].state() == 'pending' ) { 
+              console.debug('pending');
+              
+        } else if (data[0].state() == 'rejected' ||
+                   data[1].state() == 'rejected' ||
+                   data[2].state() == 'rejected') {
+          throw "Error with patient's metrics";
+          $('#loading').hide();
+          $('#errors').html('<p> Failed to call FHIR Service </p>');
+        };
+      }
     </script>
   </body>
 </html>

@@ -34,6 +34,13 @@
         $.when(pt, obv, care).fail(onError);
 
         $.when(pt, obv, care).done(function(patient, obv, care) {
+          var actives_draft = [];
+          care.reduce(function(first,cv,ci, array){
+            cv.status == 'completed' ? ' ' : cv.status == 'cancelled' ? ' ' : first.push(cv);
+          }, actives_draft);
+
+          console.log(actives_draft);
+
           console.log(care);
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
@@ -181,13 +188,6 @@
       return instance;
     }
   }
-  var actives_draft = [];
-  care.reduce(function(first,cv,ci, array){
-    cv.status == 'completed' ? ' ' : cv.status == 'cancelled' ? ' ' : first.push(cv);
-  }, actives_draft);
-
-  console.log(actives_draft);
-  
 
   function isLeapYear(year) {
     return new Date(year, 1, 29).getMonth() === 1;

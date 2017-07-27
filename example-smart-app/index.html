@@ -123,13 +123,7 @@
         throw "Error with patient's metrics";
         $('#loading').hide();
         $('#errors').html('<p> Failed to call FHIR Service </p>');
-      }
-        //Display 'Failed to call FHIR Service' if extractData failed
-        function() {
-          $('#loading').hide();
-          $('#errors').html('<p> Failed to call FHIR Service </p>');
-        }
-      );
+      };
     </script>
   </body>
 </html>

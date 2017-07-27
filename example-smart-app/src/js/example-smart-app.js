@@ -178,9 +178,6 @@
       else if (_sys.system == "email"){
         instance.email = _sys.value;
       }
-      else if (_sys.system.length > 3) {
-        instance.other = _sys.value;
-      }
       else {
         //Nothing
       };

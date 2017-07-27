@@ -37,8 +37,7 @@
           var actives_draft = [];
           if (care && typeof care !== 'undefined'){
             care.reduce(function(prev,cv,ci, array){
-              prev = cv.status == 'completed' ? prev : cv.status == 'cancelled' ? prev : prev.push(cv);
-              console.log(prev, typeof prev);
+              cv.status == 'completed' ? prev : cv.status == 'cancelled' ? prev : prev.push(cv);
               return prev
             }, actives_draft);
           }
@@ -110,7 +109,9 @@
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
 
-          ret.resolve(p, kins, actives_draft);
+          ret.resolve(p);
+          ret.resolve(actives_draft);
+          ret.resolve(kins);
         });
       } else {
         onError();

@@ -39,6 +39,7 @@
           if (care && typeof care !== 'undefined'){
             care.reduce(function(prev,cv,ci, array){
               prev = cv.status == 'completed' ? prev : cv.status == 'cancelled' ? prev : prev.push(cv);
+              console.log(prev, typeof prev);
               return prev
             }, actives_draft);
           }

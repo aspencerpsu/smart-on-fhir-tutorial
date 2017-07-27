@@ -110,12 +110,20 @@
     <script src='./lib/fhir-client-cerner-additions-1.0.0.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script>
-      extractData().then(
-        //Display Patient Demographics and Observations if extractData was success
-        function(p,k,c) {
-          drawVisualization(p,k,c);
-        },
-
+      var data = extractData();
+      if (data[0].state() == 'resolved' && data[1] == 'resolved' && data[2] == 'resolved') {
+        drawvisualization(data);
+      } else if (data[0].state() == 'pending' || 
+                 data[1].state() == 'pending' ||
+                 data[2].state() == 'pending' ) { 
+        /* wait for object to come into the stratosphere */
+      } else if (data[0].state() == 'rejected' ||
+                 data[1].state() == 'rejected' ||
+                 data[2].state() == 'rejected' ) {
+        throw "Error with patient's metrics";
+        $('#loading').hide();
+        $('#errors').html('<p> Failed to call FHIR Service </p>');
+      }
         //Display 'Failed to call FHIR Service' if extractData failed
         function() {
           $('#loading').hide();

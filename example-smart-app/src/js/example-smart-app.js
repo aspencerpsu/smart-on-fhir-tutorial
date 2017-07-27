@@ -119,7 +119,7 @@
     }
 
     FHIR.oauth2.ready(onReady, onError);
-    return [can.promise(), con.promise(), ret.promise()];
+    return [car.promise(), con.promise(), ret.promise()];
 
   };
 
@@ -226,21 +226,22 @@
   }
 
   window.drawVisualization = function(arr) {
+    var elm;
     $('#holder').show();
     $('#loading').hide();
     do{
          elm = arr. pop();
          if (Object.prototype.toString.call(elm) === '[object Object]' && elm.isPatient){
-            $('#fname').html(p.fname);
-            $('#lname').html(p.lname);
-            $('#gender').html(p.gender);
-            $('#birthdate').html(p.birthdate);
-            $('#age').html(p.age);
-            $('#height').html(p.height);
-            $('#systolicbp').html(p.systolicbp);
-            $('#diastolicbp').html(p.diastolicbp);
-            $('#ldl').html(p.ldl);
-            $('#hdl').html(p.hdl);
+            $('#fname').html(elm.fname);
+            $('#lname').html(elm.lname);
+            $('#gender').html(elm.gender);
+            $('#birthdate').html(elm.birthdate);
+            $('#age').html(elm.age);
+            $('#height').html(elm.height);
+            $('#systolicbp').html(elm.systolicbp);
+            $('#diastolicbp').html(elm.diastolicbp);
+            $('#ldl').html(elm.ldl);
+            $('#hdl').html(elm.hdl);
          } else if (Object.prototype.toString.call(elm) === '[object Array]'&& elm[0].isKin){
            elm.forEach(function(a){
              a. kin.name !== '' ? $('#names').append('<td>'+a.name+'</td>') : console.log('John Doe over here');

@@ -182,8 +182,8 @@
       else {
         //Nothing
       };
-      return instance;
     }
+    return instance;
   }
 
   function isLeapYear(year) {

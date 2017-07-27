@@ -26,7 +26,7 @@
                     type:'CarePlan',
                     query: {
                       status: {
-                        $not: ["completed"]
+                        $not: ["http://hl7.org/fhir/care-plan-status|completed"]
                       }
                     }
         });

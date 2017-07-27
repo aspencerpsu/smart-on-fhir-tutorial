@@ -248,7 +248,7 @@
              a.home !== '' ? $('#phones').append('<td>'+a.home+'</td>') : kin.other !== '' ? $('#phones').append('<td>'+a.other+'</td>') : console.log('Living in the dark ages');
              a.address !== '' ? $('#addresses').append('<td>'+a.address+'</td>') : console.log('nowheresville');
              a.relationship !== '' ? $('#relationships').append('<td>'+a.relationship+'</td>') : console.log('no relationships...');
-           }; } else if (Object.prototype.toString.call(elm) === '[object Array]' && elm.length !== 0){
+           }); } else if (Object.prototype.toString.call(elm) === '[object Array]' && elm.length !== 0){
              console.log(elm);
            } else{
              console.debug('no information for patient');

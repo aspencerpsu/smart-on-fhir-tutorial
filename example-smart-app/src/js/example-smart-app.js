@@ -34,15 +34,17 @@
         $.when(pt, obv, care).fail(onError);
 
         $.when(pt, obv, care).done(function(patient, obv, care) {
+          console.log(care);
           var actives_draft = [];
-          care.reduce(function(prev,cv,ci, array){
-            prev = cv.status == 'completed' ? prev : cv.status == 'cancelled' ? prev : prev.push(cv);
-            return prev
-          }, actives_draft);
+          if (care && typeof care !== 'undefined'){
+            care.reduce(function(prev,cv,ci, array){
+              prev = cv.status == 'completed' ? prev : cv.status == 'cancelled' ? prev : prev.push(cv);
+              return prev
+            }, actives_draft);
+          }
 
           console.log(actives_draft);
-
-          console.log(care);
+          
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
           var dob = new Date(patient.birthDate);
@@ -221,6 +223,7 @@
   }
 
   window.drawVisualization = function(p,k,c) {
+    console.log(p,k,c);
     $('#holder').show();
     $('#loading').hide();
     $('#fname').html(p.fname);

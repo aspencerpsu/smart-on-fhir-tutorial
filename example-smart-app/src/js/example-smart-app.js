@@ -39,12 +39,13 @@
           var gender = patient.gender;
           var dob = new Date(patient.birthDate);
           var day = dob.getDate();
-          var contact = patient.contact;
+          var contacts = patient.contact;
           var monthIndex = dob.getMonth() + 1;
           var year = dob.getFullYear();
           var dobStr = monthIndex + '/' + day + '/' + year;
           var fname = '';
           var lname = '';
+          var kins = [];
 
           if (typeof patient.name[0] !== undefined) {
             fname = patient.name[0].given.join(' ');
@@ -64,37 +65,24 @@
           p.lname = lname;
           p.age = parseInt(calculateAge(dob));
           p.height = getQuantityValueAndUnit(height[0]);
-          var kinstance;
-          if (contact && typeof contact !== 'undefined') {
-            kinstance = contact.keys()
-            kin = kinstance.next(); //INIT it;
-            obj = contact[kin.value]
-            do {
-              kintribute = {};
-              kintribute.address = obj.address !== undefined ? obj.address.text : '';
-              if (obj.name !== undefined) {
-                kintribute.name = obj.name.given[0].concat('  ');
-                kintribute.name = kintribute.name + " " +obj.name.family[0];
-              }
-              kintribute.telecom = {};
-              console.log(kintribute); 
-              console.log(obj);
-              if(obj.telecom !== undefined){
-                obj.telecom.forEach(function(_system){
-                  _sys = _system.system;
-                  kintribute.telecom[_sys] !== undefined ? kintribute.telecom[_sys].push([_system.use, _system.value]) : kintribute.telecom[_sys] = [];
-                });
-              }
-              if(obj.relationship !== undefined){
-                 kintribute.relationship = '';
-                 obj.relationship.forEach(function(relation){
-                   kintribute.relationship=kintribute.relationship + relation.text;
-                 });
-              }
-              p.contacts.value.push(kintribute); //finished assignements for 1 contact
-              kin = kinstance.next();
-            } while(kin.done !== false);
-         }
+          if (contacts && typeof contacts !== 'undefined') {
+            contacts.forEach(function(contact){
+             person = new Kin();
+             person = _email_house_mobile(contact.telecom, person);
+             if contact.name !== undefined){
+              person.name = contact.name.given[0].concat(' ');
+              person.name = person.name + " " + contact.name.family[0];
+             }
+             if (contact.address !== undefined){
+               person.address = contact.address.text;
+             }
+             person.relationship = '';
+             contact.relationship.forEach(relation){
+               person.relationship = person.relationship + ' ' + relation.text;
+             });
+             kins.push[person];
+            });
+          }
 
           if (typeof systolicbp != 'undefined')  {
             p.systolicbp = systolicbp;
@@ -152,6 +140,52 @@
     return getQuantityValueAndUnit(formattedBPObservations[0]);
   }
 
+  function Kin(){
+    return {
+      fname: {value: ''},
+      lname: {value: ''},
+      address: {value: ''},
+      cell: {value: ''},
+      home: {value: ''},
+      email: {value: ''},
+      other: {value: ''},
+      relationship: {value: ''}
+    }
+  }
+
+  function _email_house_mobile(_system, instance){
+    for (var _sys in _system) {
+      if (_sys.system == "phone"){
+        if (_sys.use == "mobile"){
+          instance.cell = _sys.value;
+        }
+        else if (_sys.use == "home"){
+          instance.home = _sys.value;
+        }
+        else{
+          instance.other = _sys.value;
+        }
+      }
+      else if (_sys.system == "email"){
+        instance.email = _sys.value;
+      }
+      else if (_sys.system.length > 3) {
+        instance.other = _sys.value;
+      }
+      else {
+        //Nothing
+      };
+      return instance;
+    }
+  }
+  var actives_draft = [];
+  care.reduce(function(first,cv,ci, array){
+    cv.status == 'completed' ? ' ' : cv.status == 'cancelled' ? ' ' : first.push(cv);
+  }, actives_draft);
+
+  console.log(actives_draft);
+  
+
   function isLeapYear(year) {
     return new Date(year, 1, 29).getMonth() === 1;
   }
@@ -197,23 +231,14 @@
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
-    p.contacts.value.forEach(function(person){
-      person.name ? $('#names').append('<td>'+person.name+'</td>') : console.log('no names');
-      if (person.telecom['phone']!==undefined){
-        person.telecom['phone'].forEach(function(port){
-          port[0] == 'home' ? $('#phones').append('<td>'+port[1]+'</td>') : port[0] == 'mobile' ? $('#cells').append('<td>'+port[1]+'</td>') : console.log('no phone systems...');
-        });
-      }
-      else if (person.telecom['email']!==undefined){
-        $('#emails').append('<td>'+person.telecom['email'][1]+'</td>');
-      }
-      else {
-        console.log('no telecom from patient...');
-      };
-
-      person.relationship !== undefined ? $('#relationships').append('<td>'+person.relationship+'</td>') : console.log('no relationships...');
-      person.address !== undefined ? $('#addresses').append('<td>'+person.address+'</td>') : console.log('nothing');
+    kins.map(function(kin){
+      kin.name !== '' ? $('#names').append('<td>'+kin.name+'</td>') : console.log('John Doe over here');
+      kin.cell !== '' ? $('#cells').append('<td>'+kin.cell+'</td>') : console.log('No cell for kin');
+      kin.home !== '' ? $('#phones').append('<td>'+kin.home+'</td>') : kin.other !== '' ? $('#phones').append('<td>'+kin.other+'</td>') : console.log('Living in the dark ages');
+      kin.address !== '' ? $('#addresses').append('<td>'+kin.address+'</td>') : console.log('nowheresville');
+      kin.relationship !== '' ? $('#relationships').append('<td>'+kin.relationship+'</td>') : console.log('no relationships...');
     });
-  }
+
+ };
 
 })(window);

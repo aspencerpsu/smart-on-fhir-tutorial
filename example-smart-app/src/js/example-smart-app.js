@@ -1,7 +1,9 @@
 (function(window){
   window.extractData = function() {
     var ret = $.Deferred();
-
+    var con = $.Deferred();
+    var car = $.Deferred();
+    
     function onError() {
       console.log('Loading error', arguments);
       ret.reject();
@@ -41,8 +43,6 @@
               return prev
             }, actives_draft);
           }
-
-          console.log(actives_draft);
           
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
@@ -110,8 +110,8 @@
           p.ldl = getQuantityValueAndUnit(ldl[0]);
 
           ret.resolve(p);
-          ret.resolve(actives_draft);
-          ret.resolve(kins);
+          car.resolve(actives_draft);
+          con.resolve(kins);
         });
       } else {
         onError();
@@ -119,12 +119,13 @@
     }
 
     FHIR.oauth2.ready(onReady, onError);
-    return ret.promise();
+    return [can.promise(), con.promise(), ret.promise()];
 
   };
 
   function defaultPatient(){
     return {
+      isPatient: True,
       fname: {value: ''},
       lname: {value: ''},
       gender: {value: ''},
@@ -157,6 +158,7 @@
 
   function Kin(){
     return {
+      isKin: True,
       fname: {value: ''},
       lname: {value: ''},
       address: {value: ''},
@@ -223,29 +225,35 @@
     }
   }
 
-  window.drawVisualization = function(p,k,c) {
-    console.log(p,k,c);
+  window.drawVisualization = function(arr) {
     $('#holder').show();
     $('#loading').hide();
-    $('#fname').html(p.fname);
-    $('#lname').html(p.lname);
-    $('#gender').html(p.gender);
-    $('#birthdate').html(p.birthdate);
-    $('#age').html(p.age);
-    $('#height').html(p.height);
-    $('#systolicbp').html(p.systolicbp);
-    $('#diastolicbp').html(p.diastolicbp);
-    $('#ldl').html(p.ldl);
-    $('#hdl').html(p.hdl);
-    k.map(function(kin){
-      kin.name !== '' ? $('#names').append('<td>'+kin.name+'</td>') : console.log('John Doe over here');
-      kin.cell !== '' ? $('#cells').append('<td>'+kin.cell+'</td>') : console.log('No cell for kin');
-      kin.home !== '' ? $('#phones').append('<td>'+kin.home+'</td>') : kin.other !== '' ? $('#phones').append('<td>'+kin.other+'</td>') : console.log('Living in the dark ages');
-      kin.address !== '' ? $('#addresses').append('<td>'+kin.address+'</td>') : console.log('nowheresville');
-      kin.relationship !== '' ? $('#relationships').append('<td>'+kin.relationship+'</td>') : console.log('no relationships...');
-    });
-    console.log(c);
-
- };
+    do{
+         elm = arr. pop();
+         if (Object.prototype.toString.call(elm) === '[object Object]' && elm.isPatient){
+            $('#fname').html(p.fname);
+            $('#lname').html(p.lname);
+            $('#gender').html(p.gender);
+            $('#birthdate').html(p.birthdate);
+            $('#age').html(p.age);
+            $('#height').html(p.height);
+            $('#systolicbp').html(p.systolicbp);
+            $('#diastolicbp').html(p.diastolicbp);
+            $('#ldl').html(p.ldl);
+            $('#hdl').html(p.hdl);
+         } else if (Object.prototype.toString.call(elm) === '[object Array]'&& elm[0].isKin){
+           elm.forEach(function(a){
+             a. kin.name !== '' ? $('#names').append('<td>'+a.name+'</td>') : console.log('John Doe over here');
+             a.cell !== '' ? $('#cells').append('<td>'+a.cell+'</td>') : console.log('No cell for kin');
+             a.home !== '' ? $('#phones').append('<td>'+a.home+'</td>') : kin.other !== '' ? $('#phones').append('<td>'+a.other+'</td>') : console.log('Living in the dark ages');
+             a.address !== '' ? $('#addresses').append('<td>'+a.address+'</td>') : console.log('nowheresville');
+             a.relationship !== '' ? $('#relationships').append('<td>'+a.relationship+'</td>') : console.log('no relationships...');
+           }; } else if (Object.prototype.toString.call(elm) === '[object Array]' && elm.length !== 0){
+             console.log(elm);
+           } else{
+             console.debug('no information for patient');
+           };
+         } while (elm !== undefined);  
+    };
 
 })(window);

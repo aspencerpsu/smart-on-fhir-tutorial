@@ -105,7 +105,7 @@
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
 
-          ret.resolve(p);
+          ret.resolve(p, kins, actives_draft);
         });
       } else {
         onError();
@@ -128,8 +128,7 @@
       systolicbp: {value: ''},
       diastolicbp: {value: ''},
       ldl: {value: ''},
-      hdl: {value: ''},
-      contacts: {value: []}
+      hdl: {value: ''}
     };
   }
 
@@ -221,7 +220,7 @@
     }
   }
 
-  window.drawVisualization = function(p) {
+  window.drawVisualization = function(p,k,c) {
     $('#holder').show();
     $('#loading').hide();
     $('#fname').html(p.fname);
@@ -234,13 +233,14 @@
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
-    kins.map(function(kin){
+    k.map(function(kin){
       kin.name !== '' ? $('#names').append('<td>'+kin.name+'</td>') : console.log('John Doe over here');
       kin.cell !== '' ? $('#cells').append('<td>'+kin.cell+'</td>') : console.log('No cell for kin');
       kin.home !== '' ? $('#phones').append('<td>'+kin.home+'</td>') : kin.other !== '' ? $('#phones').append('<td>'+kin.other+'</td>') : console.log('Living in the dark ages');
       kin.address !== '' ? $('#addresses').append('<td>'+kin.address+'</td>') : console.log('nowheresville');
       kin.relationship !== '' ? $('#relationships').append('<td>'+kin.relationship+'</td>') : console.log('no relationships...');
     });
+    console.log(c);
 
  };
 

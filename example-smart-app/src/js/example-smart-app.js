@@ -33,8 +33,7 @@
 
         $.when(pt, obv, care).fail(onError);
 
-        $.when(pt, obv, care).done(function(patient, obv, care) {
-          console.log(care);
+        $.when(pt, obv, care).done(function(patient, obv, care){
           var actives_draft = [];
           if (care && typeof care !== 'undefined'){
             care.reduce(function(prev,cv,ci, array){

@@ -77,9 +77,11 @@
                person.address = contact.address.text;
              }
              person.relationship = '';
-             contact.relationship.forEach(relation){
-               person.relationship = person.relationship + ' ' + relation.text;
-             });
+             if (contact.relationship !== undefined){
+               contact.relationship.forEach(relation){
+                 person.relationship = person.relationship + ' ' + relation.text;
+               });
+             }
              kins.push[person];
             });
           }

@@ -77,6 +77,7 @@
           if (contacts && typeof contacts !== 'undefined') {
             contacts.forEach(function(contact){
              person = new Kin();
+             console.log(person);
              person = _email_house_mobile(contact.telecom, person);
              if (contact.name !== undefined){
               person.name = contact.name.given[0].concat(' ');

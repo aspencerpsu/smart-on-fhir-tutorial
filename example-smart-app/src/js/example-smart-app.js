@@ -35,8 +35,9 @@
 
         $.when(pt, obv, care).done(function(patient, obv, care) {
           var actives_draft = [];
-          care.reduce(function(first,cv,ci, array){
-            cv.status == 'completed' ? ' ' : cv.status == 'cancelled' ? ' ' : first.push(cv);
+          care.reduce(function(prev,cv,ci, array){
+            prev = cv.status == 'completed' ? prev : cv.status == 'cancelled' ? prev : prev.push(cv);
+            return prev
           }, actives_draft);
 
           console.log(actives_draft);

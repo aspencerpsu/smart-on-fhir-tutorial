@@ -125,7 +125,7 @@
 
   function defaultPatient(){
     return {
-      isPatient: True,
+      isPatient: true,
       fname: {value: ''},
       lname: {value: ''},
       gender: {value: ''},
@@ -158,7 +158,7 @@
 
   function Kin(){
     return {
-      isKin: True,
+      isKin: true,
       fname: {value: ''},
       lname: {value: ''},
       address: {value: ''},

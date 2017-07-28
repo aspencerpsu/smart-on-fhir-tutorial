@@ -246,15 +246,17 @@
    $('#ldl').html(p.ldl);
    $('#hdl').html(p.hdl);
    if (p.kins.value !== ''){
+     console.log(p.kins);
      p.kins.forEach(function(a){
          a.name !== '' ? $('#names').append('<td>'+a.name+'</td>') : console.log('John Doe over here');
          a.cell !== '' ? $('#cells').append('<td>'+a.cell+'</td>') : console.log('No cell for kin');
-         a.home !== '' ? $('#phones').append('<td>'+a.home+'</td>') : kin.other !== '' ? $('#phones').append('<td>'+a.other+'</td>') : console.log('Living in the dark ages');
+         a.home !== '' ? $('#phones').append('<td>'+a.home+'</td>') : a.other !== '' ? $('#phones').append('<td>'+a.other+'</td>') : console.log('Living in the dark ages');
          a.address !== '' ? $('#addresses').append('<td>'+a.address+'</td>') : console.log('nowheresville');
          a.relationship !== '' ? $('#relationships').append('<td>'+a.relationship+'</td>') : console.log('no relationships...');
-         console.debug('no information for patient');
        });
-   }
+   } else {
+         console.debug('no information for patient');
+   };
    if (p.plans.value !== ''){
      console.debug(p.plans);
     }

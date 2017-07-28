@@ -34,7 +34,9 @@
         $.when(pt, obv, care).fail(onError);
 
         $.when(pt, obv, care).done(function(patient, obv, care){
+
           var actives_draft = [];
+
           if (care && typeof care !== 'undefined'){
             care.reduce(function(prev,cv,ci, array){
               cv.status == 'completed' ? prev : cv.status == 'cancelled' ? prev : prev.push(cv);
@@ -74,6 +76,7 @@
           p.lname = lname;
           p.age = parseInt(calculateAge(dob));
           p.height = getQuantityValueAndUnit(height[0]);
+
           if (contacts && typeof contacts !== 'undefined') {
             contacts.forEach(function(contact){
              person = new Kin();
@@ -106,7 +109,7 @@
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
 
-          ret.resolve(p, kins, actives_draft);
+          ret.resolve(p, kins);
         });
       } else {
         onError();

@@ -118,6 +118,7 @@
     $.when(ret).then(function(ret){
       function(){
         return ret.promise();
+        //See if this works?
       }
     });
   };

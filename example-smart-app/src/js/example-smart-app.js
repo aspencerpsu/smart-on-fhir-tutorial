@@ -225,7 +225,7 @@
     $('#loading').hide();
     console.log(arr);
     do{
-         elm = arr. pop();
+         elm = arr;
          if (Object.prototype.toString.call(elm) === '[object Object]' && elm.isPatient){
             $('#fname').html(elm.fname);
             $('#lname').html(elm.lname);
@@ -237,7 +237,7 @@
             $('#diastolicbp').html(elm.diastolicbp);
             $('#ldl').html(elm.ldl);
             $('#hdl').html(elm.hdl);
-         } else if (Object.prototype.toString.call(elm) === '[object Array]'&& elm[0].isKin){
+         } else if (Object.prototype.toString.call(elm) === '[object Array]'&& elm.isKin){
            elm.forEach(function(a){
              a. kin.name !== '' ? $('#names').append('<td>'+a.name+'</td>') : console.log('John Doe over here');
              a.cell !== '' ? $('#cells').append('<td>'+a.cell+'</td>') : console.log('No cell for kin');

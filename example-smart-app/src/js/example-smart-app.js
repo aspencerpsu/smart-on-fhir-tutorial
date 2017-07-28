@@ -1,8 +1,6 @@
 (function(window){
   window.extractData = function() {
     var ret = $.Deferred();
-    var con = $.Deferred();
-    var car = $.Deferred();
     
     function onError() {
       console.log('Loading error', arguments);
@@ -109,9 +107,7 @@
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
 
-          ret.resolve(p);
-          car.resolve(actives_draft);
-          con.resolve(kins);
+          ret.resolve(p, kins, actives_draft);
         });
       } else {
         onError();
@@ -119,8 +115,10 @@
     }
 
     FHIR.oauth2.ready(onReady, onError);
-    return [car.promise(), con.promise(), ret.promise()];
+    $.when(ret).then(function(ret){
 
+      return ret.promise();
+    }
   };
 
   function defaultPatient(){

@@ -116,8 +116,7 @@
 
     FHIR.oauth2.ready(onReady, onError);
     $.when(ret).then(function(ret){
-      function(){
-        return ret.promise();
+      return ret.promise();
       }
     });
   };

@@ -111,15 +111,11 @@
         });
       } else {
         onError();
-      }
+      };
     };
 
     FHIR.oauth2.ready(onReady, onError);
-    $.when(ret).done(function(ret){
-        return ret.promise();
-        //See if this works?
-         }
-     );
+    return ret.promise();
   };
 
   function defaultPatient(){

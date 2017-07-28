@@ -102,7 +102,7 @@
             p.kins = kins;
           }
 
-          if (actives_draft.length !==) {
+          if (actives_draft.length !== 0) {
             p.plans = actives_draft;
           }
 
@@ -255,9 +255,8 @@
          console.debug('no information for patient');
        });
    }
- if (p.plans !== ''){
-   console.debug(p.plans);
-  };
-};
+   if (p.plans !== '')
+     console.debug(p.plans);
+    }
 
 })(window);

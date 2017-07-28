@@ -255,8 +255,9 @@
          console.debug('no information for patient');
        });
    }
-   if (p.plans !== '')
+   if (p.plans !== ''){
      console.debug(p.plans);
     }
+  }
 
 })(window);

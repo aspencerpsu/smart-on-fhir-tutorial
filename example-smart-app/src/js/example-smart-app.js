@@ -245,7 +245,7 @@
    $('#diastolicbp').html(p.diastolicbp);
    $('#ldl').html(p.ldl);
    $('#hdl').html(p.hdl);
-   if (p.kins !== ''){
+   if (p.kins.value !== ''){
      p.kins.forEach(function(a){
          a.name !== '' ? $('#names').append('<td>'+a.name+'</td>') : console.log('John Doe over here');
          a.cell !== '' ? $('#cells').append('<td>'+a.cell+'</td>') : console.log('No cell for kin');
@@ -255,7 +255,7 @@
          console.debug('no information for patient');
        });
    }
-   if (p.plans !== ''){
+   if (p.plans.value !== ''){
      console.debug(p.plans);
     }
   }

@@ -98,6 +98,14 @@
             });
           }
 
+          if (kins.length !== 0){
+            p.kins = kins;
+          }
+
+          if (actives_draft.length !==) {
+            p.plans = actives_draft;
+          }
+
           if (typeof systolicbp != 'undefined')  {
             p.systolicbp = systolicbp;
           }
@@ -109,7 +117,8 @@
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
 
-          ret.resolve(p, kins);
+
+          ret.resolve(p);
         });
       } else {
         onError();
@@ -118,11 +127,11 @@
 
     FHIR.oauth2.ready(onReady, onError);
     return ret.promise();
+
   };
 
   function defaultPatient(){
     return {
-      isPatient: true,
       fname: {value: ''},
       lname: {value: ''},
       gender: {value: ''},
@@ -132,7 +141,9 @@
       systolicbp: {value: ''},
       diastolicbp: {value: ''},
       ldl: {value: ''},
-      hdl: {value: ''}
+      hdl: {value: ''},
+      kins: {value: ''},
+      plans: {value: ''}
     };
   }
 
@@ -155,7 +166,6 @@
 
   function Kin(){
     return {
-      isKin: true,
       fname: {value: ''},
       lname: {value: ''},
       address: {value: ''},
@@ -222,37 +232,32 @@
     }
   }
 
-  window.drawVisualization = function(arr) {
-    var elm;
-    $('#holder').show();
-    $('#loading').hide();
-    console.log(arr);
-    do{
-         elm = arr;
-         if (Object.prototype.toString.call(elm) === '[object Object]' && elm.isPatient){
-            $('#fname').html(elm.fname);
-            $('#lname').html(elm.lname);
-            $('#gender').html(elm.gender);
-            $('#birthdate').html(elm.birthdate);
-            $('#age').html(elm.age);
-            $('#height').html(elm.height);
-            $('#systolicbp').html(elm.systolicbp);
-            $('#diastolicbp').html(elm.diastolicbp);
-            $('#ldl').html(elm.ldl);
-            $('#hdl').html(elm.hdl);
-         } else if (Object.prototype.toString.call(elm) === '[object Array]'&& elm.isKin){
-           elm.forEach(function(a){
-             a. kin.name !== '' ? $('#names').append('<td>'+a.name+'</td>') : console.log('John Doe over here');
-             a.cell !== '' ? $('#cells').append('<td>'+a.cell+'</td>') : console.log('No cell for kin');
-             a.home !== '' ? $('#phones').append('<td>'+a.home+'</td>') : kin.other !== '' ? $('#phones').append('<td>'+a.other+'</td>') : console.log('Living in the dark ages');
-             a.address !== '' ? $('#addresses').append('<td>'+a.address+'</td>') : console.log('nowheresville');
-             a.relationship !== '' ? $('#relationships').append('<td>'+a.relationship+'</td>') : console.log('no relationships...');
-           }); } else if (Object.prototype.toString.call(elm) === '[object Array]' && elm.length !== 0){
-             console.log(elm);
-           } else{
-             console.debug('no information for patient');
-           };
-         } while (elm !== undefined);  
-    };
+  window.drawVisualization = function(p) {
+   $('#holder').show();
+   $('#loading').hide();
+   $('#fname').html(p.fname);
+   $('#lname').html(p.lname);
+   $('#gender').html(p.gender);
+   $('#birthdate').html(p.birthdate);
+   $('#age').html(p.age);
+   $('#height').html(p.height);
+   $('#systolicbp').html(p.systolicbp);
+   $('#diastolicbp').html(p.diastolicbp);
+   $('#ldl').html(p.ldl);
+   $('#hdl').html(p.hdl);
+   if (p.kins !== ''){
+     p.kins.forEach(function(a){
+         a.name !== '' ? $('#names').append('<td>'+a.name+'</td>') : console.log('John Doe over here');
+         a.cell !== '' ? $('#cells').append('<td>'+a.cell+'</td>') : console.log('No cell for kin');
+         a.home !== '' ? $('#phones').append('<td>'+a.home+'</td>') : kin.other !== '' ? $('#phones').append('<td>'+a.other+'</td>') : console.log('Living in the dark ages');
+         a.address !== '' ? $('#addresses').append('<td>'+a.address+'</td>') : console.log('nowheresville');
+         a.relationship !== '' ? $('#relationships').append('<td>'+a.relationship+'</td>') : console.log('no relationships...');
+         console.debug('no information for patient');
+       });
+   }
+ if (p.plans !== ''){
+   console.debug(p.plans);
+  };
+};
 
 })(window);

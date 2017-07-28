@@ -116,9 +116,8 @@
 
     FHIR.oauth2.ready(onReady, onError);
     $.when(ret).then(function(ret){
-
       return ret.promise();
-    }
+    });
   };
 
   function defaultPatient(){

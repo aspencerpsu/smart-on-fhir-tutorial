@@ -94,7 +94,7 @@
                  person.relationship = person.relationship + ' ' + relation.text;
                });
              }
-             kins.push[person];
+             kins.push(person);
             });
           }
 

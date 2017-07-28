@@ -224,6 +224,7 @@
     var elm;
     $('#holder').show();
     $('#loading').hide();
+    console.log(arr);
     do{
          elm = arr. pop();
          if (Object.prototype.toString.call(elm) === '[object Object]' && elm.isPatient){

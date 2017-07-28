@@ -112,10 +112,10 @@
     <script>
       var camethrough = true;
       var data = extractData();
+      console.debug(data);
       extractData()[0].then(
       //Display Patient Demographics and Observations if extractData was success
-      function(p) {
-              drawVisualization(p);
+              drawVisualization(data);
       },
       //Display 'Failed to call FHIR Service' if extractData failed
       function(){

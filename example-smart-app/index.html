@@ -6,6 +6,11 @@
     <title>Example-SMART-App</title>
 
     <link rel='stylesheet' type='text/css' href='./src/css/example-smart-app.css'>
+    <style>
+      .pending{
+        color:  #3b584b;
+      }
+    </style>
   </head>
   <body>
     <div id='errors'>
@@ -19,7 +24,7 @@
       <h2>Example-SMART-App</h2>
 
       <h2>Patient Resource</h2>
-      <table>
+      <table class="patient">
         <tr>
           <th>First Name:</th>
           <td id='fname'></td>
@@ -65,8 +70,8 @@
           <td id='hdl'></td>
         </tr>
       </table>
-    <h2>The Patient's Kins</h2>
-    <table>
+    <h2>Emergency Guardians/Contacts</h2>
+    <table class="contacts">
       <thead>
         <tr>
           <th><em><u>Attributes</u></em</th>
@@ -95,6 +100,35 @@
         <tr id='relationships'>
           <th>Relationship</th>
           <td id='relationship'></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Care Plans</h2>
+    <table class="care">
+      <thead>
+        <tr>
+          <th>Plan Name</th>
+          <th>Status</th>
+          <th>Original PT</th>
+          <th>Details</th>
+          <th>Last Modified</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="plans">
+          <td><button>write</button></td>
+        <tr id="stats">
+          <td><button>write</button></td>
+        </tr>
+        <tr id="pt" class="practitioner">
+          <td><button>write</button></td>
+        </tr>
+        <tr id="detail" class="notes">
+          <td><button>write</button></td>
+        </tr>
+        <tr id="lastmod" class="mod">
+          <td><button>write</button></td>
         </tr>
       </tbody>
     </table>

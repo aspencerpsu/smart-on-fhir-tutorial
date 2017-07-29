@@ -80,7 +80,9 @@
           if (contacts && typeof contacts !== 'undefined') {
             contacts.forEach(function(contact){
              person = new Kin();
-             person = _email_house_mobile(contact.telecom, person);
+             if (contact.telecom !== undefined){
+               person = _email_house_mobile(contact.telecom, person);
+             }
              if (contact.name !== undefined){
               person.name = contact.name.given[0].concat(' ');
               person.name = person.name + " " + contact.name.family[0];

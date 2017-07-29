@@ -45,6 +45,9 @@
           }
           
           var byCodes = smart.byCodes(obv, 'code');
+          console.debug(byCodes);
+          var byPlans = smart.byCodes(care, 'code');
+          console.debug(byPlans);
           var gender = patient.gender;
           var dob = new Date(patient.birthDate);
           var day = dob.getDate();
@@ -248,7 +251,7 @@
    $('#ldl').html(p.ldl);
    $('#hdl').html(p.hdl);
    if (p.kins.value !== ''){
-     console.log(p.kins);
+     console.debug(p.kins);
      p.kins.forEach(function(a){
          a.name !== '' ? $('#names').append('<td>'+a.name+'</td>') : console.log('John Doe over here');
          a.cell !== '' ? $('#cells').append('<td>'+a.cell+'</td>') : console.log('No cell for kin');
@@ -261,7 +264,9 @@
    };
    if (p.plans.value !== ''){
      console.debug(p.plans);
-    }
+   } else {
+     console.debug('no plans for the patient...');
+   };
   }
 
 })(window);

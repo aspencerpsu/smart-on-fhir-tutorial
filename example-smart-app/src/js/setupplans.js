@@ -3,7 +3,7 @@
   window.findCarePlans = function(plans){
 
     /* Initialize the care plan table */
-    x = plans.length > 0 ? $('table > tbody').append("<tr></tr>") : return "closing" //There's no plans break the closure
+    x = plans.length > 0 ? $('table > tbody').append("<tr></tr>") : "closing" //There's no plans break the closure
     if (x=="closing"){
       return null;
     }

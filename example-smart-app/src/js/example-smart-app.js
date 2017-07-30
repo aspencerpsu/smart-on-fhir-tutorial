@@ -45,9 +45,6 @@
           }
           
           var byCodes = smart.byCodes(obv, 'code');
-          console.debug(byCodes);
-          var byPlans = smart.byCodes(care, 'code');
-          console.debug(byPlans);
           var gender = patient.gender;
           var dob = new Date(patient.birthDate);
           var day = dob.getDate();
@@ -251,19 +248,19 @@
    $('#ldl').html(p.ldl);
    $('#hdl').html(p.hdl);
    if (p.kins.value !== ''){
-     console.debug(p.kins);
      p.kins.forEach(function(a){
-         a.name !== '' ? $('#names').append('<td>'+a.name+'</td>') : console.log('John Doe over here');
-         a.cell !== '' ? $('#cells').append('<td>'+a.cell+'</td>') : console.log('No cell for kin');
-         a.home !== '' ? $('#phones').append('<td>'+a.home+'</td>') : a.other !== '' ? $('#phones').append('<td>'+a.other+'</td>') : console.log('Living in the dark ages');
-         a.address !== '' ? $('#addresses').append('<td>'+a.address+'</td>') : console.log('nowheresville');
-         a.relationship !== '' ? $('#relationships').append('<td>'+a.relationship+'</td>') : console.log('no relationships...');
+         a.name.value != '' ? $('#names').append('<td>'+a.name+'</td>') : console.log('John Doe over here');
+         a.cell.value != '' ? $('#cells').append('<td>'+a.cell+'</td>') : console.log('No cell for kin');
+         a.home.value != '' ? $('#phones').append('<td>'+a.home+'</td>') : a.other.value !== '' ? $('#phones').append('<td>'+a.other+'</td>') : console.log('Living in the dark ages');
+         a.address.value != '' ? $('#addresses').append('<td>'+a.address+'</td>') : console.log('nowheresville');
+         a.relationship.value != '' ? $('#relationships').append('<td>'+a.relationship+'</td>') : console.log('no relationships...');
        });
    } else {
          console.debug('no information for patient');
    };
    if (p.plans.value !== ''){
      console.debug(p.plans);
+     return p.plans;
    } else {
      console.debug('no plans for the patient...');
    };

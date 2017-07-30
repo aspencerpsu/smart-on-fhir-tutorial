@@ -3,8 +3,11 @@
   window.findCarePlans = function(plans){
 
     /* Initialize the care plan table */
-    plans.length > 0 ? $('table > tbody').append("<tr></tr>") : return //There's no plans break the closure
-
+    x = plans.length > 0 ? $('table > tbody').append("<tr></tr>") : return "closing" //There's no plans break the closure
+    if (x=="closing"){
+      return null;
+    }
+    
     plans.forEach(function(plan,index){
       var last_row = $('table > tbody > tr:last-child')
       if (plan.category[0] !== undefined && plan.category[0].coding !== undefined){

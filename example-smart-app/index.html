@@ -116,16 +116,6 @@
         </tr>
       </thead>
       <tbody>
-        <tr id="plans">
-        </tr>
-        <tr id="stats">
-        </tr>
-        <tr id="pt" class="practitioner">
-        </tr>
-        <tr id="detail" class="notes">
-        </tr>
-        <tr id="lastmod" class="mod">
-        </tr>
       </tbody>
     </table>
 
@@ -133,6 +123,7 @@
 
     <script src='./lib/es6-shim-0.35.1.min.js'></script>
     <script src='./src/js/example-smart-app.js'></script>
+    <script src='./src/js/_setupplans.js'></script>
     <script src='./lib/fhir-client-v0.1.11.js'></script>
 
     <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
@@ -142,7 +133,8 @@
     <script>
       extractData().then(function(data){
       //Display Patient Demographics and Observations if extractData was success
-          drawVisualization(data);
+          plans = drawVisualization(data);
+          findCarePlans(plans); //add the patients plans to the table above
       },
       //Display 'Failed to call FHIR Service' if extractData failed
       function(){
@@ -153,6 +145,32 @@
         $('#loading').prepend("<span id=\'pending\'><b>information collected; this could take some time</b></span>");
       }
      );
+      
+
+      $(document).ready(function(){
+
+        $('#pressed').click(function(event){
+              var cell = $(this).parent();
+              $(this).remove(); //delete the button
+              var content = cell.html();
+              var input = "<input type='text' value='"+content+">"
+              cell.append("<button id='finished'>Done</button>");
+
+              event.preventDefault;
+
+        });
+
+        $('#finished').click(function(event){
+          event.preventDefault();
+          //change the input to a regular text node
+          var fin = $(this).parent();
+          $(this).remove(); //delete the button
+          var input = fin.children('input');
+          var value = input.attr('value');
+          input.remove();
+          fin.append('value'+"<button id=\'pressed\'>");
+        });
+
     </script>
   </body>
 </html>

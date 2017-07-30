@@ -18,7 +18,7 @@
       //Status IS ALWAYS defined within the carePlan Resource; No need for conditional logics
       last_row.append("<td class=\'status\'>"+plan.status+"<button id=\'pressed\'>overwrite?</button>"+"</td>");
       /* end */
-      if (plan.author !== undefined && plan.author.display !== undefined){
+      if (plan.author !== undefined){
         console.log(plan.author);
         plan.author.forEach(function(pt){
           pt.display != '' ? last_row.append("<td class=\'author\'>"+pt.display+"</td>") : "no authors";
@@ -26,7 +26,7 @@
       }
       if (plan.text !== undefined && plan.text.div != ''){
         console.log(plan.text);
-        last_row.append("<td class=\'details>"+plan.text.div+"<button id=\'pressed\'>overwrite?</button>"+"</td>");
+        last_row.append("<td class=\'details\'>"+plan.text.div+"<button id=\'pressed\'>overwrite?</button>"+"</td>");
       } else {
         console.warn('No details enlisted for this encounter plan for subject, please advise');
       };

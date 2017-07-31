@@ -153,12 +153,12 @@
   }
 
   function kinExists(kin, kins){
-
-    kin.name = kin.name.given[0].concat(' ');
-    kin.name = kin.name + " " + kin.name.family[0];
+    var proxy = {};
+    proxy.name = kin.name.given[0].concat(' ');
+    proxy.name += " " + kin.name.family[0];
     var counter = 0;
     kins.forEach(function(opkin, index){
-      if(opkin.name.toLowerCase() == kin.name.toLowerCase()){
+      if(opkin.name.toLowerCase() == proxy.name.toLowerCase()){
         opkin.contact.forEach(function(sys){
           if (sys.system.phone == undefined && kin.system.phone !== undefined){
             counter += 1;

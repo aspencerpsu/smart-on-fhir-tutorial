@@ -13,10 +13,10 @@
         color:  #3b584b;
       }
       .details .plan-raw{
-        display: hide;
+        display: none;
       }
       #togglebox{
-        display: hide;
+        display: none;
       }
     </style>
   </head>
@@ -190,7 +190,7 @@
           status = $(this).parent().parent().children('.status');
           status.text('draft'); //change the request to 'draft' state
           details = $(this).parent().html();
-          toggleBox = $('#toggleBox').html(details);
+          toggleBox = $('#toggleBox').append(details);
           toggleBox.children('button').remove(); //remove the button
           toggleBox.toggle();
         });
@@ -199,7 +199,8 @@
           console.log("I was clicked...");
           status = $(this).parent().parent().children('status');
           status.text('active');
-          toggleBox.html(""); //erase everything from our utility box
+          toggleBox = $('#togglebox');
+          toggleBox.prepend(""); //erase everything from our utility box
           toggleBox.toggle();
         });
 
@@ -212,7 +213,6 @@
             status.text('completed'); 
             row.remove() : 
            } else {
-             ''; //user has either cancelled or said no
              // No further action required
            }
         });

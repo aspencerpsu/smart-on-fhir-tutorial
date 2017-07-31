@@ -6,9 +6,14 @@
     <title>Example-SMART-App</title>
 
     <link rel='stylesheet' type='text/css' href='./src/css/example-smart-app.css'>
+    <link rel='stylesheet' type='text/css' href='./src/css/print.css'>
+    <link rel='stylesheet' type='text/css' href='./src/css/screen.css'>
     <style>
       .pending{
         color:  #3b584b;
+      }
+      .details .plan-raw{
+        display: hide;
       }
     </style>
   </head>
@@ -150,13 +155,13 @@
       $(document).ready(function(){
 
         $('#pressed').click(function(event){
+
+              event.preventDefault();
               var cell = $(this).parent();
               $(this).remove(); //delete the button
               var content = cell.html();
               var input = "<input type='text' value='"+content+">"
               cell.append("<button id='finished'>Done</button>");
-
-              event.preventDefault;
 
         });
 
@@ -170,6 +175,21 @@
           input.remove();
           fin.append('value'+"<button id=\'pressed\'>");
         });
+
+        $('#subjectdetails').click(function(event){
+          event.preventDefault();
+          status = $(this).parent().parent().children('.status');
+          status.text('draft'); //change the request to 'draft' state
+          details = $(this).parent().html();
+          toggleBox = $('#toggleBox').html(details);
+          toggleBox.children('button').remove(); //remove the button
+          toggleBox.toggle();
+        });
+
+        $('#done').click(function(event){
+          console.log("I was clicked...");
+          toggleBox.html(""); //erase everything from our utility box
+          toggleBox.toggle();
       });
 
     </script>

@@ -20,6 +20,12 @@
   <body>
     <div id='errors'>
     </div>
+    <div id='subjectinfo'>
+      <div id="togglebox">
+        <button id='done'>Done</button>
+        <button id='completed'>Completed</button>
+      </div>
+    </div>
     <div id="loading" class="spinner">
       <div class="bounce1"></div>
       <div class="bounce2"></div>
@@ -188,9 +194,20 @@
 
         $('#done').click(function(event){
           console.log("I was clicked...");
+          status = $(this).parent().parent().children('status');
+          status.text('active');
           toggleBox.html(""); //erase everything from our utility box
           toggleBox.toggle();
-      });
+        });
+
+        $('#completed').click(function(event){
+          console.log("I was clicked...");
+          row = $(this).parent().parent();
+          status = row.children('.status');
+          makesure = confirm("Are you sure you would like to complete this, you cannot edit once completed");
+          maksure ? status.text('completed') row.remove() : '' //user has either cancelled or said no
+        });
+
 
     </script>
   </body>

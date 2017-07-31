@@ -15,7 +15,7 @@
       .details .plan-raw{
         display: hide;
       }
-      .togglebox{
+      #togglebox{
         display: hide;
       }
     </style>
@@ -208,7 +208,13 @@
           row = $(this).parent().parent();
           status = row.children('.status');
           makesure = confirm("Are you sure you would like to complete this, you cannot edit once completed");
-          makesure ? status.text('completed'); row.remove() : ''; //user has either cancelled or said no
+          if (makesure) {
+            status.text('completed'); 
+            row.remove() : 
+           } else {
+             ''; //user has either cancelled or said no
+             // No further action required
+           }
         });
 
 

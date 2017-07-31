@@ -164,8 +164,7 @@
       $(document).ready(function(){
 
         $('#pressed').click(function(event){
-
-              event.preventDefault();
+              console.log("I was clicked!!");
               var cell = $(this).parent();
               $(this).remove(); //delete the button
               var content = cell.html();
@@ -175,7 +174,6 @@
         });
 
         $('#finished').click(function(event){
-          event.preventDefault();
           //change the input to a regular text node
           var fin = $(this).parent();
           $(this).remove(); //delete the button
@@ -186,7 +184,7 @@
         });
 
         $('#subjectdetails').click(function(event){
-          event.preventDefault();
+          console.log("I was clicked!!!");
           status = $(this).parent().parent().children('.status');
           status.text('draft'); //change the request to 'draft' state
           details = $(this).parent().html();

@@ -79,28 +79,31 @@
 
           if (contacts && typeof contacts !== 'undefined') {
             contacts.forEach(function(contact){
-             person = new Kin();
-             if (contact.telecom !== undefined){
-               person = _email_house_mobile(contact.telecom, person);
+             if (!kinExists(contact)){
+               person = new Kin();
+               if (contact.telecom !== undefined){
+                 person = _email_house_mobile(contact.telecom, person);
+               }
+               if (contact.name !== undefined){
+                person.name = contact.name.given[0].concat(' ');
+                person.name = person.name + " " + contact.name.family[0];
+               }
+               if (contact.address !== undefined){
+                 person.address = contact.address.text;
+               }
+               person.relationship = '';
+               if (contact.relationship !== undefined){
+                 contact.relationship.forEach(function(relation){
+                   person.relationship = person.relationship + ' ' + relation.text;
+                 });
+               }
+               kins.push(person);
              }
-             if (contact.name !== undefined){
-              person.name = contact.name.given[0].concat(' ');
-              person.name = person.name + " " + contact.name.family[0];
-             }
-             if (contact.address !== undefined){
-               person.address = contact.address.text;
-             }
-             person.relationship = '';
-             if (contact.relationship !== undefined){
-               contact.relationship.forEach(function(relation){
-                 person.relationship = person.relationship + ' ' + relation.text;
-               });
-             }
-             kins.push(person);
-            });
-          }
+           });
+         }
 
           if (kins.length !== 0){
+            p.kins = kins.length > 3 ? kins = kins.slice(0,3) : kins;
             p.kins = kins;
           }
 
@@ -148,6 +151,34 @@
       plans: {value: ''}
     };
   }
+
+  function kinExists(kin){
+
+    var counter = 0;
+    kins.forEach(function(opkin, index){
+      if(opkin.name == kin.name){
+        opkin.contact.forEach(function(sys){
+          if (sys.system.phone == undefined && kin.system.phone !== undefined){
+            counter += 1;
+          } else if (sys.system.home == undefined && kin.system.phone !== undefined){
+            counter += 1;
+          } else if (sys.system.email == undefined && kin.system.email !== undefined){
+            counter +=1;
+          } else {
+            //break the cycle, the duplicate kin doesn't have any information
+          };
+      });
+     } else {
+       return false;
+     };
+      if(counter >= 2){
+        kins.splice(index, 1);
+        return true;
+      } else {
+        return false; //only has one contact information, not needed
+      };
+    });
+  };
 
   function getBloodPressureValue(BPObservations, typeOfPressure) {
     var formattedBPObservations = [];

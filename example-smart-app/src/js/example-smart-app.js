@@ -159,7 +159,7 @@
     var counter = 0;
     kins.forEach(function(opkin, index){
       if(opkin.name.toLowerCase() == proxy.name.toLowerCase()){
-        if (kin.telecom !== undefined) {
+        if (kin.telecom == undefined) {
           return true; //kin doesn't have any systems to send response, keep it moving
         } else {
           kin.telecom.forEach(function(systemtype){

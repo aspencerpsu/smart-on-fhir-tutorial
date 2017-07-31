@@ -166,7 +166,7 @@
               var cell = $(this).parent();
               $(this).remove(); //delete the button
               var content = cell.html();
-              var input = "<input type='text' value='"+content+">"
+              var input = "<input type='text' value='"+content+"'>"
               cell.append("<button id='finished'>Done</button>");
 
         });
@@ -205,7 +205,7 @@
           row = $(this).parent().parent();
           status = row.children('.status');
           makesure = confirm("Are you sure you would like to complete this, you cannot edit once completed");
-          maksure ? status.text('completed') row.remove() : '' //user has either cancelled or said no
+          makesure ? status.text('completed') row.remove() : '' //user has either cancelled or said no
         });
 
 

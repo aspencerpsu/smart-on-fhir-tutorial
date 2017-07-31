@@ -156,7 +156,7 @@
 
     var counter = 0;
     kins.forEach(function(opkin, index){
-      if(opkin.name == kin.name){
+      if(opkin.name.toLowerCase() == kin.name.toLowerCase()){
         opkin.contact.forEach(function(sys){
           if (sys.system.phone == undefined && kin.system.phone !== undefined){
             counter += 1;

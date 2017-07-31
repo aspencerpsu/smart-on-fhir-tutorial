@@ -161,59 +161,57 @@
      );
       
 
-      $(document).ready(function(){
 
-        $('#pressed').click(function(event){
-              console.log("I was clicked!!");
-              var cell = $(this).parent();
-              $(this).remove(); //delete the button
-              var content = cell.html();
-              var input = "<input type='text' value='"+content+"'>"
-              cell.append("<button id='finished'>Done</button>");
+      $('#pressed').click(function(event){
+            console.log("I was clicked!!");
+            var cell = $(this).parent();
+            $(this).remove(); //delete the button
+            var content = cell.html();
+            var input = "<input type='text' value='"+content+"'>"
+            cell.append("<button id='finished'>Done</button>");
 
-        });
+      });
 
-        $('#finished').click(function(event){
-          //change the input to a regular text node
-          var fin = $(this).parent();
-          $(this).remove(); //delete the button
-          var input = fin.children('input');
-          var value = input.attr('value');
-          input.remove();
-          fin.append('value'+"<button id=\'pressed\'>");
-        });
+      $('#finished').click(function(event){
+        //change the input to a regular text node
+        var fin = $(this).parent();
+        $(this).remove(); //delete the button
+        var input = fin.children('input');
+        var value = input.attr('value');
+        input.remove();
+        fin.append('value'+"<button id=\'pressed\'>");
+      });
 
-        $('#subjectdetails').click(function(event){
-          console.log("I was clicked!!!");
-          status = $(this).parent().parent().children('.status');
-          status.text('draft'); //change the request to 'draft' state
-          details = $(this).parent().html();
-          toggleBox = $('#toggleBox').append(details);
-          toggleBox.children('button').remove(); //remove the button
-          toggleBox.toggle();
-        });
+      $('#subjectdetails').click(function(event){
+        console.log("I was clicked!!!");
+        status = $(this).parent().parent().children('.status');
+        status.text('draft'); //change the request to 'draft' state
+        details = $(this).parent().html();
+        toggleBox = $('#toggleBox').append(details);
+        toggleBox.children('button').remove(); //remove the button
+        toggleBox.toggle();
+      });
 
-        $('#done').click(function(event){
-          console.log("I was clicked...");
-          status = $(this).parent().parent().children('status');
-          status.text('active');
-          toggleBox = $('#togglebox');
-          toggleBox.prepend(""); //erase everything from our utility box
-          toggleBox.toggle();
-        });
+      $('#done').click(function(event){
+        console.log("I was clicked...");
+        status = $(this).parent().parent().children('status');
+        status.text('active');
+        toggleBox = $('#togglebox');
+        toggleBox.prepend(""); //erase everything from our utility box
+        toggleBox.toggle();
+      });
 
-        $('#completed').click(function(event){
-          console.log("I was clicked...");
-          row = $(this).parent().parent();
-          status = row.children('.status');
-          makesure = confirm("Are you sure you would like to complete this, you cannot edit once completed");
-          if (makesure) {
-            status.text('completed'); 
-            row.remove();
-           } else {
-             // No further action required
-           }
-        });
+      $('#completed').click(function(event){
+        console.log("I was clicked...");
+        row = $(this).parent().parent();
+        status = row.children('.status');
+        makesure = confirm("Are you sure you would like to complete this, you cannot edit once completed");
+        if (makesure) {
+          status.text('completed'); 
+          row.remove();
+         } else {
+           // No further action required
+         }
       });
 
     </script>

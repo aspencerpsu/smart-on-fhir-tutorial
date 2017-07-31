@@ -159,15 +159,22 @@
     var counter = 0;
     kins.forEach(function(opkin, index){
       if(opkin.name.toLowerCase() == proxy.name.toLowerCase()){
-          if (opkin.phone.value == '' && kin.telecom.system.phone !== undefined){
-            counter += 1;
-          } else if (opkin.home.value == ''  && kin.telecom.system.phone !== undefined){
-            counter += 1;
-          } else if (opkin.email.value == '' && kin.system.telecom.email !== undefined){
-            counter +=1;
-          } else {
-            //break the cycle, the duplicate kin doesn't have any information
-          };
+        if (kin.telecom !== undefined) {
+          return true; //kin doesn't have any systems to send response, keep it moving
+        } else {
+          kin.telecom.forEach(function(systemtype){
+
+            if (opkin.cell.value == '' && systemtype.use == 'mobile'){
+              counter += 1;
+            } else if (opkin.home.value == ''  && systemtype.use == 'home'){
+              counter += 1;
+            } else if (opkin.email.value == '' && systemtype.use == 'email'){ 
+              counter +=1;
+            } else {
+              //break the cycle, the duplicate kin doesn't have any information
+            };
+          });
+        };
      } else {
        return false; //names aren't congruous, go to next on kins list
      };

@@ -249,20 +249,20 @@
    $('#hdl').html(p.hdl);
    if (p.kins.value !== ''){
      p.kins.forEach(function(a){
-         a.name.value != '' ? $('#names').append('<td>'+a.name+'</td>') : console.log('John Doe over here');
-         a.cell.value != '' ? $('#cells').append('<td>'+a.cell+'</td>') : console.log('No cell for kin');
-         a.home.value != '' ? $('#phones').append('<td>'+a.home+'</td>') : a.other.value !== '' ? $('#phones').append('<td>'+a.other+'</td>') : console.log('Living in the dark ages');
-         a.address.value != '' ? $('#addresses').append('<td>'+a.address+'</td>') : console.log('nowheresville');
-         a.relationship.value != '' ? $('#relationships').append('<td>'+a.relationship+'</td>') : console.log('no relationships...');
+         a.name.value != '' ? $('#names').append('<td>'+a.name+'</td>') : ''
+         a.cell.value != '' ? $('#cells').append('<td>'+a.cell+'</td>') : ''
+         a.home.value != '' ? $('#phones').append('<td>'+a.home+'</td>') : a.other.value !== '' ? $('#phones').append('<td>'+a.other+'</td>') : ''
+         a.address.value != '' ? $('#addresses').append('<td>'+a.address+'</td>') : ''
+         a.relationship.value != '' ? $('#relationships').append('<td>'+a.relationship+'</td>') : ''
        });
    } else {
-         console.debug('no information for patient');
+         console.warn('no information for patient');
    };
    if (p.plans.value !== ''){
      console.debug(p.plans);
      return p.plans;
    } else {
-     console.debug('no plans for the patient...');
+     console.warn('no plans for the patient...');
    };
   }
 

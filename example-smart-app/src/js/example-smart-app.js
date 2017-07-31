@@ -154,6 +154,8 @@
 
   function kinExists(kin, kins){
 
+    kin.name = kin.name.given[0].concat(' ');
+    kin.name = kin.name + " " + kin.name.family[0];
     var counter = 0;
     kins.forEach(function(opkin, index){
       if(opkin.name.toLowerCase() == kin.name.toLowerCase()){

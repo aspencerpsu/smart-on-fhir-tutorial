@@ -79,7 +79,7 @@
 
           if (contacts && typeof contacts !== 'undefined') {
             contacts.forEach(function(contact){
-             if (!kinExists(contact)){
+             if (!kinExists(contact, kins)){
                person = new Kin();
                if (contact.telecom !== undefined){
                  person = _email_house_mobile(contact.telecom, person);
@@ -152,7 +152,7 @@
     };
   }
 
-  function kinExists(kin){
+  function kinExists(kin, kins){
 
     var counter = 0;
     kins.forEach(function(opkin, index){

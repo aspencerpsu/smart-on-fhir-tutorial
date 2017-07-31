@@ -24,7 +24,7 @@
         });
       }
       if (plan.text !== undefined && plan.text.div != ''){
-        last_row.append("<td class=\'details\'>"+plan.text.div+"<button id=\'toggleBox\'>variguard?</button>"+"</td>");
+        last_row.append("<td class=\'details\'>"+plan.text.div+"<button id=\'subjectdetails\'>variguard?</button>"+"</td>");
         $('.details > div').addClass('plan-raw'); //For Later
       } else {
         console.warn('No details enlisted for this encounter plan for subject, please advise');

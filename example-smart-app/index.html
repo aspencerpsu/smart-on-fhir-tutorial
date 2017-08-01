@@ -145,8 +145,6 @@
     <script src='./lib/fhir-client-cerner-additions-1.0.0.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script>
-      $(document).ready(function(){
-
 
         extractData().then(function(data){
         //Display Patient Demographics and Observations if extractData was success
@@ -214,7 +212,6 @@
           $('#loading').prepend("<span id=\'pending\'><b>information collected; this could take some time</b></span>");
         }
        );
-      });
 
     </script>
   </body>

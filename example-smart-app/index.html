@@ -148,48 +148,6 @@
       $(document).ready(function(){
 
 
-        $('#finished').click(function(event){
-          //change the input to a regular text node
-          var element = "#"+this.id
-          var fin = $(element).parent();
-          $(element).remove(); //delete the button
-          var input = fin.children('input');
-          var value = input.attr('value');
-          input.remove();
-          fin.append('value'+"<button id=\'pressed\'>");
-        });
-
-        $('#subjectdetails').click(function(event){
-          console.log("I was clicked!!!");
-          status = $("#"+this.id).parent().parent().children('.status');
-          status.text('draft'); //change the request to 'draft' state
-          details = $("#"+thid.id).parent().html();
-          toggleBox = $('#toggleBox').append(details);
-          toggleBox.children('button').remove(); //remove the button
-          toggleBox.toggle();
-        });
-
-        $('#done').click(function(event){
-          console.log("I was clicked...");
-          status = $("#"+this.id).parent().parent().children('status');
-          status.text('active');
-          toggleBox = $('#togglebox');
-          toggleBox.text(""); //erase everything from our utility box
-          toggleBox.toggle();
-        });
-
-        $('#completed').click(function(event){
-          console.log("I was clicked...");
-          row = $("#"+this.id).parent().parent();
-          status = row.children('.status');
-          makesure = confirm("Are you sure you would like to complete this, you cannot edit once completed");
-          if (makesure) {
-            status.text('completed'); 
-            row.remove();
-           } else {
-             // No further action required
-           }
-        });
         extractData().then(function(data){
         //Display Patient Demographics and Observations if extractData was success
             plans = drawVisualization(data);
@@ -203,6 +161,48 @@
                   var content = cell.html();
                   var input = "<input type='text' value='"+content+"'>"
                   cell.append("<button id='finished'>Done</button>");
+            });
+            $('#finished').click(function(event){
+              //change the input to a regular text node
+              var element = "#"+this.id
+              var fin = $(element).parent();
+              $(element).remove(); //delete the button
+              var input = fin.children('input');
+              var value = input.attr('value');
+              input.remove();
+              fin.append('value'+"<button id=\'pressed\'>");
+            });
+
+            $('#subjectdetails').click(function(event){
+              console.log("I was clicked!!!");
+              status = $("#"+this.id).parent().parent().children('.status');
+              status.text('draft'); //change the request to 'draft' state
+              details = $("#"+thid.id).parent().html();
+              toggleBox = $('#toggleBox').append(details);
+              toggleBox.children('button').remove(); //remove the button
+              toggleBox.toggle();
+            });
+
+            $('#done').click(function(event){
+              console.log("I was clicked...");
+              status = $("#"+this.id).parent().parent().children('status');
+              status.text('active');
+              toggleBox = $('#togglebox');
+              toggleBox.text(""); //erase everything from our utility box
+              toggleBox.toggle();
+            });
+
+            $('#completed').click(function(event){
+              console.log("I was clicked...");
+              row = $("#"+this.id).parent().parent();
+              status = row.children('.status');
+              makesure = confirm("Are you sure you would like to complete this, you cannot edit once completed");
+              if (makesure) {
+                status.text('completed'); 
+                row.remove();
+               } else {
+                 // No further action required
+               }
             });
         },
         //Display 'Failed to call FHIR Service' if extractData failed

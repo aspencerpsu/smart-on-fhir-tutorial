@@ -168,14 +168,14 @@
               var input = fin.children('input');
               var value = input.attr('value');
               input.remove();
-              fin.append('value'+"<button id=\'pressed\'>");
+              fin.append('value'+"<button class=\'pressed\'>");
             });
 
             $('.subjectdetails').click(function(event){
               console.log("I was clicked!!!");
-              status = $("#"+this.id).parent().parent().children('.status');
+              status = $("."+this.id).parent().parent().children('.status');
               status.text('draft'); //change the request to 'draft' state
-              details = $("#"+thid.id).parent().html();
+              details = $("."+thid.id).parent().html();
               toggleBox = $('#toggleBox').prepend(details);
               toggleBox.children('button').remove(); //remove the button
               toggleBox.toggle();
@@ -183,7 +183,7 @@
 
             $('#done').click(function(event){
               console.log("I was clicked...");
-              status = $("#"+this.id).parent().parent().children('status');
+              status = $("."+this.id).parent().parent().children('.status');
               status.text('active');
               toggleBox = $('#togglebox');
               toggleBox.text(""); //erase everything from our utility box
@@ -192,7 +192,7 @@
 
             $('#completed').click(function(event){
               console.log("I was clicked...");
-              row = $("#"+this.id).parent().parent();
+              row = $("."+this.id).parent().parent();
               status = row.children('.status');
               makesure = confirm("Are you sure you would like to complete this, you cannot edit once completed");
               if (makesure) {

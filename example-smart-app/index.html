@@ -145,73 +145,75 @@
     <script src='./lib/fhir-client-cerner-additions-1.0.0.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script>
+      $(document).ready(function(){
 
-      $('#pressed').click(function(event){
-            var element = "#"+this.id
-            console.log("I was clicked!!");
-            var cell = $(element).parent();
-            $(element).remove(); //delete the button
-            var content = cell.html();
-            var input = "<input type='text' value='"+content+"'>"
-            cell.append("<button id='finished'>Done</button>");
-      });
+        $('#pressed').click(function(event){
+              var element = "#"+this.id
+              console.log("I was clicked!!");
+              var cell = $(element).parent();
+              $(element).remove(); //delete the button
+              var content = cell.html();
+              var input = "<input type='text' value='"+content+"'>"
+              cell.append("<button id='finished'>Done</button>");
+        });
 
-      $('#finished').click(function(event){
-        //change the input to a regular text node
-        var element = "#"+this.id
-        var fin = $(element).parent();
-        $(element).remove(); //delete the button
-        var input = fin.children('input');
-        var value = input.attr('value');
-        input.remove();
-        fin.append('value'+"<button id=\'pressed\'>");
-      });
+        $('#finished').click(function(event){
+          //change the input to a regular text node
+          var element = "#"+this.id
+          var fin = $(element).parent();
+          $(element).remove(); //delete the button
+          var input = fin.children('input');
+          var value = input.attr('value');
+          input.remove();
+          fin.append('value'+"<button id=\'pressed\'>");
+        });
 
-      $('#subjectdetails').click(function(event){
-        console.log("I was clicked!!!");
-        status = $("#"+this.id).parent().parent().children('.status');
-        status.text('draft'); //change the request to 'draft' state
-        details = $("#"+thid.id).parent().html();
-        toggleBox = $('#toggleBox').append(details);
-        toggleBox.children('button').remove(); //remove the button
-        toggleBox.toggle();
-      });
+        $('#subjectdetails').click(function(event){
+          console.log("I was clicked!!!");
+          status = $("#"+this.id).parent().parent().children('.status');
+          status.text('draft'); //change the request to 'draft' state
+          details = $("#"+thid.id).parent().html();
+          toggleBox = $('#toggleBox').append(details);
+          toggleBox.children('button').remove(); //remove the button
+          toggleBox.toggle();
+        });
 
-      $('#done').click(function(event){
-        console.log("I was clicked...");
-        status = $("#"+this.id).parent().parent().children('status');
-        status.text('active');
-        toggleBox = $('#togglebox');
-        toggleBox.text(""); //erase everything from our utility box
-        toggleBox.toggle();
-      });
+        $('#done').click(function(event){
+          console.log("I was clicked...");
+          status = $("#"+this.id).parent().parent().children('status');
+          status.text('active');
+          toggleBox = $('#togglebox');
+          toggleBox.text(""); //erase everything from our utility box
+          toggleBox.toggle();
+        });
 
-      $('#completed').click(function(event){
-        console.log("I was clicked...");
-        row = $("#"+this.id).parent().parent();
-        status = row.children('.status');
-        makesure = confirm("Are you sure you would like to complete this, you cannot edit once completed");
-        if (makesure) {
-          status.text('completed'); 
-          row.remove();
-         } else {
-           // No further action required
-         }
+        $('#completed').click(function(event){
+          console.log("I was clicked...");
+          row = $("#"+this.id).parent().parent();
+          status = row.children('.status');
+          makesure = confirm("Are you sure you would like to complete this, you cannot edit once completed");
+          if (makesure) {
+            status.text('completed'); 
+            row.remove();
+           } else {
+             // No further action required
+           }
+        });
+        extractData().then(function(data){
+        //Display Patient Demographics and Observations if extractData was success
+            plans = drawVisualization(data);
+            findCarePlans(plans); //add the patients plans to the table above
+        },
+        //Display 'Failed to call FHIR Service' if extractData failed
+        function(){
+              $('#loading').hide();
+              $('#errors').html('<p> Failed to call FHIR Service </p>');
+        },
+        function(){
+          $('#loading').prepend("<span id=\'pending\'><b>information collected; this could take some time</b></span>");
+        }
+       );
       });
-      extractData().then(function(data){
-      //Display Patient Demographics and Observations if extractData was success
-          plans = drawVisualization(data);
-          findCarePlans(plans); //add the patients plans to the table above
-      },
-      //Display 'Failed to call FHIR Service' if extractData failed
-      function(){
-            $('#loading').hide();
-            $('#errors').html('<p> Failed to call FHIR Service </p>');
-      },
-      function(){
-        $('#loading').prepend("<span id=\'pending\'><b>information collected; this could take some time</b></span>");
-      }
-     );
 
     </script>
   </body>

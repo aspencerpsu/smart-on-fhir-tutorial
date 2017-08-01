@@ -150,26 +150,26 @@
         //Display Patient Demographics and Observations if extractData was success
             plans = drawVisualization(data);
             findCarePlans(plans); //add the patients plans to the table above
-            console.log('things happen after this');
             $('.pressed').click(function(event){
+              if (document.getElementsByClassName('.finished').length > 0){
+                alert("you can only edit one care plan at a time");
+              } else {
                   console.log(event);
                   console.log("I was clicked!!");
-                  var cell = event.toElement().parentNode();
-                  this.removeNode(); //delete the button
-                  var content = cell.html();
+                  var cell = event.toElement.parentNode;
+                  this.remove; //delete the button
+                  var content = cell.innerHTML;
                   var input = "<input type='text' value='"+content+"'>"
-                  cell.textNode("");
-                  cell.prepend(input);
-                  cell.append("<button class='finished'>Done?</button>");
+                  cell.innerHTML = input + " " + "<button class=\'finished\'>finished</button>";
+              };
             });
             $('.finished').click(function(event){
               //change the input to a regular text node
               console.log(event);
-              cell = event.toElement().parentNode;
-              var input = cell.lastNode;
-              var value = input.attr('value');
-              input.remove();
-              fin.append(value+"<button class=\'pressed\'>");
+              cell = event.toElement.parentNode;
+              var input = cell.firstNode;
+              var value = input.attr('value'); 
+              cell.innerHTML = value+"<button class=\'pressed\'>overwrite?</button>";
             });
 
             $('.subjectdetails').click(function(event){

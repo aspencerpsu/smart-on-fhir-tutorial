@@ -153,23 +153,23 @@
             console.log('things happen after this');
             $('.pressed').click(function(event){
                   console.log(event);
-                  var element = "."+this.className
                   console.log("I was clicked!!");
-                  var cell = $(element).parent();
-                  $(element).remove(); //delete the button
+                  var cell = event.toElement().parentNode();
+                  this.removeNode(); //delete the button
                   var content = cell.html();
                   var input = "<input type='text' value='"+content+"'>"
+                  cell.textNode("");
+                  cell.prepend(input);
                   cell.append("<button class='finished'>Done?</button>");
             });
             $('.finished').click(function(event){
               //change the input to a regular text node
-              var element = "."+this.className;
-              var fin = $(element).parent();
-              $(element).remove(); //delete the button
-              var input = fin.children('input');
+              console.log(event);
+              cell = event.toElement().parentNode;
+              var input = cell.lastNode;
               var value = input.attr('value');
               input.remove();
-              fin.append('value'+"<button class=\'pressed\'>");
+              fin.append(value+"<button class=\'pressed\'>");
             });
 
             $('.subjectdetails').click(function(event){

@@ -159,8 +159,8 @@
                   console.log("I was clicked!!");
                   var cell = event.toElement.parentNode;
                   var id = event.toElement.id;
-                  this.remove; //delete the button
-                  var re = /<button .*>overwrite?<\/button>/i;
+                  this.remove(); //delete the button
+                  var re = /<button .*>overwrite\?<\/button>/i;
                   var content = cell.innerHTML;
                   var raw_text = cell.slice(0, content.match(re).index);
                   var input = "<input type='text' value='"+raw_text+"'>";

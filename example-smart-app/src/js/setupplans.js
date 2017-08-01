@@ -16,7 +16,7 @@
         });
       }
       //Status IS ALWAYS defined within the carePlan Resource; No need for conditional logics
-      last_row.append("<td class=\'status\'>"+plan.status+"<button class=\'pressed\'>overwrite?</button>"+"</td>");
+      last_row.append("<td class=\'status\' id=\'"+plan.id+"\'>"+plan.status+"<button class=\'pressed\'>overwrite?</button>"+"</td>");
       /* end */
       if (plan.author !== undefined){
         plan.author.forEach(function(pt){

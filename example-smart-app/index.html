@@ -9,10 +9,10 @@
     <link rel='stylesheet' type='text/css' href='./src/css/print.css'>
     <link rel='stylesheet' type='text/css' href='./src/css/screen.css'>
     <style>
-      .pending{
+      .pending {
         color:  #3b584b;
-      }
-      .details .plan-raw{
+       }
+      .details .plan-raw {
         display: none;
       }
       #togglebox{
@@ -22,12 +22,6 @@
   </head>
   <body>
     <div id='errors'>
-    </div>
-    <div id='subjectinfo'>
-      <div id="togglebox">
-        <button id='done'>Done</button>
-        <button id='completed'>Completed</button>
-      </div>
     </div>
     <div id="loading" class="spinner">
       <div class="bounce1"></div>
@@ -86,6 +80,12 @@
       </table>
     <h2>Emergency Guardians/Contacts</h2>
     <table class="contacts">
+      <div id='subjectinfo'>
+        <div id="togglebox">
+          <button id='done'>Done</button>
+          <button id='completed'>Completed</button>
+        </div>
+      </div>
       <thead>
         <tr>
           <th><em><u>Attributes</u></em</th>
@@ -152,17 +152,18 @@
             findCarePlans(plans); //add the patients plans to the table above
             console.log('things happen after this');
             $('.pressed').click(function(event){
-                  var element = "#"+this.id
+                  console.log(event);
+                  var element = "."+this.className
                   console.log("I was clicked!!");
                   var cell = $(element).parent();
                   $(element).remove(); //delete the button
                   var content = cell.html();
                   var input = "<input type='text' value='"+content+"'>"
-                  cell.append("<button class='finished'>Done</button>");
+                  cell.append("<button class='finished'>Done?</button>");
             });
             $('.finished').click(function(event){
               //change the input to a regular text node
-              var element = "#"+this.id
+              var element = "."+this.className;
               var fin = $(element).parent();
               $(element).remove(); //delete the button
               var input = fin.children('input');
@@ -173,32 +174,43 @@
 
             $('.subjectdetails').click(function(event){
               console.log("I was clicked!!!");
-              status = $("."+this.id).parent().parent().children('.status');
+              id = $('.subjectdetails').attr('id');
+              status = $("."+this.className).parent().parent().children('.status');
               status.text('draft'); //change the request to 'draft' state
-              details = $("."+thid.id).parent().html();
-              toggleBox = $('#toggleBox').prepend(details);
-              toggleBox.children('button').remove(); //remove the button
+              details = $("."+this.className).parent().html();
+              toggleBox = $('#toggleBox');
+              toggleBox.prepend(details);
+              $("#toggleBox .subjectdetails").remove(); //remove thesubjectdetails button from the subject info
+              $('.done').attr('id', id);
+              $('.completed').attr('id', id);
               toggleBox.toggle();
             });
 
-            $('#done').click(function(event){
+            $('.done').click(function(event){
               console.log("I was clicked...");
-              status = $("."+this.id).parent().parent().children('.status');
+              status_id = "#"+this.id;
+              $('.done').attr('id', '');
+              $('.completed').attr('id', '');
+              toggleBox = $('#toggleBox");
+              toggleBox.html(""); //erase everything from our utility box
+              toggleBox.toggle();
+
+              status = $(status_id).parent().parent().children('.status');
               status.text('active');
               toggleBox = $('#togglebox');
-              toggleBox.text(""); //erase everything from our utility box
-              toggleBox.toggle();
             });
 
-            $('#completed').click(function(event){
+            $('.completed').click(function(event){
+              status_id = "#"+this.id;
               console.log("I was clicked...");
-              row = $("."+this.id).parent().parent();
-              status = row.children('.status');
               makesure = confirm("Are you sure you would like to complete this, you cannot edit once completed");
               if (makesure) {
-                status.text('completed'); 
-                row.remove();
+                row = $(status_id + " " + ".status").parent();
+                row.remove(); //remove from the carePlan table;
+                $('.done').attr('id', '');
+                $('.completed').attr('id', '');
                } else {
+
                  // No further action required
                }
             });

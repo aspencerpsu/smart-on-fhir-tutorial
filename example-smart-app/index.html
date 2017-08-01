@@ -199,7 +199,6 @@
              // No further action required
            }
         });
-      });
         extractData().then(function(data){
         //Display Patient Demographics and Observations if extractData was success
             plans = drawVisualization(data);
@@ -214,6 +213,7 @@
           $('#loading').prepend("<span id=\'pending\'><b>information collected; this could take some time</b></span>");
         }
        );
+      });
 
     </script>
   </body>

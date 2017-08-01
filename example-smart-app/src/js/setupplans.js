@@ -12,11 +12,11 @@
       var last_row = $('.care > tbody > tr:last-child')
       if (plan.category[0] !== undefined && plan.category[0].coding !== undefined){
         plan.category[0].coding.forEach(function(code){
-          code.code != '' ? last_row.append("<td class=\'category\'>"+code.code+"<button id=\'pressed\'>overwrite?</button>"+"</td>") : "no codes";
+          code.code != '' ? last_row.append("<td class=\'category\'>"+code.code+"<button class=\'pressed\'>overwrite?</button>"+"</td>") : "no codes";
         });
       }
       //Status IS ALWAYS defined within the carePlan Resource; No need for conditional logics
-      last_row.append("<td class=\'status\'>"+plan.status+"<button id=\'pressed\'>overwrite?</button>"+"</td>");
+      last_row.append("<td class=\'status\'>"+plan.status+"<button class=\'pressed\'>overwrite?</button>"+"</td>");
       /* end */
       if (plan.author !== undefined){
         plan.author.forEach(function(pt){
@@ -24,7 +24,7 @@
         });
       }
       if (plan.text !== undefined && plan.text.div != ''){
-        last_row.append("<td class=\'details\'>"+plan.text.div+"<button id=\'subjectdetails\'>variguard?</button>"+"</td>");
+        last_row.append("<td class=\'details\'>"+plan.text.div+"<button class=\'subjectdetails\'>variguard?</button>"+"</td>");
         $('.details > div').addClass('plan-raw'); //For Later
       } else {
         console.warn('No details enlisted for this encounter plan for subject, please advise');

@@ -151,13 +151,12 @@
             plans = drawVisualization(data);
             findCarePlans(plans); //add the patients plans to the table above
 
-            $('.pressed').click(function(event){
+            $('.pressed').click(function pressbind(event){
               if (document.getElementsByClassName('finished').length > 0){
                 alert("you can only edit one care plan at a time");
               } else {
                 $element = $(this);
                 console.log(event);
-                console.log("I was clicked!!");
                 var cell = $element.parent();
                 var id = $element.attr('id');
                 this.remove(); //delete the button
@@ -178,6 +177,7 @@
                         var value = input.val();
                         cell.html(value+"<button class=\'pressed\' id=\'"+id+"\'>overwrite?</button>");
                         $lastmodified = cell.siblings('td .modified #'+id);
+                        console.log($lastmodified);
                         _date = new Date().toISOString();
                         $lastmodified.html(_date);
                   } else {
@@ -197,16 +197,16 @@
                     alert("Please insert a value of draft, active, cancelled, proposed, or suspended");
                   };
                 };
+                  $('.pressed').click(pressbind);
               });
              };
             });
 
             $('.subjectdetails').click(function(event){
               $('.subjectdetails').prop('disabled', true);
-              console.log("I was clicked!!!");
               id = $(event.target).attr('id');
               status = $('.status #'+id);
-              status.text('draft'); //change the request to 'draft' state
+              status.html('draft'); //change the request to 'draft' state
               $details = $(this).parent();
               toggleBox = $('#toggleBox');
               toggleBox.prepend($details.html());

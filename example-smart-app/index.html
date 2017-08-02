@@ -135,6 +135,7 @@
 
     </div>
 
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>
     <script src='./src/js/setupplans.js'></script>
     <script src='./lib/es6-shim-0.35.1.min.js'></script>
     <script src='./src/js/example-smart-app.js'></script>
@@ -143,7 +144,6 @@
     <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
     <!-- https://github.com/cerner/fhir-client-cerner-additions -->
     <script src='./lib/fhir-client-cerner-additions-1.0.0.js'></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script>
 
         extractData().then(function(data){
@@ -155,7 +155,6 @@
               if (document.getElementsByClassName('finished').length > 0){
                 alert("you can only edit one care plan at a time");
               } else {
-                $('.pressed').prop('disabled', true);
                 $element = $(this);
                 console.log(event);
                 var cell = $element.parent();
@@ -167,10 +166,12 @@
                 var input = "<input type='text' value='"+content+"'>";
                 cell.prepend(input);
                 cell.children('button').addClass('finished');
+                cell.children('.finished').text('finished');
                 $lastmodified = cell.parent().children('.modified #'+id);
                 console.log($lastmodified);
                 _date = new Date().toISOString();
                 $lastmodified.html(_date);
+                $('.pressed').prop('disabled', true);
              };
             });
 
@@ -183,6 +184,7 @@
               cell.children('input').remove();
               cell.append(content);
               $(cell).children('button').removeClass('finished');
+              $('.pressed').prop('disabled', false);
             });
 
           $('.subjectdetails').click(function(event){

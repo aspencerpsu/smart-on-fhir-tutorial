@@ -60,6 +60,7 @@
   };
 
   function rotatethroughstatus(stat, arr, id){
+    console.log("I'm rotating");
    arr.map(function(val, ind){ val == stat ? $('.multiple #'+id).prepend("<option selected=\'selected\'>"+stat+"</option>") : 
                                              $('.multiple #'+id).append("<option>"+stat+"</option>");
    });

@@ -21,6 +21,12 @@
     </style>
   </head>
   <body>
+    <div id='subjectinfo'>
+      <div id="togglebox">
+        <button id='done'>Done</button>
+        <button id='completed'>Completed</button>
+      </div>
+    </div>
     <div id='errors'>
     </div>
     <div id="loading" class="spinner">
@@ -80,12 +86,6 @@
       </table>
     <h2>Emergency Guardians/Contacts</h2>
     <table class="contacts">
-      <div id='subjectinfo'>
-        <div id="togglebox">
-          <button id='done'>Done</button>
-          <button id='completed'>Completed</button>
-        </div>
-      </div>
       <thead>
         <tr>
           <th><em><u>Attributes</u></em</th>
@@ -151,7 +151,22 @@
             plans = drawVisualization(data);
             findCarePlans(plans); //add the patients plans to the table above
 
+            function replaceplan(event){
+              //change the input to a regular text node
+              console.log(event);
+              var cell = $(event.target).parent();
+              var id = $(this).attr('id');
+              var content = cell.children('input').val();
+              cell.children('input').remove();
+              cell.append(content);
+              $(cell).children('button').removeClass('finished');
+              $('.pressed').prop('disabled', false);
+              $(this).addClass('pressed');
+            };
+
+
             $('.pressed').click(function pressbind(event){
+                $(this).on('click', pressbind);
                 $element = $(this);
                 $element.off();
                 var cell = $element.parent();
@@ -172,20 +187,6 @@
                 $element.on('click', replaceplan);
             });
 
-            $('.finished').click(function replaceplan(event){
-              //change the input to a regular text node
-              console.log(event);
-              var cell = $(event.target).parent();
-              var id = $(this).attr('id');
-              var content = cell.children('input').val();
-              cell.children('input').remove();
-              cell.append(content);
-              $(cell).children('button').removeClass('finished');
-              $('.pressed').prop('disabled', false);
-              $(this).addClass('pressed');
-              $(this).on('click', pressbind);
-            });
-
           $('.subjectdetails').click(function(event){
             var id = $(this).attr('id');
             $status = $("select[name=stat"+id+"]");
@@ -203,7 +204,7 @@
             $('.subjectdetails').prop('disabled', true);
           });
 
-          $('.done').click(function(event){
+          $('#done').click(function(event){
             console.log("I was clicked...");
             status_id = "#"+this.id;
             $('.done').attr('id', '');
@@ -221,15 +222,15 @@
             $lastmodified.html(_date);
           });
 
-          $('.completed').click(function(event){
+          $('#completed').click(function(event){
             status_id = "#"+this.id;
             console.log("I was clicked...");
             makesure = confirm("Are you sure you would like to complete this, you cannot request provisions once completed");
             if (makesure) {
               row = $("#"+status_id + ".multiple").parent().parent();
               row.remove(); //remove from the carePlan table;
-              $('.done').attr('id', '');
-              $('.completed').attr('id', '');
+              $('#done').attr('id', '');
+              $('#completed').attr('id', '');
               $lastmodified = $('.modified #'+status_id);
               _date = new Date().toISOString();
               $lastmodified.html(_date);

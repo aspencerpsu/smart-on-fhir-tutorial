@@ -153,15 +153,18 @@
 
             function replaceplan(event){
               //change the input to a regular text node
+              $(this).off();
               console.log(event);
               var cell = $(event.target).parent();
               var id = $(this).attr('id');
               var content = cell.children('input').val();
               cell.children('input').remove();
-              cell.append(content);
+              $(this).children('button').text('overwrite?');
+              cell.prepend(content);
               $(cell).children('button').removeClass('finished');
               $('.pressed').prop('disabled', false);
               $(this).addClass('pressed');
+              $(this).on('click', pressbind);
             };
 
 
@@ -176,6 +179,7 @@
                 var raw_text = content.slice(0, content.match(re).index);
                 console.log([event, raw_text, content]);
                 var input = "<input type='text' value='"+raw_text+"'>";
+                cell.text("");
                 cell.prepend(input);
                 cell.children('button').addClass('finished');
                 $(this).removeClass('pressed');
@@ -209,7 +213,7 @@
             status_id = "#"+this.id;
             $('.done').attr('id', '');
             $('.completed').attr('id', '');
-            $toggleBox = $('#toggleBox');
+            $toggleBox = $('#togglebox');
             $('.plan-raw').remove(); //erase everything from the patient activity details
 
             $toggleBox.toggle();
@@ -231,6 +235,9 @@
               row.remove(); //remove from the carePlan table;
               $('#done').attr('id', '');
               $('#completed').attr('id', '');
+              $toggleBox = $('#togglebox');
+              $('.plan-raw').remove();
+              $toggleBox.toggle();
               $lastmodified = $('.modified #'+status_id);
               _date = new Date().toISOString();
               $lastmodified.html(_date);

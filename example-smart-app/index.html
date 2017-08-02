@@ -166,7 +166,7 @@
                 console.log(content);
                 var raw_text = cell.slice(0, content.match(re).index);
                 var input = "<input type='text' value='"+raw_text+"'>";
-                cell.innerHTML = input + " " + "<button class=\'finished\'>finished</button>";
+                cell.html(input + " " + "<button class=\'finished\'>finished</button>");
 
                 $('.finished').click(function(event){
                   //change the input to a regular text node

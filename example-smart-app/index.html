@@ -23,8 +23,8 @@
   <body>
     <div id='subjectinfo'>
       <div id="togglebox">
-        <button id='done'>Done</button>
-        <button id='completed'>Completed</button>
+        <button class='done'>Done</button>
+        <button class='completed'>Completed</button>
       </div>
     </div>
     <div id='errors'>
@@ -153,28 +153,28 @@
 
             function replaceplan(event){
               //change the input to a regular text node
-              $(this).off();
+              $element = $(this)
+              $element.off('click');
               console.log(event);
               var cell = $(event.target).parent();
-              var id = $(this).attr('id');
+              var id = $element.attr('id');
               var content = cell.children('input').val();
               cell.children('input').remove();
-              $(this).children('button').text('overwrite?');
+              $element.children('button').text('overwrite?');
               cell.prepend(content);
               $(cell).children('button').removeClass('finished');
               $('.pressed').prop('disabled', false);
-              $(this).addClass('pressed');
-              $(this).on('click', pressbind);
+              $element.addClass('pressed');
+              $(this).click(pressbind);
             };
             
             function notesParser(){
               //Parsing the plan-div
             }
-
-            $('.pressed').click(function pressbind(event){
-                $(this).on('click', pressbind);
+            
+            function pressbind(event){
                 $element = $(this);
-                $element.off();
+                $element.off('click', '#'+this.id + '.'+this.className);
                 var cell = $element.parent();
                 var id = $element.attr('id');
                 var re = /<button .*>overwrite\?<\/button>/i;
@@ -193,8 +193,11 @@
                 _date = new Date().toISOString();
                 $lastmodified.html(_date);
                 $('.pressed').not('.finished').prop('disabled', true);
-                $element.on('click', replaceplan);
-            });
+                $element.click(replaceplan);
+            };
+
+
+          $('.pressed').click(pressbind);
 
           $('.subjectdetails').click(function(event){
             var id = $(this).attr('id');
@@ -213,7 +216,7 @@
             $('.subjectdetails').prop('disabled', true);
           });
 
-          $('#done').click(function(event){
+          $('.done').click(function(event){
             console.log("I was clicked...");
             status_id = "#"+this.id;
             $('.done').attr('id', '');
@@ -232,15 +235,15 @@
             $lastmodified.html(_date);
           });
 
-          $('#completed').click(function(event){
+          $('.completed').click(function(event){
             status_id = "#"+this.id;
             console.log("I was clicked...");
             makesure = confirm("Are you sure you would like to complete this, you cannot request provisions once completed");
             if (makesure) {
               row = $("#"+status_id + ".multiple").parent().parent();
               row.remove(); //remove from the carePlan table;
-              $('#done').attr('id', '');
-              $('#completed').attr('id', '');
+              $('.done').attr('id', '');
+              $('.completed').attr('id', '');
               $toggleBox = $('#togglebox');
               $('.plan-raw').remove();
               $toggleBox.toggle();

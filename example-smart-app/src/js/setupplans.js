@@ -42,6 +42,7 @@
         console.warn('No details enlisted for this encounter plan for subject, please advise');
       };
       /* end */
+
       /* MODIFICATIONS */
       if (plan.modified == undefined && plan.meta == undefined){
         console.warn('No log sheet for patient\'s care provision, please address immediately');
@@ -52,6 +53,7 @@
       } else{
         console.error("Something wrong with the updated time stamp for this plan");
       };
+      /* end */
       //Initialize adding rows
       plans.length -1 != index ? $('.care > tbody').append("<tr></tr>") : '' //move onto the next thing
      });

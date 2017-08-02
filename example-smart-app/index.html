@@ -158,11 +158,12 @@
                 $element = $(this);
                 console.log(event);
                 console.log("I was clicked!!");
-                var cell = event.toElement.parentNode;
-                var id = event.toElement.id;
+                var cell = $element.parent();
+                var id = $element.attr('id');
                 this.remove(); //delete the button
                 var re = /<button .*>overwrite\?<\/button>/i;
-                var content = cell.innerHTML;
+                var content = cell.html();
+                console.log(content);
                 var raw_text = cell.slice(0, content.match(re).index);
                 var input = "<input type='text' value='"+raw_text+"'>";
                 cell.innerHTML = input + " " + "<button class=\'finished\'>finished</button>";
@@ -170,28 +171,29 @@
                 $('.finished').click(function(event){
                   //change the input to a regular text node
                   console.log(event);
-                  cell = event.toElement.parentNode;
-                  if (!event.target.parent().is("td .status #"+event.toElement.id)){
-                        var input = cell.firstNode;
-                        var value = input.attr('value');
-                        cell.innerHTML = value+"<button class=\'pressed\' id=\'"+id+"\'>overwrite?</button>";
-                        $lastmodified = event.target.parent().siblings('td .modified #'+id);
+                  cell = $(event.target).parent();
+                  id = cell.attr("id");
+                  if (!cell.is("td .status #"+cell.attr("id"))){
+                        var input = cell.children('input');
+                        var value = input.val();
+                        cell.html(value+"<button class=\'pressed\' id=\'"+id+"\'>overwrite?</button>");
+                        $lastmodified = cell.siblings('td .modified #'+id);
                         _date = new Date().toISOString();
                         $lastmodified.html(_date);
                   } else {
-                    if (event.target.siblings('input').val() == "cancelled"){
+                    if (cell.children('input').val() == "cancelled"){
                       cancellation_confirmation = confirm("Are you sure you'd like to cancel?");
                       if (cancellation_confirmation){
-                        var input = cell.firstNode;
-                        var value = input.attr('value');
-                        cell.innerHTML = value+"<button class=\'pressed\' id=\'"+id+"\'>overwrite?</button>";
-                        $lastmodified = event.target.parent().siblings('td .modified #'+id);
+                        var input = cell.children('input');
+                        var value = input.val();
+                        cell.html(value+"<button class=\'pressed\' id=\'"+id+"\'>overwrite?</button>");
+                        $lastmodified = cell.siblings('td .modified #'+id);
                         _date = new Date().toISOString();
                         $lastmodified.html(_date);
                       };
-                    } else if (event.target.siblings('input').val() == "draft"){
+                    } else if (cell.children('input').val() == "draft"){
                     alert("Please change the scope of the Care Plan through the 'variguard' option to the right");
-                  } else if (event.target.siblings('input').val().match(/completed|active|cancelled|draft|suspended/i) == null){
+                  } else if (cell.children('input').val().match(/completed|active|cancelled|draft|suspended/i) == null){
                     alert("Please insert a value of draft, active, cancelled, proposed, or suspended");
                   };
                 };
@@ -202,7 +204,7 @@
             $('.subjectdetails').click(function(event){
               $('.subjectdetails').prop('disabled', true);
               console.log("I was clicked!!!");
-              id = event.toElement.id;
+              id = $(event.target).attr('id');
               status = $('.status #'+id);
               status.text('draft'); //change the request to 'draft' state
               $details = $(this).parent();

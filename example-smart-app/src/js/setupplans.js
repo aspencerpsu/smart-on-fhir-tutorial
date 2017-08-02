@@ -46,8 +46,8 @@
           last_row.append("<td class=\'modified\' id=\'"+plan.id+"\'>"+plan.modified+"</td>");
         } else if (plan.meta !== undefined && plan.meta.lastUpdated !== undefined){
           last_row.append("<td class=\'modified\' id=\'"+plan.id+"\'>"+plan.modified+"</td>");
-        }  else{
-             console.error("Something wrong with the updated time stamp for this plan");
+        } else{
+          console.error("Something wrong with the updated time stamp for this plan");
         };
       //Initialize adding rows
      }

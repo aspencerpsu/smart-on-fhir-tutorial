@@ -153,6 +153,7 @@
 
             $('.pressed').click(function pressbind(event){
                 $element = $(this);
+                $element.off();
                 var cell = $element.parent();
                 var id = $element.attr('id');
                 var re = /<button .*>overwrite\?<\/button>/i;
@@ -182,12 +183,13 @@
               $(cell).children('button').removeClass('finished');
               $('.pressed').prop('disabled', false);
               $(this).addClass('pressed');
+              $(this).on('click', pressbind);
             });
 
           $('.subjectdetails').click(function(event){
             var id = $(this).attr('id');
             $status = $("select[name=stat"+id+"]");
-            console.log(status);
+            console.log($status);
             $status.children().filter(':selected').prop("selected", false);
             $status.children().filter(':last').prop("selected", true); //TURN THE STATUS TO DRAFT
 

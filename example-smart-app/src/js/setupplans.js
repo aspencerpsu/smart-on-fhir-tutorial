@@ -22,7 +22,7 @@
 
       /*STATUS*/
       //Status IS ALWAYS defined within the carePlan Resource; No need for conditional logics
-      last_row.append("<td class=\'status\'>"+"<select class=multiple id='"+plan.id"'></select>"+"</td>");
+      last_row.append("<td class=\'status\'>"+"<select class=multiple id='"+plan.id+"'></select>"+"</td>");
       statuses = ['active', 'cancelled', 'suspended', 'completed', 'draft'];
       rotatethroughstatus(plan.status, statuses, plan.id);
 

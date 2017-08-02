@@ -194,12 +194,14 @@
                 $lastmodified.html(_date);
                 $('.pressed').not('.finished').prop('disabled', true);
                 $element.click(replaceplan);
+                $('.finished).on('click', replaceplan);
+                console.log(["I'm working beyond 197", $('.finished')]);
             };
 
 
           $('.pressed').click(pressbind);
 
-          $('.subjectdetails').click(function(event){
+          $('.subjectdetails').click(function rationdetails(event){
             var id = $(this).attr('id');
             $status = $("select[name=stat"+id+"]");
             console.log($status);
@@ -231,8 +233,11 @@
             $status.children().filter(':first').prop("selected", true); //revert back to active
             $lastmodified = $('.modified #'+status_id);
             $('.subjectdetails').prop('disabled', false);
+            console.log("subject details are no longer disabled");
             _date = new Date().toISOString();
             $lastmodified.html(_date);
+            $('.subjectdetails').on('click', rationdetails);
+            console.log("we can now create details");
           });
 
           $('.completed').click(function(event){

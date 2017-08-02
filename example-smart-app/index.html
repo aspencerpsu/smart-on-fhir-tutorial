@@ -193,12 +193,13 @@
               //Parsing the plan-div
               $("<textarea name=pad wrap=hard></textarea>").insertBefore('#togglebox > .plan-raw > pre:first');
               $('#togglebox > .plan-raw > pre').each(function(index, val){
-                $('textarea').append(this);
+                $('textarea').append($( this ).text() +" <br> <hr> -------");
               });
               $('#togglebox > .plan-raw > pre').remove();
               $('.plan-raw > p > b').each(function(enumer, val){
                 if (val.innerText.toLowerCase() == "effective date/time"){
                   val.remove();
+                  $( this ).parent().remove();
                 } else {
                   console.log(val.innerText);
                 };
@@ -276,7 +277,6 @@
             console.log("subject details are no longer disabled");
             _date = new Date().toISOString();
             $lastmodified.html(_date);
-            $('.subjectdetails').on('click', rationdetails);
             $('#subjectinfo').css('background-color', '');
             $('#subjectinfo').css('opacity', '1');
           });

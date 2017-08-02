@@ -167,11 +167,12 @@
               $element.addClass('pressed');
               $element.click(pressbind);
               $('pressed').on('click', pressbind);
-              $('subjectdetails').prop('disabled', false);
+              $('.subjectdetails').prop('disabled', false);
             };
             
-            function notesParser(){
+            function noteParser(){
               //Parsing the plan-div
+              $('.plan-raw');
             }
             
             function pressbind(event){

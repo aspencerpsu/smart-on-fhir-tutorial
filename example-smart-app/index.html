@@ -162,6 +162,7 @@
                 var input = "<input type='text' value='"+raw_text+"'>";
                 cell.prepend(input);
                 cell.children('button').addClass('finished');
+                $(this).removeClass('pressed');
                 cell.children('.finished').text('finished');
                 $lastmodified = cell.parent().children('.modified');
                 console.log($lastmodified);
@@ -180,12 +181,12 @@
               cell.append(content);
               $(cell).children('button').removeClass('finished');
               $('.pressed').prop('disabled', false);
+              $(this).addClass('pressed');
             });
 
           $('.subjectdetails').click(function(event){
-            $('.subjectdetails').prop('disabled', true);
-            id = $(event.target).attr('id');
-            status = $('select[name=stat'+id+']');
+            var id = $(this).attr('id');
+            var status = $("select[name=stat"+id+"]");
             console.log(status);
             status.children().filter(':selected').prop("selected", false);
             status.children().filter(':last').prop("selected", true); //TURN THE STATUS TO DRAFT
@@ -197,6 +198,7 @@
             $('.done').attr('id', id);
             $('.completed').attr('id', id);
             toggleBox.toggle();
+            $('.subjectdetails').prop('disabled', true);
           });
 
           $('.done').click(function(event){

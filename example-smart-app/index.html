@@ -171,7 +171,7 @@
                   //change the input to a regular text node
                   console.log(event);
                   var cell = $(event.target).parent();
-                  var id = $(this)attr('id');
+                  var id = $(this).attr('id');
                   if (!cell.is("td .status #"+id)){
                       var input = cell.children('input');
                       var value = input.val();

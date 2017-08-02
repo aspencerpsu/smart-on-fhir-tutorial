@@ -161,11 +161,11 @@
                 var cell = $element.parent();
                 var id = $element.attr('id');
                 this.remove(); //delete the button
-                var re = /<button .*>overwrite\?<\/button>/i;
+                //var re = /<button .*>overwrite\?<\/button>/i;
                 var content = cell.html();
                 console.log(content);
-                var raw_text = cell.slice(0, content.match(re).index);
-                var input = "<input type='text' value='"+raw_text+"'>";
+                //var raw_text = cell.slice(0, content.match(re).index);
+                var input = "<input type='text' value='"+content+"'>";
                 cell.html(input + " " + "<button class=\'finished\'>finished</button>");
 
                 $('.finished').click(function(event){

@@ -155,104 +155,89 @@
               if (document.getElementsByClassName('finished').length > 0){
                 alert("you can only edit one care plan at a time");
               } else {
+                $('.pressed').prop('disabled', true);
                 $element = $(this);
                 console.log(event);
                 var cell = $element.parent();
                 var id = $element.attr('id');
-                this.remove(); //delete the button
-                //var re = /<button .*>overwrite\?<\/button>/i;
+                var re = /<button .*>overwrite\?<\/button>/i;
                 var content = cell.html();
                 console.log(content);
-                //var raw_text = cell.slice(0, content.match(re).index);
+                var raw_text = cell.slice(0, content.match(re).index);
                 var input = "<input type='text' value='"+content+"'>";
-                cell.html(input + " " + "<button class=\'finished\'>finished</button>");
-
-                $('.finished').click(function(event){
-                  //change the input to a regular text node
-                  console.log(event);
-                  var cell = $(event.target).parent();
-                  var id = $(this).attr('id');
-                  if (!cell.is("td .status #"+id)){
-                      var input = cell.children('input');
-                      var value = input.val();
-                      cell.html(value+"<button class=\'pressed\' id=\'"+id+"\'>overwrite?</button>");
-                      $('.pressed #'+id).click(pressbind);
-                      $lastmodified = cell.parent().children('.modified #'+id);
-                      console.log($lastmodified);
-                      _date = new Date().toISOString();
-                      $lastmodified.html(_date);
-                  } else {
-                    if (cell.children('input').val() == "cancelled"){
-                      cancellation_confirmation = confirm("Are you sure you'd like to cancel?");
-                      if (cancellation_confirmation){
-                        var input = cell.children('input');
-                        var value = input.val();
-                        cell.html(value+"<button class=\'pressed\' id=\'"+id+"\'>overwrite?</button>");
-                        $('.pressed #'+id).click(pressbind);
-                        $lastmodified = cell.parent().children('.modified #'+id);
-                        _date = new Date().toISOString();
-                        $lastmodified.html(_date);
-                      };
-                    } else if (cell.children('input').val() == "draft"){
-                    alert("Please change the scope of the Care Plan through the 'variguard' option to the right");
-                  } else if (cell.children('input').val().match(/completed|active|cancelled|draft|suspended/i) == null){
-                    alert("Please insert a value of draft, active, cancelled, proposed, or suspended");
-                  };
-                };
-              });
+                cell.prepend(input);
+                cell.children('button').addClass('finished');
+                $lastmodified = cell.parent().children('.modified #'+id);
+                console.log($lastmodified);
+                _date = new Date().toISOString();
+                $lastmodified.html(_date);
              };
             });
 
-            $('.subjectdetails').click(function(event){
-              $('.subjectdetails').prop('disabled', true);
-              id = $(event.target).attr('id');
-              status = $('.status #'+id);
-              status.html('draft'); //change the request to 'draft' state
-              $details = $(this).parent();
-              toggleBox = $('#toggleBox');
-              toggleBox.prepend($details.html());
-              $("#toggleBox .subjectdetails").remove(); //remove thesubjectdetails button from the subject info
-              $('.done').attr('id', id);
-              $('.completed').attr('id', id);
-              toggleBox.toggle();
+            $('.finished').click(function(event){
+              //change the input to a regular text node
+              console.log(event);
+              var cell = $(event.target).parent();
+              var id = $(this).attr('id');
+              var content = cell.children('input').val();
+              cell.children('input').remove();
+              cell.append(content);
+              $(cell).children('button').removeClass('finished');
             });
 
-            $('.done').click(function(event){
-              console.log("I was clicked...");
-              status_id = "#"+this.id;
+          $('.subjectdetails').click(function(event){
+            $('.subjectdetails').prop('disabled', true);
+            id = $(event.target).attr('id');
+            status = $('.multiple #'+id);
+            console.log(status);
+            status.children().filter(':selected').prop("selected", false);
+            status.children().filter(':last').prop("selected", true); //TURN THE STATUS TO DRAFT
+
+            $details = $(this).parent();
+            toggleBox = $('#toggleBox');
+            toggleBox.prepend($details.html());
+            $('#toggleBox .subjectdetails').hide();
+            $('.done').attr('id', id);
+            $('.completed').attr('id', id);
+            toggleBox.toggle();
+          });
+
+          $('.done').click(function(event){
+            console.log("I was clicked...");
+            status_id = "#"+this.id;
+            $('.done').attr('id', '');
+            $('.completed').attr('id', '');
+            toggleBox = $('#toggleBox');
+            $('.plan-raw').remove(); //erase everything from the patient activity details
+
+            toggleBox.toggle();
+
+            status = $(".multiple #"+status_id);
+            status.children().filter(':selected').prop("selected", false);
+            status.children().filter(':first').prop("selected", true); //revert back to active
+            $lastmodified = $('.modified #'+status_id);
+            _date = new Date().toISOString();
+            $lastmodified.html(_date);
+          });
+
+          $('.completed').click(function(event){
+            status_id = "#"+this.id;
+            console.log("I was clicked...");
+            makesure = confirm("Are you sure you would like to complete this, you cannot request provisions once completed");
+            if (makesure) {
+              row = $("#"+status_id + ".multiple").parent().parent();
+              row.remove(); //remove from the carePlan table;
               $('.done').attr('id', '');
               $('.completed').attr('id', '');
-              toggleBox = $('#toggleBox');
-              $('.plan-raw').remove(); //erase everything from the patient activity details
-
-              toggleBox.toggle();
-
-              status = $(".status "+status_id);
-              status.text('active'); //revert back to active
-              $lastmodified = $('td .modified #'+status_id);
+              $lastmodified = $('.modified #'+status_id);
               _date = new Date().toISOString();
               $lastmodified.html(_date);
-              toggleBox = $('#togglebox');
-            });
+             } else {
 
-            $('.completed').click(function(event){
-              status_id = "#"+this.id;
-              console.log("I was clicked...");
-              makesure = confirm("Are you sure you would like to complete this, you cannot edit once completed");
-              if (makesure) {
-                row = $(status_id + " " + ".status").parent();
-                row.remove(); //remove from the carePlan table;
-                $('.done').attr('id', '');
-                $('.completed').attr('id', '');
-                $lastmodified = $('td .modified #'+status_id);
-                _date = new Date().toISOString();
-                $lastmodified.html(_date);
-               } else {
-
-                 // No further action required
-               }
-            });
-        },
+               // No further action required
+             }
+          });
+      },
         //Display 'Failed to call FHIR Service' if extractData failed
         function(){
               $('#loading').hide();

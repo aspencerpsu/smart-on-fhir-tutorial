@@ -8,6 +8,7 @@
     <link rel='stylesheet' type='text/css' href='./src/css/example-smart-app.css'>
     <link rel='stylesheet' type='text/css' href='./src/css/print.css'>
     <link rel='stylesheet' type='text/css' href='./src/css/screen.css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet'/>
     <style>
       .pending {
         color:  #3b584b;
@@ -15,8 +16,26 @@
       .details .plan-raw {
         display: none;
       }
-      #togglebox{
+
+      #subjectinfo{
+        display: show;
+        width: 100%;
+        height: 100vh;
+        opacity: 100%;
+      }
+
+      #togglebox {
         display: none;
+        text-align: center;
+        margin: 100px auto;
+        background-color: '#f8f6f4';
+        padding 50px;
+        position: fixed;
+      }
+
+      textarea {
+        font-family: 'Roboto Slab', serif;
+        line-height: 225%;
       }
     </style>
   </head>
@@ -172,8 +191,19 @@
             
             function noteParser(){
               //Parsing the plan-div
-              $('.plan-raw');
-            }
+              $written = $('.plan-raw > pre:first');
+              $("<textarea name=pad wrap=hard></textarea>").insertBefore('.plan-raw > pre:first');
+              $('.plan-raw > pre').each(function(index, val){
+                $('textarea').append(val);
+              });
+              $('.plan-raw > pre').remove();
+              $('.plan-raw > p > b').each(function(enumer, val){
+                if (val.text().toLowerCase() == "effective date/time"){
+                  val.remove();
+                } else {
+                  console.log(val.text());
+                };
+            });
             
             function pressbind(event){
                 $element = $(this);
@@ -221,6 +251,12 @@
             $('.completed').attr('id', id);
             $toggleBox.toggle();
             $('.subjectdetails').prop('disabled', true);
+
+
+            /* Present the subject detail front and center */
+            $('#subjectinfo').css('background-color', 'white');
+            $('#subjectinfo').css('opacity', '.6');
+            noteParser(); //configure the subject details box to fit in middle of screen
           });
 
           $('.done').click(function(event){
@@ -241,23 +277,24 @@
             _date = new Date().toISOString();
             $lastmodified.html(_date);
             $('.subjectdetails').on('click', rationdetails);
+            $('#subjectinfo').css('background-color', '');
+            $('#subjectinfo').css('opacity', '1');
           });
 
           $('.completed').click(function(event){
             status_id = "#"+this.id;
             makesure = confirm("Are you sure you would like to complete this, you cannot request provisions once completed");
             if (makesure) {
-              row = $("#"+status_id + ".multiple").parent().parent();
+              row = $("tr #"+status_id);
               row.remove(); //remove from the carePlan table;
               $('.done').attr('id', '');
               $('.completed').attr('id', '');
               $toggleBox = $('#togglebox');
-              $('.plan-raw').remove();
               $toggleBox.toggle();
-              $lastmodified = $('.modified #'+status_id);
-              _date = new Date().toISOString();
-              $lastmodified.html(_date);
               $('.subjectdetails').on('click', rationdetails);
+
+              $('#subjectinfo').css('background-color', '');
+              $('#subjectinfo').css('opacity', '1');
              } else {
 
                // No further action required

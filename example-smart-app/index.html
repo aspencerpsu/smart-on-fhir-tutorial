@@ -167,6 +167,7 @@
               $element.addClass('pressed');
               $element.click(pressbind);
               $('pressed').on('click', pressbind);
+              $('subjectdetails').prop('disabled', false);
             };
             
             function notesParser(){
@@ -193,10 +194,12 @@
                 $lastmodified = cell.parent().children('.modified');
                 _date = new Date().toISOString();
                 $lastmodified.html(_date);
+
+                /* Disable the modification to care plan to finish one at a time */
                 $('.pressed').not('.finished').prop('disabled', true);
+                $('.subjectdetails').prop('disabled', true);
                 $element.click(replaceplan);
                 $('.finished').on('click', replaceplan);
-                console.log(["I'm working beyond 197", $('.finished')]);
             };
 
 
@@ -220,12 +223,11 @@
           });
 
           $('.done').click(function(event){
-            console.log("I was clicked...");
             var status_id = this.id;
             $('.done').attr('id', '');
             $('.completed').attr('id', '');
             $toggleBox = $('#togglebox');
-            $('.plan-raw').remove(); //erase everything from the patient activity details
+            $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details
 
             $toggleBox.toggle();
 
@@ -238,12 +240,10 @@
             _date = new Date().toISOString();
             $lastmodified.html(_date);
             $('.subjectdetails').on('click', rationdetails);
-            console.log("we can now create details");
           });
 
           $('.completed').click(function(event){
             status_id = "#"+this.id;
-            console.log("I was clicked...");
             makesure = confirm("Are you sure you would like to complete this, you cannot request provisions once completed");
             if (makesure) {
               row = $("#"+status_id + ".multiple").parent().parent();
@@ -256,6 +256,7 @@
               $lastmodified = $('.modified #'+status_id);
               _date = new Date().toISOString();
               $lastmodified.html(_date);
+              $('.subjectdetails').on('click', rationdetails);
              } else {
 
                // No further action required

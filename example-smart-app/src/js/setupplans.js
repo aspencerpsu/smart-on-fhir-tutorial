@@ -61,7 +61,7 @@
 
   function rotatethroughstatus(stat, arr, id){
    arr.map(function(val, ind){ val == stat ? $('select[name=stat'+id+']').prepend("<option selected=\'selected\'>"+stat+"</option>") :
-                                             $('select[name=stat'+id+']').append("<option>"+stat+"</option>");
+                                             $('select[name=stat'+id+']').append("<option>"+val+"</option>");
    });
   }
 

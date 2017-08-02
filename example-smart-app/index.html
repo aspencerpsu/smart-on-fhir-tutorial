@@ -157,7 +157,7 @@
                 var id = $element.attr('id');
                 var re = /<button .*>overwrite\?<\/button>/i;
                 var content = String.prototype.toString.call(cell.html());
-                var raw_text = cell.slice(0, content.match(re).index);
+                var raw_text = content.slice(0, content.match(re).index);
                 console.log([event, raw_text, content]);
                 var input = "<input type='text' value='"+raw_text+"'>";
                 cell.prepend(input);
@@ -170,7 +170,7 @@
                 $('.pressed').not('.finished').prop('disabled', true);
             });
 
-            $('.finished .pressed').click(function(event){
+            $('.finished').click(function(event){
               //change the input to a regular text node
               console.log(event);
               var cell = $(event.target).parent();

@@ -186,18 +186,18 @@
 
           $('.subjectdetails').click(function(event){
             var id = $(this).attr('id');
-            var status = $("select[name=stat"+id+"]");
+            $status = $("select[name=stat"+id+"]");
             console.log(status);
-            status.children().filter(':selected').prop("selected", false);
-            status.children().filter(':last').prop("selected", true); //TURN THE STATUS TO DRAFT
+            $status.children().filter(':selected').prop("selected", false);
+            $status.children().filter(':last').prop("selected", true); //TURN THE STATUS TO DRAFT
 
             $details = $(this).parent();
-            toggleBox = $('#toggleBox');
-            toggleBox.prepend($details.html());
+            $toggleBox = $('#toggleBox');
+            $toggleBox.prepend($details.html());
             $('#toggleBox .subjectdetails').hide();
             $('.done').attr('id', id);
             $('.completed').attr('id', id);
-            toggleBox.toggle();
+            $toggleBox.toggle();
             $('.subjectdetails').prop('disabled', true);
           });
 
@@ -206,14 +206,14 @@
             status_id = "#"+this.id;
             $('.done').attr('id', '');
             $('.completed').attr('id', '');
-            toggleBox = $('#toggleBox');
+            $toggleBox = $('#toggleBox');
             $('.plan-raw').remove(); //erase everything from the patient activity details
 
-            toggleBox.toggle();
+            $toggleBox.toggle();
 
-            status = $("select[name=stat"+status_id+"]");
-            status.children().filter(':selected').prop("selected", false);
-            status.children().filter(':first').prop("selected", true); //revert back to active
+            $status = $("select[name=stat"+status_id+"]");
+            $status.children().filter(':selected').prop("selected", false);
+            $status.children().filter(':first').prop("selected", true); //revert back to active
             $lastmodified = $('.modified #'+status_id);
             _date = new Date().toISOString();
             $lastmodified.html(_date);

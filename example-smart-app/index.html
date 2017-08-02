@@ -156,22 +156,20 @@
                 alert("you can only edit one care plan at a time");
               } else {
                 $element = $(this);
-                console.log(event);
                 var cell = $element.parent();
                 var id = $element.attr('id');
                 var re = /<button .*>overwrite\?<\/button>/i;
                 var content = cell.html();
-                console.log(content);
                 var raw_text = cell.slice(0, content.match(re).index);
-                var input = "<input type='text' value='"+content+"'>";
+                var input = "<input type='text' value='"+raw_text+"'>";
                 cell.prepend(input);
                 cell.children('button').addClass('finished');
                 cell.children('.finished').text('finished');
-                $lastmodified = cell.parent().children('.modified #'+id);
+                $lastmodified = cell.parent().children('.modified');
                 console.log($lastmodified);
                 _date = new Date().toISOString();
                 $lastmodified.html(_date);
-                $('.pressed').prop('disabled', true);
+                $('.pressed').not('.finished').prop('disabled', true);
              };
             });
 

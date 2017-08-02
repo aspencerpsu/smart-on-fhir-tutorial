@@ -170,16 +170,16 @@
                 $('.finished').click(function(event){
                   //change the input to a regular text node
                   console.log(event);
-                  cell = $(event.target).parent();
-                  id = cell.attr("id");
-                  if (!cell.is("td .status #"+cell.attr("id"))){
-                        var input = cell.children('input');
-                        var value = input.val();
-                        cell.html(value+"<button class=\'pressed\' id=\'"+id+"\'>overwrite?</button>");
-                        $lastmodified = cell.siblings('td .modified #'+id);
-                        console.log($lastmodified);
-                        _date = new Date().toISOString();
-                        $lastmodified.html(_date);
+                  var cell = $(event.target).parent();
+                  var id = $(this)attr('id');
+                  if (!cell.is("td .status #"+id)){
+                      var input = cell.children('input');
+                      var value = input.val();
+                      cell.html(value+"<button class=\'pressed\' id=\'"+id+"\'>overwrite?</button>");
+                      $lastmodified = cell.siblings('td .modified #'+id);
+                      console.log($lastmodified);
+                      _date = new Date().toISOString();
+                      $lastmodified.html(_date);
                   } else {
                     if (cell.children('input').val() == "cancelled"){
                       cancellation_confirmation = confirm("Are you sure you'd like to cancel?");
@@ -197,7 +197,7 @@
                     alert("Please insert a value of draft, active, cancelled, proposed, or suspended");
                   };
                 };
-                  $('.pressed').click(pressbind);
+                  $('.pressed #'+id).click(pressbind);
               });
              };
             });

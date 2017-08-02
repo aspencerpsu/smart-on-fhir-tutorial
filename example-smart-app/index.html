@@ -140,7 +140,7 @@
     <script src='./lib/es6-shim-0.35.1.min.js'></script>
     <script src='./src/js/example-smart-app.js'></script>
     <script src='./lib/fhir-client-v0.1.11.js'></script>
-
+    
     <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
     <!-- https://github.com/cerner/fhir-client-cerner-additions -->
     <script src='./lib/fhir-client-cerner-additions-1.0.0.js'></script>
@@ -166,7 +166,10 @@
               $(this).addClass('pressed');
               $(this).on('click', pressbind);
             };
-
+            
+            function notesParser(){
+              //Parsing the plan-div
+            }
 
             $('.pressed').click(function pressbind(event){
                 $(this).on('click', pressbind);
@@ -177,10 +180,12 @@
                 var re = /<button .*>overwrite\?<\/button>/i;
                 var content = String.prototype.toString.call(cell.html());
                 var raw_text = content.slice(0, content.match(re).index);
+                var button = content.slice(content.match(re).index,);
                 console.log([event, raw_text, content]);
                 var input = "<input type='text' value='"+raw_text+"'>";
-                cell.text("");
+                cell.text('');
                 cell.prepend(input);
+                cell.append(button);
                 cell.children('button').addClass('finished');
                 $(this).removeClass('pressed');
                 cell.children('.finished').text('finished');
@@ -222,6 +227,7 @@
             $status.children().filter(':selected').prop("selected", false);
             $status.children().filter(':first').prop("selected", true); //revert back to active
             $lastmodified = $('.modified #'+status_id);
+            $('.subjectdetails').prop('disabled', false);
             _date = new Date().toISOString();
             $lastmodified.html(_date);
           });

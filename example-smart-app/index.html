@@ -160,12 +160,13 @@
               var id = $element.attr('id');
               var content = cell.children('input').val();
               cell.children('input').remove();
-              $element.children('button').text('overwrite?');
+              cell.children('button').text('overwrite?');
               cell.prepend(content);
-              $(cell).children('button').removeClass('finished');
+              cell.children('button').removeClass('finished');
               $('.pressed').prop('disabled', false);
               $element.addClass('pressed');
-              $(this).click(pressbind);
+              $element.click(pressbind);
+              $('pressed').on('click', pressbind);
             };
             
             function notesParser(){
@@ -178,7 +179,7 @@
                 var cell = $element.parent();
                 var id = $element.attr('id');
                 var re = /<button .*>overwrite\?<\/button>/i;
-                var content = String.prototype.toString.call(cell.html());
+                var content = cell.html();
                 var raw_text = content.slice(0, content.match(re).index);
                 var button = content.slice(content.match(re).index,);
                 console.log([event, raw_text, content]);
@@ -194,7 +195,7 @@
                 $lastmodified.html(_date);
                 $('.pressed').not('.finished').prop('disabled', true);
                 $element.click(replaceplan);
-                $('.finished).on('click', replaceplan);
+                $('.finished').on('click', replaceplan);
                 console.log(["I'm working beyond 197", $('.finished')]);
             };
 
@@ -220,7 +221,7 @@
 
           $('.done').click(function(event){
             console.log("I was clicked...");
-            status_id = "#"+this.id;
+            var status_id = this.id;
             $('.done').attr('id', '');
             $('.completed').attr('id', '');
             $toggleBox = $('#togglebox');

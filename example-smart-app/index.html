@@ -176,7 +176,7 @@
                       var input = cell.children('input');
                       var value = input.val();
                       cell.html(value+"<button class=\'pressed\' id=\'"+id+"\'>overwrite?</button>");
-                      $lastmodified = cell.siblings('td .modified #'+id);
+                      $lastmodified = cell.siblings('.modified #'+id);
                       console.log($lastmodified);
                       _date = new Date().toISOString();
                       $lastmodified.html(_date);
@@ -187,7 +187,7 @@
                         var input = cell.children('input');
                         var value = input.val();
                         cell.html(value+"<button class=\'pressed\' id=\'"+id+"\'>overwrite?</button>");
-                        $lastmodified = cell.siblings('td .modified #'+id);
+                        $lastmodified = cell.siblings('.modified #'+id);
                         _date = new Date().toISOString();
                         $lastmodified.html(_date);
                       };
@@ -197,7 +197,6 @@
                     alert("Please insert a value of draft, active, cancelled, proposed, or suspended");
                   };
                 };
-                  $('.pressed #'+id).click(pressbind);
               });
              };
             });

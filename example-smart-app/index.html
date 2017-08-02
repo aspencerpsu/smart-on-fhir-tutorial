@@ -185,7 +185,7 @@
           $('.subjectdetails').click(function(event){
             $('.subjectdetails').prop('disabled', true);
             id = $(event.target).attr('id');
-            status = $('select [name=stat'+id+']');
+            status = $('select[name=stat'+id+']');
             console.log(status);
             status.children().filter(':selected').prop("selected", false);
             status.children().filter(':last').prop("selected", true); //TURN THE STATUS TO DRAFT
@@ -209,7 +209,7 @@
 
             toggleBox.toggle();
 
-            status = $("select [name=stat"+status_id+"]");
+            status = $("select[name=stat"+status_id+"]");
             status.children().filter(':selected').prop("selected", false);
             status.children().filter(':first').prop("selected", true); //revert back to active
             $lastmodified = $('.modified #'+status_id);

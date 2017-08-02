@@ -166,13 +166,13 @@
                 $(this).removeClass('pressed');
                 cell.children('.finished').text('finished');
                 $lastmodified = cell.parent().children('.modified');
-                console.log($lastmodified);
                 _date = new Date().toISOString();
                 $lastmodified.html(_date);
                 $('.pressed').not('.finished').prop('disabled', true);
+                $element.on('click', replaceplan);
             });
 
-            $('.finished').click(function(event){
+            $('.finished').click(function replaceplan(event){
               //change the input to a regular text node
               console.log(event);
               var cell = $(event.target).parent();
@@ -194,9 +194,9 @@
             $status.children().filter(':last').prop("selected", true); //TURN THE STATUS TO DRAFT
 
             $details = $(this).parent();
-            $toggleBox = $('#toggleBox');
+            $toggleBox = $('#togglebox');
             $toggleBox.prepend($details.html());
-            $('#toggleBox .subjectdetails').hide();
+            $('#togglebox .subjectdetails').hide();
             $('.done').attr('id', id);
             $('.completed').attr('id', id);
             $toggleBox.toggle();

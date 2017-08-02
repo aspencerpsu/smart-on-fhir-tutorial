@@ -152,15 +152,13 @@
             findCarePlans(plans); //add the patients plans to the table above
 
             $('.pressed').click(function pressbind(event){
-              if (document.getElementsByClassName('finished').length > 0){
-                alert("you can only edit one care plan at a time");
-              } else {
                 $element = $(this);
                 var cell = $element.parent();
                 var id = $element.attr('id');
                 var re = /<button .*>overwrite\?<\/button>/i;
-                var content = cell.html();
+                var content = String.prototype.toString.call(cell.html());
                 var raw_text = cell.slice(0, content.match(re).index);
+                console.log([event, raw_text, content]);
                 var input = "<input type='text' value='"+raw_text+"'>";
                 cell.prepend(input);
                 cell.children('button').addClass('finished');
@@ -170,10 +168,9 @@
                 _date = new Date().toISOString();
                 $lastmodified.html(_date);
                 $('.pressed').not('.finished').prop('disabled', true);
-             };
             });
 
-            $('.finished').click(function(event){
+            $('.finished .pressed').click(function(event){
               //change the input to a regular text node
               console.log(event);
               var cell = $(event.target).parent();
@@ -188,7 +185,7 @@
           $('.subjectdetails').click(function(event){
             $('.subjectdetails').prop('disabled', true);
             id = $(event.target).attr('id');
-            status = $('.multiple #'+id);
+            status = $('select [name=stat'+id+']');
             console.log(status);
             status.children().filter(':selected').prop("selected", false);
             status.children().filter(':last').prop("selected", true); //TURN THE STATUS TO DRAFT
@@ -212,7 +209,7 @@
 
             toggleBox.toggle();
 
-            status = $(".multiple #"+status_id);
+            status = $("select [name=stat"+status_id+"]");
             status.children().filter(':selected').prop("selected", false);
             status.children().filter(':first').prop("selected", true); //revert back to active
             $lastmodified = $('.modified #'+status_id);

@@ -22,7 +22,7 @@
 
       /*STATUS*/
       //Status IS ALWAYS defined within the carePlan Resource; No need for conditional logics
-      last_row.append("<td class=\'status\'>"+"<select class=multiple id='"+plan.id+"'></select>"+"</td>");
+      last_row.append("<td class=\'status\'>"+"<select name='stat"+plan.id+"'></select>"+"</td>");
       statuses = ['active', 'cancelled', 'suspended', 'completed', 'draft'];
       rotatethroughstatus(plan.status, statuses, plan.id);
 
@@ -60,8 +60,8 @@
   };
 
   function rotatethroughstatus(stat, arr, id){
-   arr.map(function(val, ind){ val == stat ? [$('.multiple #'+id).prepend("<option selected=\'selected\'>"+stat+"</option>"), console.log('are you prepending?')] : 
-                                             [$('.multiple #'+id).append("<option>"+stat+"</option>"), console.log('are you appending')];
+   arr.map(function(val, ind){ val == stat ? $('select [name=stat'+id+']').prepend("<option selected=\'selected\'>"+stat+"</option>") :
+                                             $('select [name=stat'+id+']').append("<option>"+stat+"</option>");
    });
   }
 

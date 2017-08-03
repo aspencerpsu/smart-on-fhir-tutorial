@@ -265,7 +265,6 @@
           });
 
           $('input[name=done]').click(function(event){
-            event.preventDefault();
             var status_id = this.id;
             $('input[name=done]').attr('id', '');
             $('input[name=completed]').attr('id', '');
@@ -281,13 +280,12 @@
 
             $lastmodified = $('.modified #'+status_id);
             $('.subjectdetails').prop('disabled', false);
-            console.log("subject details are no longer disabled");
             _date = new Date().toISOString();
             $lastmodified.html(_date);
             $('#subjectinfo').css('background-color', '');
             $('#subjectinfo').css('opacity', '1');
             console.log($('textarea').text());
-            $('.trigsub').trigger('submit');
+            //$('.trigsub').trigger('submit');
           });
 
           $('input[name=completed]').click(function(event){
@@ -309,7 +307,7 @@
               $('#subjectinfo').css('background-color', '');
               $('#subjectinfo').css('opacity', '1');
               $('.subjectdetails').prop('disabled', false);
-              $('.trigsub').trigger('submit');
+             // $('.trigsub').trigger('submit');
               console.log($('textarea').text());
              } else {
 

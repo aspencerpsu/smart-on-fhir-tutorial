@@ -196,13 +196,12 @@
                 $('textarea').append($( this ).text() +" <br> <hr> -------");
               });
               $('#togglebox > .plan-raw > pre').remove();
-              $('.plan-raw > p > b').each(function(enumer, val){
+              $('#togglebox > .plan-raw > p > b').each(function(enumer, val){
                 if (val.innerText.toLowerCase() == "effective date/time"){
                   val.remove();
                   $( this ).parent().remove();
-                } else {
-                  console.log(val.innerText);
-                };
+                }
+                $('#togglebox > .plan-raw > p:last').remove(); //remove datestamp;
               });
             };
             
@@ -256,7 +255,8 @@
 
             /* Present the subject detail front and center */
             $('#subjectinfo').css('background-color', 'white');
-            $('#subjectinfo').css('opacity', '.6');
+            $('#subjectinfo').css('opacity', '1');
+            $('#togglebox').css('background-color', '#f9ebdc')
             noteParser(); //configure the subject details box to fit in middle of screen
           });
 
@@ -285,13 +285,12 @@
             status_id = "#"+this.id;
             makesure = confirm("Are you sure you would like to complete this, you cannot request provisions once completed");
             if (makesure) {
-              row = $("tr #"+status_id);
+              row = $("tr "+status_id);
               row.remove(); //remove from the carePlan table;
               $('.done').attr('id', '');
               $('.completed').attr('id', '');
               $toggleBox = $('#togglebox');
               $toggleBox.toggle();
-              $('.subjectdetails').on('click', rationdetails);
 
               $('#subjectinfo').css('background-color', '');
               $('#subjectinfo').css('opacity', '1');

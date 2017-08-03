@@ -284,13 +284,13 @@
             status_id = "#"+this.id;
             makesure = confirm("Are you sure you would like to complete this, you cannot request provisions once completed");
             if (makesure) {
-              $row = $("tbody > tr "+status_id);
+              $row = $("tbody > tr"+status_id);
               console.log($row);
               $row.remove(); //remove from the carePlan table;
               $('.done').attr('id', '');
               $('.completed').attr('id', '');
               $toggleBox = $('#togglebox');
-              $('#togglebox').html(''); //clear the toggle box
+              $('#togglebox .plan-raw').remove(); //clear the toggle box
               $toggleBox.toggle();
 
               $('#subjectinfo').css('background-color', '');

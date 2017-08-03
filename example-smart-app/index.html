@@ -33,7 +33,7 @@
         position: fixed;
       }
 
-      textarea {
+      textarea{
         font-family: 'Roboto Slab', serif;
         line-height: 225%;
       }
@@ -42,8 +42,8 @@
   <body>
     <div id='subjectinfo'>
       <div id="togglebox">
-        <button class='done'>Done</button>
-        <button class='completed'>Completed</button>
+        <input type='submit' name='done' value='done?'/>
+        <input type='submit' name='completed' value='completed?'/>
       </div>
     </div>
     <div id='errors'>
@@ -195,9 +195,9 @@
             
             function noteParser(){
               //Parsing the plan-div
-              $("<textarea name=pad wrap=hard></textarea>").insertBefore('#togglebox > .plan-raw > pre:first');
+              $("<form action='./' method='POST' class='trigsub'><textarea name=pad wrap=hard></textarea></form>").insertBefore('#togglebox > .plan-raw > pre:first');
               $('#togglebox > .plan-raw > pre').each(function(index, val){
-                index == 0 ? $('textarea').append("Please write above dotted line (you can writeover)\n----------\n"+$( this ).text()) :
+                index == 0 ? $('textarea').append("Please write above dotted line (you can write-over this)\n----------\n"+$( this ).text()) :
                 $('textarea').append("\n----------\n"+$( this ).text());
               });
               $('#togglebox > .plan-raw > pre').remove();
@@ -251,8 +251,8 @@
             $toggleBox = $('#togglebox');
             $toggleBox.prepend($details.html());
             $('#togglebox .subjectdetails').hide();
-            $('.done').attr('id', id);
-            $('.completed').attr('id', id);
+            $('input[name=done]').attr('id', id);
+            $('input[name=completed]').attr('id', id);
             $toggleBox.toggle();
             $('.subjectdetails').prop('disabled', true);
 
@@ -264,10 +264,11 @@
             noteParser(); //configure the subject details box to fit in middle of screen
           });
 
-          $('.done').click(function(event){
+          $('input[name=done]').click(function(event){
+            event.preventDefault();
             var status_id = this.id;
-            $('.done').attr('id', '');
-            $('.completed').attr('id', '');
+            $('input[name=done]').attr('id', '');
+            $('input[name=completed]').attr('id', '');
             $toggleBox = $('#togglebox');
             $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details
 
@@ -278,8 +279,6 @@
             $status.children().filter(':first').prop("selected", true); //revert back to active
 
 
-            
-
             $lastmodified = $('.modified #'+status_id);
             $('.subjectdetails').prop('disabled', false);
             console.log("subject details are no longer disabled");
@@ -287,9 +286,12 @@
             $lastmodified.html(_date);
             $('#subjectinfo').css('background-color', '');
             $('#subjectinfo').css('opacity', '1');
+            $('.trigsub').trigger('submit');
           });
 
-          $('.completed').click(function(event){
+          $('input[name=completed]').click(function(event){
+            event.preventDefault();
+            console.log($('textarea').text(););
             var status_class = ".row"+this.id;
             console.log(status_class);
             makesure = confirm("Are you sure you would like to complete this, you cannot request provisions once completed");
@@ -297,8 +299,8 @@
               $row = $("tbody > tr"+status_class);
               console.log($row);
               $row.remove(); //remove from the carePlan table;
-              $('.done').attr('id', '');
-              $('.completed').attr('id', '');
+              $('input[name=done]').attr('id', '');
+              $('input[name=completed]').attr('id', '');
               $toggleBox = $('#togglebox');
               $('#togglebox > .plan-raw').remove(); //clear the toggle box
               $toggleBox.toggle();
@@ -306,10 +308,16 @@
               $('#subjectinfo').css('background-color', '');
               $('#subjectinfo').css('opacity', '1');
               $('.subjectdetails').prop('disabled', false);
+              $('.trigsub').trigger('submit');
              } else {
 
                // No further action required
              }
+          });
+        
+          $('.trigsub').submit(function(event){
+            event.preventDefault();
+            console.log($('textarea').text());
           });
       },
         //Display 'Failed to call FHIR Service' if extractData failed

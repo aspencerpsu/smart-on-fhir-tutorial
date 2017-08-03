@@ -239,7 +239,6 @@
           $('.subjectdetails').click(function rationdetails(event){
             var id = $(this).attr('id');
             $status = $("select[name=stat"+id+"]");
-            console.log($status);
             $status.children().filter(':selected').prop("selected", false);
             $status.children().filter(':last').prop("selected", true); //TURN THE STATUS TO DRAFT
 

@@ -193,15 +193,15 @@
               //Parsing the plan-div
               $("<textarea name=pad wrap=hard></textarea>").insertBefore('#togglebox > .plan-raw > pre:first');
               $('#togglebox > .plan-raw > pre').each(function(index, val){
-                $('textarea').append($( this ).text() +" <br> <hr> -------");
+                $('textarea').append($( this ).text() +" <br> <hr>-------<br>");
               });
               $('#togglebox > .plan-raw > pre').remove();
               $('#togglebox > .plan-raw > p > b').each(function(enumer, val){
                 if (val.innerText.toLowerCase() == "effective date/time"){
                   val.remove();
                   $( this ).parent().remove();
+                  $('#togglebox > .plan-raw > p:last').remove(); //remove datestamp;
                 }
-                $('#togglebox > .plan-raw > p:last').remove(); //remove datestamp;
               });
             };
             
@@ -285,7 +285,7 @@
             status_id = "#"+this.id;
             makesure = confirm("Are you sure you would like to complete this, you cannot request provisions once completed");
             if (makesure) {
-              row = $("tr "+status_id);
+              row = $("tbody > tr "+status_id);
               row.remove(); //remove from the carePlan table;
               $('.done').attr('id', '');
               $('.completed').attr('id', '');
@@ -294,6 +294,7 @@
 
               $('#subjectinfo').css('background-color', '');
               $('#subjectinfo').css('opacity', '1');
+              $('.subjectdetails').prop('disabled', false);
              } else {
 
                // No further action required

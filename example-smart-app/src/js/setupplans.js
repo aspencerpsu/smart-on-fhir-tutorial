@@ -11,7 +11,7 @@
     
     plans.forEach(function(plan,index){
       var last_row = $('.care > tbody > tr:last-child');
-      last_row.attr('id', plan.id);
+      last_row.attr('class', "row"+plan.id);
       /*CATEGORY TITLE*/
       if (plan.category[0] !== undefined && plan.category[0].coding !== undefined){
         plan.category[0].coding.forEach(function(code){

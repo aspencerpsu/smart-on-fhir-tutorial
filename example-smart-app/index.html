@@ -197,7 +197,8 @@
               //Parsing the plan-div
               $("<textarea name=pad wrap=hard></textarea>").insertBefore('#togglebox > .plan-raw > pre:first');
               $('#togglebox > .plan-raw > pre').each(function(index, val){
-                $('textarea').append($( this ).text() +" <br> <hr>-------<br>");
+                index == 0 ? $('textarea').append("Please write above dotted line (you can writeover)<br> <hr>-------<br>"+$( this ).text()) :
+                $('textarea').append(" <br> <hr>-------<br>"+$( this ).text());
               });
               $('#togglebox > .plan-raw > pre').remove();
               $('#togglebox > .plan-raw > p > b').each(function(enumer, val){
@@ -275,6 +276,10 @@
             $status = $("select[name=stat"+status_id+"]");
             $status.children().filter(':selected').prop("selected", false);
             $status.children().filter(':first').prop("selected", true); //revert back to active
+
+
+            
+
             $lastmodified = $('.modified #'+status_id);
             $('.subjectdetails').prop('disabled', false);
             console.log("subject details are no longer disabled");

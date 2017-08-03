@@ -285,7 +285,7 @@
           });
 
           $('.completed').click(function(event){
-            var status_class = "row."+this.id;
+            var status_class = ".row"+this.id;
             console.log(status_class);
             makesure = confirm("Are you sure you would like to complete this, you cannot request provisions once completed");
             if (makesure) {

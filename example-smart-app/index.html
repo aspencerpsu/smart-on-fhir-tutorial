@@ -188,6 +188,10 @@
               $('pressed').on('click', pressbind);
               $('.subjectdetails').prop('disabled', false);
             };
+
+            function addplan(){
+              //for today 8.3.17
+            }
             
             function noteParser(){
               //Parsing the plan-div
@@ -290,7 +294,7 @@
               $('.done').attr('id', '');
               $('.completed').attr('id', '');
               $toggleBox = $('#togglebox');
-              $('#togglebox .plan-raw').remove(); //clear the toggle box
+              $('#togglebox > .plan-raw').remove(); //clear the toggle box
               $toggleBox.toggle();
 
               $('#subjectinfo').css('background-color', '');

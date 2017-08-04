@@ -274,6 +274,11 @@
             $('input[name=done]').attr('id', '');
             $('input[name=completed]').attr('id', '');
             $toggleBox = $('#togglebox');
+            new_memo = $('textarea').val();
+            var new_appendum = new_memo.split('----------')[0];
+            var pres = $("<pre>"+new_appendum+"</pre>");
+            pres.insertAfter('.row'+status_id+' > .details > .plan-raw > p:eq(2)');
+
             $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details
 
             $toggleBox.toggle();
@@ -290,10 +295,6 @@
             $('#subjectinfo').css('background-color', '');
             $('#subjectinfo').css('opacity', '1');
             //$('.trigsub').trigger('submit');
-            $a = $('textarea').val();
-            var new_appendum = $a.split('----------')[0];
-            var pres = $("<pre>"+new_appendum+"</pre>");
-            pres.insertAfter('.row'+status_id+' > .details > .plan-raw > p:eq(2)');
 
             console.debug(pres);
           });

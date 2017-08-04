@@ -1,4 +1,6 @@
 (function(window){
+
+  var plansUpdated;
   function SentinelInstance() {
     return {
             row: '',
@@ -15,7 +17,7 @@
 
   $.when(plansReady).done(function(){
     var sentinel;
-    var plansUpdated = $('.details > .plan-raw').map(function(index, value){
+    plansUpdated = $('.details > .plan-raw').map(function(index, value){
       sentinel = new SentintelInstance();//create a new sentinal instance for the providers list of patients;
       sentinel.memos = $(this).children('pre').length; //used as a justification for a change made to the list;
       sentinel.pres  = $(this).children('pre');

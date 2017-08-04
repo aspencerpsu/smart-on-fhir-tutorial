@@ -103,6 +103,7 @@
          }
 
           if (kins.length !== 0){
+            console.debug(kins);
             p.kins = kins.length > 3 ? kins = kins.slice(0,3) : kins;
             p.kins = kins;
           }

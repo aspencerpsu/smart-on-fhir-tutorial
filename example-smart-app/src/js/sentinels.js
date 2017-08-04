@@ -25,6 +25,7 @@
       sentinel.row = $(this).parent().parent().attr('class'); //the row corresponding to this element;
       return sentinel;
      }).get();
+    var intervalID = newAddendums();
   });
   
   window.newAddendums = function(){

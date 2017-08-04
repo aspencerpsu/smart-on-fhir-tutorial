@@ -223,17 +223,17 @@
     for (var _sys in _system) {
       if (_sys.system == "phone"){
         if (_sys.use == "mobile"){
-          instance.cell = _sys.value;
+          instance.cell.value = _sys.value;
         }
         else if (_sys.use == "home"){
-          instance.home = _sys.value;
+          instance.home.value = _sys.value;
         }
         else{
-          instance.other = _sys.value;
+          instance.other.value = _sys.value;
         }
       }
       else if (_sys.system == "email"){
-        instance.email = _sys.value;
+        instance.email.value = _sys.value;
       }
       else {
         //Nothing

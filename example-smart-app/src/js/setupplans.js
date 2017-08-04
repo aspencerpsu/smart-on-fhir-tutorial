@@ -2,12 +2,12 @@
 
   window.findCarePlans = function(plans){
 
-
+    var def = $.Deferred();
     /* Initialize the care plan table */
     x = plans.length > 0 ? $('.care > tbody').append("<tr></tr>") : "closing"; //There's no plans break the closure
     if (x=="closing"){
-      return null;
-    }
+      return def.reject();
+    } else {
     
     plans.forEach(function(plan,index){
       var last_row = $('.care > tbody > tr:last-child');
@@ -57,6 +57,7 @@
       //Initialize adding rows
       plans.length -1 != index ? $('.care > tbody').append("<tr></tr>") : '' //move onto the next thing
      });
+    return def.resolve(plans);
   };
 
   function rotatethroughstatus(stat, arr, id){

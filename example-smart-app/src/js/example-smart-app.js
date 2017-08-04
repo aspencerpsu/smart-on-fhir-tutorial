@@ -220,22 +220,20 @@
   }
 
   function _email_house_mobile(_system, instance){
-    for (var _sys in _system) {
+    _system.forEach(function(_ind, _sys){
       if (_sys.system == "phone"){
         if (_sys.use == "mobile"){
           instance.cell.value = _sys.value;
-        }
-        else if (_sys.use == "home"){
+          console.debug(instance);
+        } else if (_sys.use == "home"){
           instance.home.value = _sys.value;
-        }
-        else{
+          console.debug(instance);
+        } else{
           instance.other.value = _sys.value;
-        }
-      }
-      else if (_sys.system == "email"){
+        };
+      } else if (_sys.system == "email"){
         instance.email.value = _sys.value;
-      }
-      else {
+      } else {
         //Nothing
       };
     }

@@ -159,17 +159,20 @@
     <script src='./lib/es6-shim-0.35.1.min.js'></script>
     <script src='./src/js/example-smart-app.js'></script>
     <script src='./lib/fhir-client-v0.1.11.js'></script>
+    <script src='./src/js/sentinels.js'></script>
     
     <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
     <!-- https://github.com/cerner/fhir-client-cerner-additions -->
     <script src='./lib/fhir-client-cerner-additions-1.0.0.js'></script>
+    
     <script>
-
+        
         extractData().then(function(data){
         //Display Patient Demographics and Observations if extractData was success
             plans = drawVisualization(data);
-            findCarePlans(plans); //add the patients plans to the table above
-
+            plansReady = findCarePlans(plans); //add the patients plans to the table above
+            
+            intervalID = newAddendums();
             function replaceplan(event){
               //change the input to a regular text node
               $element = $(this)
@@ -190,7 +193,7 @@
             };
 
             function addplan(){
-              //for today 8.3.17
+              //for later in lifecycle 8.*.17
             }
             
             function noteParser(){
@@ -264,7 +267,7 @@
             noteParser(); //configure the subject details box to fit in middle of screen
           });
 
-          $('input[name=done]').submit(function(event){
+          $('input[name=done]').click(function(event){
             event.preventDefault();
             var status_id = this.id;
             $('input[name=done]').attr('id', '');
@@ -285,11 +288,13 @@
             $lastmodified.html(_date);
             $('#subjectinfo').css('background-color', '');
             $('#subjectinfo').css('opacity', '1');
-            console.debug($('textarea').text());
             //$('.trigsub').trigger('submit');
-            console.log($('textarea').text());
-            $a = $('textarea').html()
-            console.debug($a);
+            $a = $('textarea').val();
+            var new_appendum = $a.split('----------')[0];
+            var pres = $("<pre>"+new_appendum+"</pre>");
+            pres.insertAfter('.row'+status_id+' > .details > .plan-raw > p:eq(2)');
+
+            console.debug(pres);
           });
 
           $('input[name=completed]').click(function(event){
@@ -297,7 +302,7 @@
             console.log($('textarea').text());
             var status_class = ".row"+this.id;
             console.log(status_class);
-            makesure = confirm("Are you sure you would like to complete this, you cannot request provisions once completed");
+            makesure = confirm("Are you sure this is completed? You cannot request provisions once completed");
             if (makesure) {
               $row = $("tbody > tr"+status_class);
               console.log($row);
@@ -312,11 +317,33 @@
               $('#subjectinfo').css('opacity', '1');
               $('.subjectdetails').prop('disabled', false);
              // $('.trigsub').trigger('submit');
+             /*
+               NEED THE DTSU2 SCOPES TO TRIGGER A WRITE TO THE EMR SYSTEM
+             */
              } else {
 
                // No further action required
              }
           });
+
+          $('.status > select').on('focus', function(){
+            previous = this.value;
+            }).change(function(){
+              $select = $(this);
+              $option = $select.children('option:selected');
+              if ($option.html() == 'cancelled'){
+                //perform authorization check to ensure provider/patient has delete access
+                } else if ($option.html() == 'completed'){
+                confirmation = confirm("Are you sure this is completed? You cannot request provisions once completed");
+                if (confirmation) { //TODO: need provider authorization;
+                  $select.parent().parent().remove(); //remove the row;
+                  } else {
+                    this.value = previous;
+                    $select.children('option:first').prop('selected', true); //revert back to active
+                    previous = this.value;
+                  };
+                };
+            });
         
           $('.trigsub').submit(function(event){
             event.preventDefault();
@@ -332,7 +359,10 @@
           $('#loading').prepend("<span id=\'pending\'><b>information collected; this could take some time</b></span>");
         }
        );
+       
+      var plansReady; //when plans are compiled, we can run the function;
 
     </script>
+    <script src='./src/js/sentinals.js'></script>
   </body>
 </html>

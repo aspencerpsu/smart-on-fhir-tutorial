@@ -49,6 +49,7 @@
           var dob = new Date(patient.birthDate);
           var day = dob.getDate();
           var contacts = patient.contact;
+          console.debug(contacts);
           var monthIndex = dob.getMonth() + 1;
           var year = dob.getFullYear();
           var dobStr = monthIndex + '/' + day + '/' + year;

@@ -16,6 +16,7 @@
   });
 
   $.when(plansReady).done(function(){
+    console.debug("I am prepared!");
     var sentinel;
     plansUpdated = $('.details > .plan-raw').map(function(index, value){
       sentinel = new SentintelInstance();//create a new sentinal instance for the providers list of patients;
@@ -30,8 +31,8 @@
 
     return setInterval(plansUpdated.forEach(function(index,element){
       pt = $('#fname').text() + " " + $('#lname').text();
-      $row = value.row;
-      if (element.memos != $('tr.'+$row+' .details > .plan-raw > pre').length){
+      $row = element.row;
+      if (element.memos != $('tr.'+$row+' > .details > .plan-raw > pre').length){
         var plans = $('tr.'+$row+' .details > .plan-raw > pre');
         element.isUpdated = true
         afas_or = confirm("Patient "+pt+"'s information has changed, do you want to initiate AFAS to send a message to the proxy?");

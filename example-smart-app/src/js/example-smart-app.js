@@ -236,7 +236,7 @@
       } else {
         //Nothing
       };
-    }
+    });
     return instance;
   }
 

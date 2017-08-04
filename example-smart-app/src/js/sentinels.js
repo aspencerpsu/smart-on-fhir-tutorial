@@ -24,7 +24,7 @@
      }).get();
   });
   
-  window.newaddendums = function(){
+  window.newAddendums = function(){
 
     return setInterval(plansUpdated.forEach(function(index,element){
       pt = $('#fname').text() + " " + $('#lname').text();

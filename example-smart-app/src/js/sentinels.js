@@ -42,7 +42,7 @@
       return sentinel;
      }).get();
     var intervalID = window.newAddendums();
-    console.log(interValID);
+    console.log(intervalID);
   });
   
 })(window);

@@ -19,7 +19,7 @@
       $row = element.row;
       if (element.memos != $('tr.'+$row+' > .details > .plan-raw > pre').length){
         var plans = $('tr.'+$row+' > .details > .plan-raw > pre');
-        element.isUpdated = true
+        element.isUpdated = true;
         afas_or = confirm("Patient "+pt+"'s information has changed, do you want to initiate AFAS to send a message to the proxy?");
         afas_or ? console.log("Prompt a web socket to send pubsub information") : [element.isUpdated = false, element.memos=plans.length, element.pres = plans];
       }
@@ -28,7 +28,7 @@
 
   $.when(plansReady).fail(function(){
     console.debug("No care plans defined for subject");
-    delete newaddendums; //remove from heap??
+    delete newAddendums; //remove from heap??
   });
 
   $.when(plansReady).done(function(){
@@ -41,7 +41,8 @@
       sentinel.row = $(this).parent().parent().attr('class'); //the row corresponding to this element;
       return sentinel;
      }).get();
-    var intervalID = newAddendums();
+    var intervalID = window.newAddendums();
+    console.log(interValID);
   });
   
 })(window);

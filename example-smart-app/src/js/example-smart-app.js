@@ -224,10 +224,8 @@
       if (_sys.system == "phone"){
         if (_sys.use == "mobile"){
           instance.cell.value = _sys.value;
-          console.debug(instance);
         } else if (_sys.use == "home"){
           instance.home.value = _sys.value;
-          console.debug(instance);
         } else{
           instance.other.value = _sys.value;
         };

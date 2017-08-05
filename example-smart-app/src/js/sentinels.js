@@ -13,7 +13,7 @@
 
   window.newAddendums = function(){
 
-    return setInterval(plansUpdated.forEach(function(index,element){
+    return setInterval(function(){plansUpdated.forEach(function(index,element){
       console.log("at least it's running on a regular interval");
       pt = $('#fname').text() + " " + $('#lname').text();
       $row = element.row;
@@ -23,7 +23,7 @@
         afas_or = confirm("Patient "+pt+"'s information has changed, do you want to initiate AFAS to send a message to the proxy?");
         afas_or ? console.log("Prompt a web socket to send pubsub information") : [element.isUpdated = false, element.memos=plans.length, element.pres = plans];
       }
-    }), 15000);
+    })}, 15000);
   };
 
   $.when(plansReady).fail(function(){

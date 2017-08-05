@@ -36,6 +36,7 @@
   });
 
   $.when(plansReady).done(function(){
+    console.log(plansReady);
     var sentinel;
     var plansUpdated = $('.care > .details > .plan-raw').map(function(index, value){
       sentinel = new SentinelInstance();//create a new sentinal instance for the providers list of patients;

@@ -171,7 +171,7 @@
         extractData().then(function(data){
         //Display Patient Demographics and Observations if extractData was success
             plans = drawVisualization(data);
-            plansReady = findCarePlans(plans); //add the patients plans to the table above
+            window.plansReady = findCarePlans(plans); //add the patients plans to the table above
             
             function replaceplan(event){
               //change the input to a regular text node

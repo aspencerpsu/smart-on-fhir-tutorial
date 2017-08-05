@@ -13,7 +13,7 @@
 
   window.newAddendums = function(){
 
-    return setInterval(function(){ return plansUpdated.forEach(function(index,element){
+    return setInterval(function(){ return plansUpdated.forEach(function(element, index){
       console.log("at least it's running on a regular interval");
       pt = $('#fname').text() + " " + $('#lname').text();
       $row = element.row;

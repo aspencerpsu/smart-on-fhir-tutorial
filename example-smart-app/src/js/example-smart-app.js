@@ -34,6 +34,7 @@
         $.when(pt, obv, care).fail(onError);
 
         $.when(pt, obv, care).done(function(patient, obv, care){
+          console.log(pt);
 
           var actives_draft = [];
 

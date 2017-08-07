@@ -1,6 +1,6 @@
 (function(window){
   var plansUpdated = [];
-  var window.checkUpdated_ = function(the_fucking_deferred_object){
+  window.checkUpdated_ = function(the_fucking_deferred_object){
     console.debug(the_fucking_deferred_object);
 
     function SentinelInstance() {
@@ -13,8 +13,8 @@
     };
 
 
-  /****** May not be a good idea to use pop up boxes ******/
-  /** Epic has an inbox for pending ***/
+      /****** May not be a good idea to use pop up boxes ******/
+      /** Epic has an inbox for pending ***/
  
 
     function myAddies(){

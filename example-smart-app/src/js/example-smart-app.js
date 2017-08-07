@@ -162,7 +162,6 @@
     var counter = 0;
     kins.forEach(function(opkin, index){
       if(opkin.name.toLowerCase() == proxy.name.toLowerCase()){
-        console.debug("proxies are equal in name");
         if (kin.telecom == undefined) {
           return true; //kin doesn't have any systems to send response, keep it moving
         } else {
@@ -180,7 +179,7 @@
           });
         };
      } else {
-       return true; //names aren't congruous, go to next on kins list
+       return false; //names aren't congruous, go to next on kins list
      };
       if(counter >= 2){
         kins.splice(index, 1);

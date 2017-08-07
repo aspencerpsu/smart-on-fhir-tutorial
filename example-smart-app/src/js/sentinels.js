@@ -53,5 +53,6 @@
     var intervalID = window.newAddendums();
     console.debug(intervalID);
   });
+ }
   
 })(window);

@@ -180,13 +180,13 @@
           });
         };
      } else {
-       return false; //names aren't congruous, go to next on kins list
+       return true; //names aren't congruous, go to next on kins list
      };
       if(counter >= 2){
         kins.splice(index, 1);
-        return true;
+        return false;
       } else {
-        return false; //only has one contact information, not needed
+        return true; //only has one contact information, not needed
       };
     });
   };

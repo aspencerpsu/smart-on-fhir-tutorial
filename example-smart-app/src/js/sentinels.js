@@ -1,6 +1,5 @@
 (function(window){
   var plansUpdated;
-  window.checkUpdated_ = function(){
 
   function SentinelInstance() {
     return {

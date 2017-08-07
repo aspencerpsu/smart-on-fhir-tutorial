@@ -89,7 +89,6 @@
                if (contact.name !== undefined){
                  person.name = contact.name.given[0].concat(' ');
                  person.name = person.name + " " + contact.name.family[0];
-                 console.debug(person.name);
                }
                if (contact.address !== undefined){
                  person.address = contact.address.text;
@@ -162,6 +161,7 @@
     proxy.name += " " + kin.name.family[0];
     var counter = 0;
     kins.forEach(function(opkin, index){
+      console.debug("\' "+opkin.name+" vs "+proxy.name+" \'");
       if(opkin.name.toLowerCase() == proxy.name.toLowerCase()){
         if (kin.telecom == undefined) {
           return true; //kin doesn't have any systems to send response, keep it moving

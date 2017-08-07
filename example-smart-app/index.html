@@ -163,6 +163,7 @@
     <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
     <!-- https://github.com/cerner/fhir-client-cerner-additions -->
     <script src='./lib/fhir-client-cerner-additions-1.0.0.js'></script>
+    <script src='./src/js/sentinels.js'></script>
     
     <script>
 
@@ -201,7 +202,10 @@
               $("<form action='./' method='POST' class='trigsub'><textarea name=pad wrap=hard></textarea></form>").insertBefore('#togglebox > .plan-raw > pre:first');
               $('#togglebox > .plan-raw > pre').each(function(index, val){
                 index == 0 ? $('textarea').append("Please write above dotted line (you can write-over this)\n----------\n"+$( this ).text()) :
-                $('textarea').append("\n----------\n"+$( this ).text());
+                textwidth = window.innerWidth/1.25;
+                textheight = window.innerHeight/2;
+                $('textarea').css({width: textwidth, height: textheight}
+                    ).append("\n----------\n"+$( this ).text());
               });
               $('#togglebox > .plan-raw > pre').remove();
               $('#togglebox > .plan-raw > p > b').each(function(enumer, val){
@@ -363,6 +367,5 @@
        
 
     </script>
-    <script src='./src/js/sentinels.js'></script>
   </body>
 </html>

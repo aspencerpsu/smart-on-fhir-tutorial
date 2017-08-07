@@ -1,6 +1,6 @@
 (function(window){
-
   var plansUpdated;
+  window.checkUpdated_ = function(){
 
   function SentinelInstance() {
     return {
@@ -10,6 +10,11 @@
             isUpdated: false //default
            }
   };
+
+
+  /****** May not be a good idea to use pop up boxes ******/
+  /** Epic has an inbox for pending ***/
+ 
 
   function myAddies(plansUpdated){
     return plansUpdated.forEach(function(element, index){
@@ -26,15 +31,14 @@
   }     
 
   window.newAddendums = function(plans){
-
     return setInterval(myAddies(plans), 15000);
   };
 
-  $.when(plansReady).fail(function(){
+  $.when(window.plansReady).fail(function(){
     console.debug("No care plans defined for subject");
     delete newAddendums; //remove from heap??
   });
-
+  console.debug(plansReady);
   $.when(plansReady).done(function(){
     console.log(plansReady);
     var sentinel;
@@ -45,9 +49,9 @@
       sentinel.row = $(this).parent().parent().attr('class'); //the row corresponding to this element;
       return sentinel;
      }).get();
-    console.log(plansUpdated);
+    console.debug(plansUpdated);
     var intervalID = window.newAddendums(plansUpdated);
-    console.log(intervalID);
+    console.debug(intervalID);
   });
   
 })(window);

@@ -161,8 +161,8 @@
     proxy.name += " " + kin.name.family[0];
     var counter = 0;
     kins.forEach(function(opkin, index){
-      console.debug("\' "+opkin.name+" vs "+proxy.name+" \'");
       if(opkin.name.toLowerCase() == proxy.name.toLowerCase()){
+        console.debug("proxies are equal in name");
         if (kin.telecom == undefined) {
           return true; //kin doesn't have any systems to send response, keep it moving
         } else {

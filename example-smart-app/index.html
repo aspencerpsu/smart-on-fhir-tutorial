@@ -204,10 +204,9 @@
               $("<form action='./' method='POST' class='trigsub'><textarea name=pad wrap=hard></textarea></form>").insertBefore('#togglebox > .plan-raw > pre:first');
               $('#togglebox > .plan-raw > pre').each(function(index, val){
                 index == 0 ? $('textarea').append("Please write above dotted line (you can write-over this)\n----------\n"+$( this ).text()) :
-                textwidth = window.innerWidth/1.25;
-                textheight = window.innerHeight/2;
-                $('textarea').css({width: textwidth, height: textheight}
-                    ).append("\n----------\n"+$( this ).text());
+                var textwidth = window.innerWidth/1.25;
+                var textheight = window.innerHeight/2;
+                $('textarea').append("\n----------\n"+$( this ).text()).css({width: textwidth, height: textheight});
               });
               $('#togglebox > .plan-raw > pre').remove();
               $('#togglebox > .plan-raw > p > b').each(function(enumer, val){

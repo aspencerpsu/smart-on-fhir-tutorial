@@ -1,6 +1,6 @@
 (function(window){
   var plansUpdated = [];
-  var checkUpdated_ = function(the_fucking_deferred_object){
+  var window.checkUpdated_ = function(the_fucking_deferred_object){
     console.debug(the_fucking_deferred_object);
 
     function SentinelInstance() {

@@ -172,8 +172,8 @@
         //Display Patient Demographics and Observations if extractData was success
             plans = drawVisualization(data);
             plansReady = findCarePlans(plans); //add the patients plans to the table above
-            plansReady.then(function(){
-              checkUpdated_(window.plansReady);
+            plansReady.then(function(the_objects){
+              checkUpdated_(the_objects);
             });
             
             function replaceplan(event){

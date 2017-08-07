@@ -37,9 +37,9 @@
     console.debug("No care plans defined for subject");
     delete newAddendums; //remove from heap??
   });
-  console.debug(plansReady);
-  $.when(plansReady).done(function(){
-    console.log(plansReady);
+  console.debug(window.plansReady);
+  $.when(window.plansReady).done(function(){
+    console.debug(window.plansReady);
     var sentinel;
     var plansUpdated = $('.care > .details > .plan-raw').map(function(index, value){
       sentinel = new SentinelInstance();//create a new sentinal instance for the providers list of patients;

@@ -100,7 +100,9 @@
                  });
                }
                kins.push(person);
-             }
+             } else {
+               //continue down the loop
+             };
            });
          }
 
@@ -157,7 +159,7 @@
 
   function kinExists(kin, kins){
     var proxy = {};
-    proxy.name = kin.name.given[0].concat(' ');
+    proxy.name = kin.name.given[0];
     proxy.name += " " + kin.name.family[0];
     var counter = 0;
     kins.forEach(function(opkin, index){

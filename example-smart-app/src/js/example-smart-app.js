@@ -179,17 +179,15 @@
               //break the cycle, the duplicate kin doesn't have any information
             };
           });
-          if(counter >= 2){
+          if (counter >= 1){
             counter = 0;
             kins.splice(index, 1);
             return false;
-          } else {
-            counter = 0;
-            return true; //only has one contact information, not needed
-          };
+          } 
         };
      } else {
-       return false; //names aren't congruous, go to next on kins list
+       counter = 0;
+       //names aren't congruous, go to next on kins list
      };
    });
  };

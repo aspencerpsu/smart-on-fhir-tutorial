@@ -29,8 +29,7 @@
             afas_or = confirm("Patient "+pt+"'s information has changed, do you want to initiate AFAS to send a message to the proxy?");
             if (afas_or) {
               first_message = plans.filter(':first').text();
-              var  cryptomessage = require("crypto-js");
-              var ciphertext = cryptomessage.AES.encrypt(first_message, 'secret-key');//use nurse name?
+              var ciphertext = CryptoJS.AES.encrypt(first_message, 'secret-key');//use nurse name?
               var contacts = $('.contacts > tbody');
               console.log(contacts);
               var _get_callback = prompt("We have your number listed as (845)-598-6387: use as callback? Else, input within field");

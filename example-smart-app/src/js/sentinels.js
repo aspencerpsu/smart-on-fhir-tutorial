@@ -17,22 +17,39 @@
       /** Epic has an inbox for pending ***/
  
 
-    function myAddies(){
+    function addToAFAS(){
       console.debug("at least it's running on a regular interval");
       return plansUpdated.forEach(function(element, index){
         pt = $('#fname').text() + " " + $('#lname').text();
         $row = element.row;
         if (element.memos != $('tr.'+$row+' > .details > .plan-raw > pre').length){
-          var plans = $('tr.'+$row+' > .details > .plan-raw > pre');
-          element.isUpdated = true;
-          afas_or = confirm("Patient "+pt+"'s information has changed, do you want to initiate AFAS to send a message to the proxy?");
-          afas_or ? console.debug("Prompt a web socket to send pubsub information") : [element.isUpdated = false, element.memos=plans.length, element.pres = plans];
-        }
-      });
-    }     
+          if (!element.isUpdated){
+            var plans = $('tr.'+$row+' > .details > .plan-raw > pre');
+            element.isUpdated = true;
+            afas_or = confirm("Patient "+pt+"'s information has changed, do you want to initiate AFAS to send a message to the proxy?");
+            if (afas_or) {
+              first_message = plans.filter(':first').text();
+              var  cryptomessage = require("crypto-js");
+              var ciphertext = cryptomessage.AES.encrypt(first_message, 'secret-key');//use nurse name?
+              var contacts = $('.contacts > tbody');
+              console.log(contacts);
+              var _get_callback = prompt("We have your number listed as (845)-598-6387: use as callback? Else, input within field");
+              _get_callback == '' ? console.log('beginning to call...') : console.log('we can\'t call the kin');
+              element.isUpdated = false;
+              element.memos = plans.length;
+              element.pres = plans;
+          } else {
+            element.isUpdated = false;
+            element.memos = plans.length;
+            element.pres = plans;
+        };
+      }
+     }
+   });
+  }     
 
     window.newAddendums = function(){
-      return setInterval(myAddies, 10000);
+      return setInterval(addToAFAS, 10000);
     };
 
     $.when(deferred_object).fail(function(){

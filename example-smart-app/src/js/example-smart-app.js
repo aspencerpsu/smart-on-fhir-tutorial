@@ -179,18 +179,20 @@
               //break the cycle, the duplicate kin doesn't have any information
             };
           });
+          if(counter >= 2){
+            counter = 0;
+            kins.splice(index, 1);
+            return false;
+          } else {
+            counter = 0;
+            return true; //only has one contact information, not needed
+          };
         };
      } else {
        return false; //names aren't congruous, go to next on kins list
      };
-      if(counter >= 2){
-        kins.splice(index, 1);
-        return false;
-      } else {
-        return true; //only has one contact information, not needed
-      };
-    });
-  };
+   });
+ };
 
   function getBloodPressureValue(BPObservations, typeOfPressure) {
     var formattedBPObservations = [];

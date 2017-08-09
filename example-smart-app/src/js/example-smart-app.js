@@ -191,10 +191,10 @@
             cosole.debug("we are passing someone");
             return true;
         };
-     }  
-   } else {
-      goon = index == kins.length -1 ? false : true;
-      if (goon == false){return false} else {};//continue through the next on the kin list
+     };
+    };
+    goon = index == kins.length -1 ? false : true;
+    if (goon == false){return false} else {};//continue through the next on the kin list
    });
 
  };

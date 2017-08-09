@@ -82,20 +82,23 @@
           if (contacts && typeof contacts !== 'undefined') {
             contacts.forEach(function(contact){
                var person = new Kin();
+               var do_not_use;
                if (contact.name !== undefined){
                  person.name = contact.name.given[0];
                  person.name = person.name + " " + contact.name.family[0];
                  name = kins.find(function(kin){ return kin.name.toLowerCase() == person.name.toLowerCase()});
                  if (name !== undefined){
-                   var do_not_use = true;
+                    do_not_use = true;
                  } else if (name == undefined){
-                   var do_not_use = false;
+                    do_not_use = false;
                  };
                };
                if (contact.telecom !== undefined){
                  person = _email_house_mobile(contact.telecom, person);
+
                } else {
-                 var do_not_use = true;
+
+                  do_not_use = true;
                };
                if (contact.address !== undefined){
                  person.address = contact.address.text;
@@ -107,7 +110,9 @@
                  });
                }
                if (do_not_use){
+                 console.debug("no usage");
                } else {
+                 console.debug("usage");
                  kins.push(person);
                };
          });

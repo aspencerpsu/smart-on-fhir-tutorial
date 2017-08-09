@@ -96,9 +96,9 @@
                if (contact.telecom !== undefined){
                  person = _email_house_mobile(contact.telecom, person);
 
-               } else {
+               } else if (contact.telecom == undefined){
 
-                  do_not_use = 'false';
+                  do_not_use = 'true';
                };
                if (contact.address !== undefined){
                  person.address = contact.address.text;

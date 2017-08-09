@@ -191,8 +191,8 @@
        counter = 0;
        //names aren't congruous, go to next on kins list
      };
-      goon = index == kins.length -1 ? false : 'false';
-      if (goon == false){return false} else { };//continue through the next on the kin list
+      goon = index == kins.length -1 ? false : true;
+      if (goon == false){return false} else {return true };//continue through the next on the kin list
    });
 
  };

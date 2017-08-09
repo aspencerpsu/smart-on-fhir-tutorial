@@ -166,6 +166,7 @@
       if(opkin.name.toLowerCase() == proxy.name.toLowerCase()){
         if (kin.telecom == undefined) {
           counter = 0;
+          console.debug("a true value returned");
           return true; //kin doesn't have any systems to send response, keep it moving
         } else {
           kin.telecom.forEach(function(systemtype){
@@ -185,14 +186,15 @@
             kins.splice(index, 1);
             console.log("removed someone");
             return false;
-          };
+          } else {
+            counter = 0;
+            cosole.debug("we are passing someone");
+            return true;
         };
-     } else {
-       counter = 0;
-       //names aren't congruous, go to next on kins list
-     };
+     }  
+   } else {
       goon = index == kins.length -1 ? false : true;
-      if (goon == false){return false} else {return true };//continue through the next on the kin list
+      if (goon == false){return false} else {};//continue through the next on the kin list
    });
 
  };

@@ -88,17 +88,17 @@
                  person.name = person.name + " " + contact.name.family[0];
                  name = kins.find(function(kin){ return kin.name.toLowerCase() == person.name.toLowerCase()});
                  if (typeof name == 'string'){
-                    do_not_use = true;
+                    do_not_use = 'true';
                  } else if (name == undefined){
-                    do_not_use = false;
-                 } else { do_not_use = false; };
+                    do_not_use = 'false';
+                 } else { do_not_use = 'false'; };
                };
                if (contact.telecom !== undefined){
                  person = _email_house_mobile(contact.telecom, person);
 
                } else {
 
-                  do_not_use = true;
+                  do_not_use = 'false';
                };
                if (contact.address !== undefined){
                  person.address = contact.address.text;
@@ -109,9 +109,9 @@
                    person.relationship = person.relationship + ' ' + relation.text;
                  });
                }
-               if (do_not_use){
+               if (do_not_use == 'true'){
                  console.debug("no usage");
-               } else if (!do_not_use){
+               } else if (do_not_use == 'false'){
                  console.debug("usage");
                  kins.push(person);
                } else {kins.push(person)};

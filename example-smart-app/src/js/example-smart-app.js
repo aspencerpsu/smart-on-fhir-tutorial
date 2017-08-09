@@ -101,7 +101,7 @@
                }
                kins.push(person);
              } else {
-               //continue down the loop
+               console.debug(contact.name.given[0] + " already exists, moving on...");
              };
            });
          }

@@ -87,7 +87,7 @@
                  person = _email_house_mobile(contact.telecom, person);
                }
                if (contact.name !== undefined){
-                 person.name = contact.name.given[0].concat(' ');
+                 person.name = contact.name.given[0];
                  person.name = person.name + " " + contact.name.family[0];
                }
                if (contact.address !== undefined){
@@ -165,6 +165,7 @@
     kins.forEach(function(opkin, index){
       if(opkin.name.toLowerCase() == proxy.name.toLowerCase()){
         if (kin.telecom == undefined) {
+          counter = 0;
           return true; //kin doesn't have any systems to send response, keep it moving
         } else {
           kin.telecom.forEach(function(systemtype){
@@ -191,7 +192,6 @@
      };
    });
 
-    return true;
  };
 
   function getBloodPressureValue(BPObservations, typeOfPressure) {

@@ -164,7 +164,6 @@
     };
   }
 
- };
 
   function getBloodPressureValue(BPObservations, typeOfPressure) {
     var formattedBPObservations = [];

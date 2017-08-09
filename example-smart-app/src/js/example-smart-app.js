@@ -188,7 +188,7 @@
             return false;
           } else {
             counter = 0;
-            cosole.debug("we are passing someone");
+            console.debug("we are passing someone");
             return true;
         };
      };

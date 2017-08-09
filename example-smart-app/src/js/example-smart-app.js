@@ -190,6 +190,8 @@
        //names aren't congruous, go to next on kins list
      };
    });
+
+    return true;
  };
 
   function getBloodPressureValue(BPObservations, typeOfPressure) {

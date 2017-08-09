@@ -81,15 +81,22 @@
 
           if (contacts && typeof contacts !== 'undefined') {
             contacts.forEach(function(contact){
-             if (!kinExists(contact, kins)){
                var person = new Kin();
-               if (contact.telecom !== undefined){
-                 person = _email_house_mobile(contact.telecom, person);
-               }
                if (contact.name !== undefined){
                  person.name = contact.name.given[0];
                  person.name = person.name + " " + contact.name.family[0];
-               }
+                 name = kins.find(function(name){ return name.toLowerCase() == person.name.toLowerCase()});
+                 if (name){
+                   var do_not_use = true;
+                 } else {
+                   var do_not_use = false;
+                 };
+               };
+               if (contact.telecom !== undefined){
+                 person = _email_house_mobile(contact.telecom, person);
+               } else {
+                 var do_not_use = true;
+               };
                if (contact.address !== undefined){
                  person.address = contact.address.text;
                }
@@ -99,37 +106,37 @@
                    person.relationship = person.relationship + ' ' + relation.text;
                  });
                }
-               kins.push(person);
-             } else {
-               console.debug(contact.name.given[0] + " already exists, moving on...");
-             };
-           });
-         }
+               if (do_not_use){
+               } else {
+                 kins.push(person);
+               };
+         });
+        }
 
-          if (kins.length !== 0){
-            console.debug(kins);
-            p.kins = kins.length > 3 ? kins = kins.slice(0,3) : kins;
-            p.kins = kins;
-          }
+        if (kins.length !== 0){
+          console.debug(kins);
+          p.kins = kins.length > 3 ? kins = kins.slice(0,3) : kins;
+          p.kins = kins;
+        }
 
-          if (actives_draft.length !== 0) {
-            p.plans = actives_draft;
-          }
+        if (actives_draft.length !== 0) {
+          p.plans = actives_draft;
+        }
 
-          if (typeof systolicbp != 'undefined')  {
-            p.systolicbp = systolicbp;
-          }
+        if (typeof systolicbp != 'undefined')  {
+          p.systolicbp = systolicbp;
+        }
 
-          if (typeof diastolicbp != 'undefined') {
-            p.diastolicbp = diastolicbp;
-          }
+        if (typeof diastolicbp != 'undefined') {
+          p.diastolicbp = diastolicbp;
+        }
 
-          p.hdl = getQuantityValueAndUnit(hdl[0]);
-          p.ldl = getQuantityValueAndUnit(ldl[0]);
+        p.hdl = getQuantityValueAndUnit(hdl[0]);
+        p.ldl = getQuantityValueAndUnit(ldl[0]);
 
 
-          ret.resolve(p);
-        });
+        ret.resolve(p);
+      });
       } else {
         onError();
       };
@@ -156,46 +163,6 @@
       plans: {value: ''}
     };
   }
-
-  function kinExists(kin, kins){
-    var proxy = {};
-    proxy.name = kin.name.given[0];
-    proxy.name += " " + kin.name.family[0];
-    var counter = 0;
-    kins.forEach(function(opkin, index){
-      if(opkin.name.toLowerCase() == proxy.name.toLowerCase()){
-        if (kin.telecom == undefined) {
-          counter = 0;
-          console.debug("a true value returned");
-          return true; //kin doesn't have any systems to send response, keep it moving
-        } else {
-          kin.telecom.forEach(function(systemtype){
-
-            if (opkin.cell.value == '' && systemtype.use == 'mobile'){
-              counter += 1;
-            } else if (opkin.home.value == ''  && systemtype.use == 'home'){
-              counter += 1;
-            } else if (opkin.email.value == '' && systemtype.use == 'email'){ 
-              counter +=1;
-            } else {
-              //break the cycle, the duplicate kin doesn't have any information
-            };
-          });
-          if (counter >= 1){
-            counter = 0;
-            kins.splice(index, 1);
-            console.log("removed someone");
-            return false;
-          } else {
-            counter = 0;
-            console.debug("we are passing someone");
-            return true;
-        };
-     };
-    };
-    goon = index == kins.length -1 ? false : true;
-    if (goon == false){return false} else {};//continue through the next on the kin list
-   });
 
  };
 

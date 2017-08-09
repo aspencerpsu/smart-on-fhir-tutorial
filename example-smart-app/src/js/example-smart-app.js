@@ -85,8 +85,8 @@
                if (contact.name !== undefined){
                  person.name = contact.name.given[0];
                  person.name = person.name + " " + contact.name.family[0];
-                 name = kins.find(function(name){ return name.toLowerCase() == person.name.toLowerCase()});
-                 if (name){
+                 name = kins.find(function(kin){ return kin.name.toLowerCase() == person.name.toLowerCase()});
+                 if (name !== undefined){
                    var do_not_use = true;
                  } else if (name == undefined){
                    var do_not_use = false;

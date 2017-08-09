@@ -183,6 +183,7 @@
           if (counter >= 1){
             counter = 0;
             kins.splice(index, 1);
+            console.log("removed someone");
             return false;
           };
         };

@@ -88,7 +88,7 @@
                  name = kins.find(function(name){ return name.toLowerCase() == person.name.toLowerCase()});
                  if (name){
                    var do_not_use = true;
-                 } else {
+                 } else if (name == undefined){
                    var do_not_use = false;
                  };
                };

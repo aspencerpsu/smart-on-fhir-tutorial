@@ -107,9 +107,7 @@
                  });
                }
                if (do_not_use == 'true'){
-                 console.debug("no usage");
                } else if (do_not_use == 'false'){
-                 console.debug("usage");
                  kins.push(person);
                } else {kins.push(person)};
          });
@@ -270,7 +268,7 @@
          a.relationship.value != '' ? $('#relationships').append('<td>'+a.relationship+'</td>') : ''
        });
    } else {
-         console.warn('no information for patient');
+         console.error('no next-of-kins or health proxy for patient, please assess');
    };
    if (p.plans.value !== ''){
      console.debug(p.plans);

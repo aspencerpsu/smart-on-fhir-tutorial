@@ -76,10 +76,10 @@
               var cluster = {'practicioner': prov.name, 'callback': prov.organization.number};
 
               if (severity[1] == "severe"){
-                cluster.message = 'message': "Patient ".concat(patient).concat(" has undergone a severe condition, please contact ASAP ").concat(prov.organization.numer);
+                cluster.message = "Patient ".concat(patient).concat(" has undergone a severe condition, please contact ASAP ").concat(prov.organization.numer);
                 return [cluster, 'call']; } else if (severity[1] == "moderate") {
 
-                cluster.message = 'message': "Patient ".concat(patient).concat(" has a elevated condition, please call ").concat(prov.organization.number);
+                cluster.message = "Patient ".concat(patient).concat(" has a elevated condition, please call ").concat(prov.organization.number);
 
                 return [cluster, 'text&email']; } else if (severity[1] == "mild") {
                 return [undefined, 'nothing'];} else {

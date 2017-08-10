@@ -86,12 +86,14 @@
                if (contact.name !== undefined){
                  person.name = contact.name.given[0];
                  person.name = person.name + " " + contact.name.family[0];
+                 /*
                  name = kins.find(function(kin){ return kin.name.toLowerCase() == person.name.toLowerCase()});
                  if (typeof name == 'string'){
                     do_not_use = 'true';
                  } else if (name == undefined){
                     do_not_use = 'false';
                  } else { do_not_use = 'false'; };
+                 */
                };
                if (contact.telecom !== undefined){
                  person = _email_house_mobile(contact.telecom, person);
@@ -106,12 +108,11 @@
                    person.relationship = person.relationship + ' ' + relation.text;
                  });
                }
-               if (do_not_use == 'true'){
-               } else if (do_not_use == 'false'){
-                 kins.push(person);
-               } else {kins.push(person)};
+
+               kins.push(person);
+
          });
-        }
+        };
 
         if (kins.length !== 0){
           console.debug(kins);

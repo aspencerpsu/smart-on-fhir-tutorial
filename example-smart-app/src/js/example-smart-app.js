@@ -261,11 +261,11 @@
    $('#hdl').html(p.hdl);
    if (p.kins.value !== ''){
      p.kins.forEach(function(a){
-         a.name.value != '' ? $('#names').append('<td>'+a.name+'</td>') : ''
-         a.cell.value != '' ? $('#cells').append('<td>'+a.cell.value+'</td>') : ''
-         a.home.value != '' ? $('#phones').append('<td>'+a.home.value+'</td>') : a.other.value !== '' ? $('#phones').append('<td>'+a.other.value+'</td>') : ''
-         a.address.value != '' ? $('#addresses').append('<td>'+a.address+'</td>') : ''
-         a.relationship.value != '' ? $('#relationships').append('<td>'+a.relationship+'</td>') : ''
+         a.name.value != '' ? $('.names').append('<td>'+a.name+'</td>') : ''
+         a.cell.value != '' ? $('.cells').append('<td>'+a.cell.value+'</td>') : ''
+         a.home.value != '' ? $('.phones').append('<td>'+a.home.value+'</td>') : a.other.value !== '' ? $('#phones').append('<td>'+a.other.value+'</td>') : ''
+         a.address.value != '' ? $('.addresses').append('<td>'+a.address+'</td>') : ''
+         a.relationship.value != '' ? $('.relationships').append('<td>'+a.relationship+'</td>') : ''
        });
    } else {
          console.error('no next-of-kins or health proxy for patient, please assess');

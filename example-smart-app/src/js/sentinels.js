@@ -91,8 +91,8 @@
     /* Functions */
     
     window.parseForStatus = function(message,patient, prov){
-      var reg = /(Condition|Medication|Procedure|Observation):?/i
-      var determine_mess = message.match(reg)
+      var reg = /(Condition|Medication|Procedure|Observation):?/i;
+      var determine_mess = message.match(reg);
 
       if (determine_mess !== null &&
           Object.prototype.toString.call(determine_mess) == "[object Array]"){
@@ -135,7 +135,7 @@
             break;  
         };
       } else {
-        console.warn("You don't have any specific details to send to patient, please read fhi7.org for more examples ")
+        console.warn("You don't have any specific details to send to patient, please read fhi7.org for more examples ");
       }
     };
 

@@ -57,10 +57,10 @@
                * We must declare the user variables within the portal for the EMR system
                * for an example, I'm using my cell phone number for now
                */
-              var _get_callback = prompt("We have your number listed as (845)-598-6387: use as callback? Else, input within field");
+              var _get_callback = prompt("We have your number listed as (845)-371-2125: use as callback? Else, input within field");
               if( _get_callback == '' ){
                      console.log('beginning to call...');
-                     parseMessage.callback = "(845)-598-6387";
+                     parseMessage.callback = "(845)-371-2125";
                      //use user's password?
                      var ciphertext = CryptoJS.AES.encrypt(parseMessage, 'portal');                  
                      console.debug(ciphertext);
@@ -78,10 +78,15 @@
               element.isUpdated = false;
               element.memos = plans.length;
               element.pres = plans;
-          }
-       }
+          } else {
+              element.isUpdated = false;
+              element.memos = plans.length;
+              element.pres = plans;
+          };
+        };
+       
      });
-  }     
+  };   
 
     /* Functions */
     

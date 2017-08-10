@@ -35,27 +35,52 @@
               /*XXX: Default is myself */
               provider = {name: "portal", organization: {number: "(845)-371-2125"}}
               parseMessage = parseForStatus(first_message,pt, provider);
-              var ciphertext = CryptoJS.AES.encrypt(first_message, 'portal');//use user's password?
-              
-              console.debug(ciphertext);
+              var contacts = $('.contacts > .names > td'); //list of the NAMES of hcproxies
+              contacts = contacts.map(function(){ return $(this).text();}).get();
+              parseMessage.contacts = [];
+              contacts.forEach(function(elem){ parseMessage.contacts.push({name:elem})};);
+              var cells = $('.contacts > .cells > td').each(function(index){
+                parseMessage.contacts[index].cell = $(this).text();
+              });
+              var emails = $('.contacts > .emails > td').each(function(index){
+                parseMessage.contacts[index].email = $(this).text();
+              });
+              var home = $('contacts > .phones > td').each(function(index){
+                parseMessage.contacts[index].land = $(this).text();
+              });
+              console.log(cells);
+              console.log(emails);
+              console.log(home);
               console.debug(contacts);
+
               /*TODO: we must call the user's name and telecom number for the organization
                * We must declare the user variables within the portal for the EMR system
                * for an example, I'm using my cell phone number for now
                */
               var _get_callback = prompt("We have your number listed as (845)-598-6387: use as callback? Else, input within field");
-              _get_callback == '' ? console.log('beginning to call...') : console.log('we can\'t call the kin');
+              if( _get_callback == '' ){
+                     console.log('beginning to call...');
+                     parseMessage.callback = "(845)-598-6387";
+                     //use user's password?
+                     var ciphertext = CryptoJS.AES.encrypt(parseMessage, 'portal');                  
+                     console.debug(ciphertext);
+              } else {
+                parseMessage.callback = _get_callback;
+                var ciphertext = CryptoJS.AES.encrypt(parseMessage, 'portal');
+                console.debug(ciphertext);
+              };
+                /*
+                 *
+                 * AFAS COMMUNCATION SECTION 
+                 *
+                 *
+                 */
               element.isUpdated = false;
               element.memos = plans.length;
               element.pres = plans;
-          } else {
-            element.isUpdated = false;
-            element.memos = plans.length;
-            element.pres = plans;
-        };
-      }
-     }
-   });
+          }
+       }
+     });
   }     
 
     /* Functions */
@@ -65,7 +90,7 @@
       var determine_mess = message.match(reg)
 
       if (determine_mess !== null &&
-          Object.prototype.toString.call(catch_obj) == "[object Array]"){
+          Object.prototype.toString.call(determine_mess) == "[object Array]"){
 
         switch (determine_mess[1]) {
 
@@ -77,12 +102,13 @@
 
               if (severity[1] == "severe"){
                 cluster.message = "Patient ".concat(patient).concat(" has undergone a severe condition, please contact ASAP ").concat(prov.organization.numer);
-                return [cluster, 'call']; } else if (severity[1] == "moderate") {
+                cluster.urgency = 'call';
+                return cluster; } else if (severity[1] == "moderate") {
 
                 cluster.message = "Patient ".concat(patient).concat(" has a elevated condition, please call ").concat(prov.organization.number);
-
-                return [cluster, 'text&email']; } else if (severity[1] == "mild") {
-                return [undefined, 'nothing'];} else {
+                cluster.urgency = 'text&email';
+                return cluster; } else if (severity[1] == "mild") {
+                return cluster; } else {
                 console.warn("Nothing to send to the next-of-kin, false alarm...");
               };
             };

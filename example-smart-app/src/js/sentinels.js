@@ -22,16 +22,27 @@
       return plansUpdated.forEach(function(element, index){
         pt = $('#fname').text() + " " + $('#lname').text();
         $row = element.row;
+
         if (element.memos != $('tr.'+$row+' > .details > .plan-raw > pre').length){
+
           if (!element.isUpdated){
             var plans = $('tr.'+$row+' > .details > .plan-raw > pre');
             element.isUpdated = true;
             afas_or = confirm("Patient "+pt+"'s information has changed, do you want to initiate AFAS to send a message to the proxy?");
             if (afas_or) {
               first_message = plans.filter(':first').text();
-              var ciphertext = CryptoJS.AES.encrypt(first_message, 'secret-key');//use nurse name?
-              var contacts = $('.contacts > tbody');
-              console.log(contacts);
+              /*TODO: add the user information when app is registered with user */
+              /*XXX: Default is myself */
+              provider = {name: "portal", organization: {number: "(845)-371-2125"}}
+              parseMessage = parseForStatus(first_message,pt, provider);
+              var ciphertext = CryptoJS.AES.encrypt(first_message, 'portal');//use user's password?
+              
+              console.debug(ciphertext);
+              console.debug(contacts);
+              /*TODO: we must call the user's name and telecom number for the organization
+               * We must declare the user variables within the portal for the EMR system
+               * for an example, I'm using my cell phone number for now
+               */
               var _get_callback = prompt("We have your number listed as (845)-598-6387: use as callback? Else, input within field");
               _get_callback == '' ? console.log('beginning to call...') : console.log('we can\'t call the kin');
               element.isUpdated = false;
@@ -47,6 +58,52 @@
    });
   }     
 
+    /* Functions */
+    
+    window.parseForStatus = function(message,patient, prov){
+      var reg = /(Condition|Medication|Procedure|Observation):?/i
+      var determine_mess = message.match(reg)
+
+      if (determine_mess !== null &&
+          Object.prototype.toString.call(catch_obj) == "[object Array]"){
+
+        switch (determine_mess[1]) {
+          case "Condition":
+            severity = determine_mess.input.match(/(severe|moderate|mild)/i);
+            if (severity !== null &&
+                Object.prototype.toString.call(severity) == "[object Array]"){
+              var cluster = {'practicioner': prov.name, 'callback': prov.organization.number};
+
+              return severity[1] == "severe" ? [cluster.message = 'message': "Patient ".concat(patient).concat(" has undergone a severe condition, please contact ASAP ").concat(prov.organization.numer), 'call'] :
+              
+              severity[1] == "moderate" ? [cluster.message = 'message': "Patient ".concat(patient).concat(" has a elevated condition, please call ").concat(prov.organization.number), 'text|email'] :
+              severity[1] == "mild" ? [undefined, 'nothing'];
+
+            } else {
+              console.warn("Nothing to send to the next-of-kin, false alarm...");
+            };
+            break;
+          
+          case "Procedure":
+            //ongoing
+            console.error("Not ready for production");
+            break;
+
+          case "Observation":
+            //ongoing
+            console.error("Not ready for production");
+            break;
+
+          case "Medication":
+            //ongoing 
+            console.error("Not ready for production");
+            break;  
+        };
+      } else {
+        console.warn("You don't have any important details to send to patient, please read fhi7.org for more examples ")
+      }
+    };
+
     window.newAddendums = function(){
       return setInterval(addToAFAS, 10000);
     };
@@ -55,6 +112,7 @@
       console.debug("No care plans defined for subject");
       delete newAddendums; //remove from heap??
     });
+
 
   $.when(deferred_object).done(function(){
     var sentinel;

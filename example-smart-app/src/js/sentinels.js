@@ -35,17 +35,17 @@
               /*XXX: Default is myself */
               provider = {name: "portal", organization: {number: "(845)-371-2125"}}
               parseMessage = parseForStatus(first_message,pt, provider);
-              var contacts = $('.contacts > .names > td'); //list of the NAMES of hcproxies
+              var contacts = $('.contacts > tbody > .names > td'); //list of the NAMES of hcproxies
               contacts = contacts.map(function(){ return $(this).text();}).get();
               parseMessage.contacts = [];
               contacts.forEach(function(elem){ parseMessage.contacts.push({name:elem}); });
-              var cells = $('.contacts > .cells > td').each(function(index){
+              var cells = $('.contacts > tbody > .cells > td').each(function(index){
                 parseMessage.contacts[index].cell = $(this).text();
               });
-              var emails = $('.contacts > .emails > td').each(function(index){
+              var emails = $('.contacts tbody > .emails > td').each(function(index){
                 parseMessage.contacts[index].email = $(this).text();
               });
-              var home = $('contacts > .phones > td').each(function(index){
+              var home = $('contacts > tbody > .phones > td').each(function(index){
                 parseMessage.contacts[index].land = $(this).text();
               });
               console.log(cells);
@@ -57,15 +57,18 @@
                * We must declare the user variables within the portal for the EMR system
                * for an example, I'm using my cell phone number for now
                */
+
               var _get_callback = prompt("We have your number listed as (845)-371-2125: use as callback? Else, input within field");
               if( _get_callback == '' ){
                      console.log('beginning to call...');
                      parseMessage.callback = "(845)-371-2125";
                      //use user's password?
+                     console.log(parseMessage);
                      var ciphertext = CryptoJS.AES.encrypt(parseMessage, 'portal');                  
                      console.debug(ciphertext);
               } else {
                 parseMessage.callback = _get_callback;
+                console.log(parseMessage);
                 var ciphertext = CryptoJS.AES.encrypt(parseMessage, 'portal');
                 console.debug(ciphertext);
               };

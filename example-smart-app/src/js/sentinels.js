@@ -68,19 +68,23 @@
           Object.prototype.toString.call(catch_obj) == "[object Array]"){
 
         switch (determine_mess[1]) {
+
           case "Condition":
             severity = determine_mess.input.match(/(severe|moderate|mild)/i);
             if (severity !== null &&
                 Object.prototype.toString.call(severity) == "[object Array]"){
               var cluster = {'practicioner': prov.name, 'callback': prov.organization.number};
 
-              return severity[1] == "severe" ? [cluster.message = 'message': "Patient ".concat(patient).concat(" has undergone a severe condition, please contact ASAP ").concat(prov.organization.numer), 'call'] :
-              
-              severity[1] == "moderate" ? [cluster.message = 'message': "Patient ".concat(patient).concat(" has a elevated condition, please call ").concat(prov.organization.number), 'text|email'] :
-              severity[1] == "mild" ? [undefined, 'nothing'];
+              if (severity[1] == "severe"){
+                cluster.message = 'message': "Patient ".concat(patient).concat(" has undergone a severe condition, please contact ASAP ").concat(prov.organization.numer);
+                return [cluster, 'call']; } else if (severity[1] == "moderate") {
 
-            } else {
-              console.warn("Nothing to send to the next-of-kin, false alarm...");
+                cluster.message = 'message': "Patient ".concat(patient).concat(" has a elevated condition, please call ").concat(prov.organization.number);
+
+                return [cluster, 'text&email']; } else if (severity[1] == "mild") {
+                return [undefined, 'nothing'];} else {
+                console.warn("Nothing to send to the next-of-kin, false alarm...");
+              };
             };
             break;
           
@@ -100,7 +104,7 @@
             break;  
         };
       } else {
-        console.warn("You don't have any important details to send to patient, please read fhi7.org for more examples ")
+        console.warn("You don't have any specific details to send to patient, please read fhi7.org for more examples ")
       }
     };
 

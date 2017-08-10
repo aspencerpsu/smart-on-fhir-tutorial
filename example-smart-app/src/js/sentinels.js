@@ -38,7 +38,7 @@
               var contacts = $('.contacts > .names > td'); //list of the NAMES of hcproxies
               contacts = contacts.map(function(){ return $(this).text();}).get();
               parseMessage.contacts = [];
-              contacts.forEach(function(elem){ parseMessage.contacts.push({name:elem})};);
+              contacts.forEach(function(elem){ parseMessage.contacts.push({name:elem}); });
               var cells = $('.contacts > .cells > td').each(function(index){
                 parseMessage.contacts[index].cell = $(this).text();
               });

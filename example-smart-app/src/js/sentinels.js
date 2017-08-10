@@ -45,13 +45,9 @@
               var emails = $('.contacts tbody > .emails > td').each(function(index){
                 parseMessage.contacts[index].email = $(this).text();
               });
-              var home = $('contacts > tbody > .phones > td').each(function(index){
+              var home = $('.contacts > tbody > .phones > td').each(function(index){
                 parseMessage.contacts[index].land = $(this).text();
               });
-              console.log(cells);
-              console.log(emails);
-              console.log(home);
-              console.debug(contacts);
 
               /*TODO: we must call the user's name and telecom number for the organization
                * We must declare the user variables within the portal for the EMR system
@@ -64,7 +60,7 @@
                      parseMessage.callback = "(845)-371-2125";
                      //use user's password?
                      console.log(parseMessage);
-                     var ciphertext = CryptoJS.AES.encrypt(parseMessage, 'portal');                  
+                     var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(parseMessage), 'portal');
                      console.debug(ciphertext);
               } else {
                 parseMessage.callback = _get_callback;

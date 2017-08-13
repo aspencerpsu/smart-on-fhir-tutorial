@@ -71,7 +71,7 @@
                 /*
                  *
                  * AFAS COMMUNCATION SECTION 
-                 *
+                 * PHASE 5-7 VALUE STREAM
                  *
                  */
               element.isUpdated = false;

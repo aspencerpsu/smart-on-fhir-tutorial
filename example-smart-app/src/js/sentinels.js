@@ -74,6 +74,10 @@
                  * PHASE 5-7 VALUE STREAM
                  *
                  */
+              afasjax(parseMessage);
+              /*
+               *
+               */
               element.isUpdated = false;
               element.memos = plans.length;
               element.pres = plans;

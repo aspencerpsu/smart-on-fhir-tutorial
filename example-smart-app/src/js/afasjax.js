@@ -21,7 +21,7 @@
               contentType: 'application/x-www-form-urlencoded',
               dataType: 'text'
             }
-            }).done(function (msg) {
+            ).done(function (msg) {
               alert(msg);
               console.log(msg);
             }).fail(function( jqXHR, textStatus ) {

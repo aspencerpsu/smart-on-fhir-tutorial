@@ -3,7 +3,7 @@
  * This function will create a call
  * to the bluemix.net-AFAS-CLOUD by RESTful POST request
  *
- *//
+ */
 (function(window){
 
   var afasjax = function(nugget){

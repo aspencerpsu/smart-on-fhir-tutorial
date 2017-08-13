@@ -6,7 +6,7 @@
  */
 (function(window){
 
-  var window.afasjax = function(nugget){
+  window.afasjax = function(nugget){
     //Make an ajax call to the system
     $.ajax('https://afas-cloud.mybluemix.net/api/red-sub',
             {method: "POST",
@@ -25,7 +25,7 @@
               alert( "Request failed: " + textStatus );
             });
   };
-}).call(window);
+})(window);
 
 
 

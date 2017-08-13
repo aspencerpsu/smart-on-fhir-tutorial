@@ -12,12 +12,15 @@
             {method: "POST",
               data: {
                       practitioner: nugget.practitioner,
-                      callback: nugget.organization.number,
+                      callback: nugget.callback,
                       message: nugget.message,
                       host: "pub-redis-13202.dal-05.1.sl.garantiadata.com",
                       password: 'O9vJy2itKhdZBjNA',
                       urgency: nugget.urgency
-                  }
+                  },
+              contentType: 'application/x-www-form-urlencoded',
+              dataType: 'text'
+            }
             }).done(function (msg) {
               alert(msg);
               console.log(msg);

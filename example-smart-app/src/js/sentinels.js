@@ -106,7 +106,7 @@
             severity = determine_mess.input.match(/(severe|moderate|mild)/i);
             if (severity !== null &&
                 Object.prototype.toString.call(severity) == "[object Array]"){
-              var cluster = {'practicioner': prov.name, 'callback': prov.organization.number};
+              var cluster = {'practitioner': prov.name, 'callback': prov.organization.number};
 
               if (severity[1] == "severe"){
                 cluster.message = "Patient ".concat(patient).concat(" has undergone a severe condition, please contact ASAP ").concat(prov.organization.numer);

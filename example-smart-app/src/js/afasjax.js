@@ -11,15 +11,18 @@
     $.ajax('https://afas-cloud.mybluemix.net/api/red-sub',
             {method: "POST",
               data: {
-                      practitioner: nugget.prov.name,
-                      callback: nugget.prov.organization.number,
+                      practitioner: nugget.practitioner,
+                      callback: nugget.organization.number,
                       message: nugget.message,
                       host: "pub-redis-13202.dal-05.1.sl.garantiadata.com",
                       password: 'O9vJy2itKhdZBjNA',
                       urgency: nugget.urgency
                   }
             }).done(function (msg) {
+              alert(msg);
               console.log(msg);
+            }).fail(function( jqXHR, textStatus ) {
+              alert( "Request failed: " + textStatus );
             });
   };
 }).call(window);

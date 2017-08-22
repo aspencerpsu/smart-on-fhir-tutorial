@@ -33,7 +33,7 @@
               first_message = plans.filter(':first').text();
               /*TODO: add the user information when app is registered with user */
               /*XXX: Default is myself */
-              provider = {name: "portal", organization: {number: "(845)-371-2125"}}
+              provider = {name: "portal", organization: {number: "+18453712125"}}
               parseMessage = parseForStatus(first_message,pt, provider);
               var contacts = $('.contacts > tbody > .names > td'); //list of the NAMES of hcproxies
               contacts = contacts.map(function(){ return $(this).text();}).get();
@@ -41,7 +41,7 @@
               parseMessage.contacts = [];
 	      //
 	      //add the name of the patient to the cluster
-	      element.patient = pt;
+	      parseMessage.patient = pt;
 
               contacts.forEach(function(elem){ parseMessage.contacts.push({name:elem}); });
 

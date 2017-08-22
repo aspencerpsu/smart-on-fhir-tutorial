@@ -117,7 +117,7 @@
               var cluster = {'practitioner': prov.name, 'callback': prov.organization.number};
 
               if (severity[1] == "severe"){
-                cluster.message = "Patient ".concat(patient).concat(" has undergone a severe condition, please contact ASAP ").concat(prov.organization.numer);
+                cluster.message = "Patient ".concat(patient).concat(" has undergone a severe condition, please contact ASAP ").concat(prov.organization.number);
                 cluster.urgency = 'call';
                 return cluster; } else if (severity[1] == "moderate") {
 

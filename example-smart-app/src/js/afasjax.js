@@ -14,12 +14,12 @@
                       practitioner: nugget.practitioner,
                       callback: nugget.callback,
                       message: nugget.message,
-                      host: "pub-redis-13202.dal-05.1.sl.garantiadata.com",
-                      password: 'O9vJy2itKhdZBjNA',
-                      urgency: nugget.urgency
+                      urgency: nugget.urgency,
+		      patient: nugget.patient,
+		      contacts: JSON.stringify(nugget.contacts), 
                   },
               contentType: 'application/x-www-form-urlencoded',
-              dataType: 'text'
+              dataType: 'json'
             }
             ).done(function (msg) {
               alert(msg);

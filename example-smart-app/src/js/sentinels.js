@@ -37,14 +37,22 @@
               parseMessage = parseForStatus(first_message,pt, provider);
               var contacts = $('.contacts > tbody > .names > td'); //list of the NAMES of hcproxies
               contacts = contacts.map(function(){ return $(this).text();}).get();
+	      //Initialize the contacts array
               parseMessage.contacts = [];
+	      //
+	      //add the name of the patient to the cluster
+	      element.patient = pt;
+
               contacts.forEach(function(elem){ parseMessage.contacts.push({name:elem}); });
+
               var cells = $('.contacts > tbody > .cells > td').each(function(index){
                 parseMessage.contacts[index].cell = $(this).text();
               });
+
               var emails = $('.contacts tbody > .emails > td').each(function(index){
                 parseMessage.contacts[index].email = $(this).text();
               });
+
               var home = $('.contacts > tbody > .phones > td').each(function(index){
                 parseMessage.contacts[index].land = $(this).text();
               });

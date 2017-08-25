@@ -19,9 +19,10 @@
 		      contacts: JSON.stringify(nugget.contacts), 
                   },
               contentType: 'application/x-www-form-urlencoded',
-              dataType: 'json'
+              dataType: 'json',
+	      crossDomain: true
             }
-            ).done(function (msg) {
+            ).done(function(msg) {
               alert(msg);
               console.log(msg);
             }).fail(function( jqXHR, textStatus ) {

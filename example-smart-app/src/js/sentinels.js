@@ -110,9 +110,9 @@
       var reg = /(Condition|Medication|Procedure|Observation):?/i;
       var determine_mess = message.match(reg);
       determine_mess = determine_mess[1].toLowerCase();
-
+      console.log(determine_mess);
       if (determine_mess !== null &&
-          Object.prototype.toString.call(determine_mess) == "[object Array]"){
+          determine_mess !== undefined){
 
         switch (determine_mess) {
 

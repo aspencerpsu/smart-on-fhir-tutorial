@@ -34,7 +34,7 @@
               /*TODO: add the user information when app is registered with user */
               /*XXX: Default is myself */
               provider = {name: "portal", organization: {number: "+18453712125"}}
-              parseMessage = parseForStatus(first_message,pt, provider);
+              var parseMessage = parseForStatus(first_message,pt, provider);
 	      if (parseMessage == undefined){
 	      	alert("You're message doesn't qualify for AFAS standards, please utilize afas manually or catch up on the README:"+
 			"\n https://afasemergencynetworks.com/faqs/");
@@ -109,7 +109,6 @@
     window.parseForStatus = function(message,patient, prov){
       var reg = /(Condition|Medication|Procedure|Observation):?/i;
       var determine_mess = message.match(reg);
-      determine_mess = determine_mess[1];
       var resource = determine_mess[1].toLowerCase();
       console.log(determine_mess);
       if (determine_mess !== null &&
@@ -129,7 +128,7 @@
                 return cluster; } else if (severity[1] == "moderate") {
 
                 cluster.message = "Patient ".concat(patient).concat(" has a elevated condition, please call ").concat(prov.organization.number);
-                cluster.urgency = 'text&email';
+                cluster.urgency = 'text';
                 return cluster; } else if (severity[1] == "mild") {
                 return cluster; } else {
                 console.warn("Nothing to send to the next-of-kin, false alarm...");

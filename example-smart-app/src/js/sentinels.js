@@ -109,12 +109,13 @@
     window.parseForStatus = function(message,patient, prov){
       var reg = /(Condition|Medication|Procedure|Observation):?/i;
       var determine_mess = message.match(reg);
-      determine_mess = determine_mess[1].toLowerCase();
+      determine_mess = determine_mess[1];
+      var resource = determine_mess[1].toLowerCase();
       console.log(determine_mess);
       if (determine_mess !== null &&
           determine_mess !== undefined){
 
-        switch (determine_mess) {
+        switch (resource) {
 
           case "condition":
             severity = determine_mess.input.match(/(severe|moderate|mild)/i);

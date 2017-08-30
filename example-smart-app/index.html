@@ -37,11 +37,77 @@
         font-family: 'Roboto Slab', serif;
         line-height: 225%;
       }
+
+      #closePad #anchor {
+        position: fixed;
+        background: #bb0707;
+        padding: 4px 6px;
+        right: 0;
+        top: 0;
+        z-index: 9001;
+        width: 100%;
+      }
+        .checkmark__circle {
+	stroke-dasharray: 166;
+	stroke-dashoffset: 166;
+	stroke-width: 2;
+	stroke-miterlimit: 10;
+	stroke: #bb0707;
+	fill: none;
+	animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+      }
+
+      .checkmark {
+        right: 0;
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	display: block;
+	stroke-width: 2;
+	stroke: #fff;
+	stroke-miterlimit: 10;
+	margin: 10% auto;
+	box-shadow: inset 0px 0px 0px #bb0707;
+	animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+      }
+
+     .checkmark__check {
+	transform-origin: 50% 50%;
+	stroke-dasharray: 29;
+	stroke-dashoffset: 29;
+	animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+      }
+
+      @keyframes stroke {
+	100% {
+	   stroke-dashoffset: 0;
+	}
+      }
+      @keyframes scale {
+	0%, 100% {
+	 transform: none;
+	}
+	50% {
+	  transform: scale3d(1.1, 1.1, 1);
+	}
+      }
+      @keyframes fill {
+       100% {
+	  box-shadow: inset 0px 0px 0px 30px #bb0707;
+	}
+      }
     </style>
   </head>
   <body>
     <div id='subjectinfo'>
       <div id="togglebox">
+        <div id="closePad">
+	   <a href="./" id="anchor">close</a>
+	   <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+	      <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+	      <path class="checkmark__check" fill="none" d="M16 16 36 36 M36 16 16 36" />
+	   </svg>
+        </div>
         <input type='submit' name='done' value='done?'/>
         <input type='submit' name='completed' value='completed?'/>
         <input type='submit' name='afas' value='callback?'/>
@@ -283,13 +349,15 @@
             $toggleBox = $('#togglebox');
             new_memo = $('textarea').val();
             var new_appendum = new_memo.split('----------')[0];
-            var pres = $("<pre>"+new_appendum+"</pre>");
-            pres.insertAfter('.row'+status_id+' > .details > .plan-raw > p:eq(2)');
 
-            $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details
+	    if (!/Please write above dotted line .*/.test(new_appendum)){
+	       
+	       var pres = $("<pre>"+new_appendum+"</pre>");
+	       pres.insertAfter('.row'+status_id+' > .details > .plan-raw > p:eq(2)');
 
-            $toggleBox.toggle();
-
+	    }
+	    $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details in pad
+	    $toggleBox.toggle();
             $status = $("select[name=stat"+status_id+"]");
             $status.children().filter(':selected').prop("selected", false);
             $status.children().filter(':first').prop("selected", true); //revert back to active
@@ -333,7 +401,14 @@
                // No further action required
              }
           });
-
+	  
+	  $("#closePad #anchor").click((e)=>{
+            $toggleBox = $('#togglebox');
+            new_memo = $('textarea').val();
+	    $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details in pad
+	    $toggleBox.toggle();
+	  });
+	     
           $('.status > select').on('focus', function(){
             previous = this.value;
             }).change(function(){

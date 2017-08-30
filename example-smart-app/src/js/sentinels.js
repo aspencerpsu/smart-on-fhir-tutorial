@@ -127,7 +127,7 @@
                 cluster.urgency = 'call';
                 return cluster; } else if (severity[1] == "moderate") {
 
-                cluster.message = "Patient ".concat(patient).concat(" has a elevated condition, please call ").concat(prov.organization.number);
+                cluster.message = "Patient ".concat(patient).concat(" has an elevated condition, please call ").concat(prov.organization.number);
                 cluster.urgency = 'text';
                 return cluster; } else if (severity[1] == "mild") {
                 return cluster; } else {

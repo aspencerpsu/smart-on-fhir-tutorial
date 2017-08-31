@@ -23,6 +23,9 @@
                       }
                     }
                   });
+	
+	var conditions = smart.patient.api.fetchAll({type: 'Condition'});
+	console.warn("Conditions for patients are: ", conditions);
 
         var care = smart.patient.api.fetchAll({
                     type:'CarePlan',

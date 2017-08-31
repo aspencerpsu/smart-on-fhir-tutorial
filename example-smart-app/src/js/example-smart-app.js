@@ -38,7 +38,7 @@
 
         $.when(pt, obv, care, conditions).fail(onError);
 
-        $.when(pt, obv, care, conditions).done(function(patient, obv, care){
+        $.when(pt, obv, care, conditions).done(function(patient, obv, care, conditions){
           console.log(patient);
 	  console.warn("Conditions for patients are: ", conditions);
           var actives_draft = [];

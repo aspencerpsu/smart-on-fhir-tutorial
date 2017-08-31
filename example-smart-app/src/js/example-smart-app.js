@@ -8,6 +8,8 @@
     }
 
     function onReady(smart) {
+      console.log(smart);
+      console.log(FHIR);
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
         var pt = patient.read();

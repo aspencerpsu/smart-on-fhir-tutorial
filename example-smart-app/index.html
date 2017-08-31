@@ -12,7 +12,7 @@
     <style>
       .pending {
         color:  #3b584b;
-       }
+      }
       .details .plan-raw {
         display: none;
       }
@@ -42,11 +42,12 @@
         position: fixed;
         background: #bb0707;
         padding: 4px 6px;
+	color: white;
         right: 0;
         top: 0;
         z-index: 9001;
-        width: 250px;
-	height: 100%;
+        width: 195px;
+	height: 50px;
       }
       .checkmark__circle {
 	stroke-dasharray: 166;
@@ -62,6 +63,7 @@
         right: 0;
 	width: 56px;
 	height: 56px;
+	float: right;
 	border-radius: 50%;
 	display: block;
 	stroke-width: 2;
@@ -103,11 +105,11 @@
     <div id='subjectinfo'>
       <div id="togglebox">
         <div id="closePad">
-	   <a href="#" id="anchor">close</a>
 	   <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
 	      <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
 	      <path class="checkmark__check" fill="none" d="M16 16 36 36 M36 16 16 36" />
 	   </svg>
+	   <a href="#" id="anchor">close</a>
         </div>
         <input type='submit' name='done' value='done?'/>
         <input type='submit' name='completed' value='completed?'/>
@@ -403,10 +405,33 @@
              }
           });
 	  
-	  $("#closePad #anchor").click((e)=>{
+	  $("#closePad #anchor .checkmark").click((e)=>{
             $toggleBox = $('#togglebox');
-            new_memo = $('textarea').val();
+            var new_memo = $('textarea').val();
+            var new_appendum = new_memo.split('----------')[0];
+	    var status_id = $('input[name=done]').attr('id');
+            $lastmodified = $('.modified #'+status_id);
+            $('.subjectdetails').prop('disabled', false);
+	    if (!/Please write above dotted line .*/.test(new_appendum)){
+	       confirmation = confirm("modify this care plan?");
+	       if (confirmation){
+		    $lastmodified = $('.modified #'+status_id);
+		    _date = new Date().toISOString();
+		    $lastmodified.html(_date);
+	       	    var pres = $("<pre>"+new_appendum+"</pre>");
+	       	    pres.insertAfter('.row'+status_id+' > .details > .plan-raw > p:eq(2)');
+	       }
+	    }
+	    
+	    $('#subjectinfo').css('background-color', '');
+	    $('.subjectdetails').prop('disabled', false);
+	    $('#subjectinfo').css('opacity', '1');
+            $status = $("select[name=stat"+status_id+"]");
+            $status.children().filter(':selected').prop("selected", false);
+            $status.children().filter(':first').prop("selected", true); //revert back to active
 	    $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details in pad
+            $('input[name=done]').attr('id', '');
+            $('input[name=completed]').attr('id', '');
 	    $toggleBox.toggle();
 	  });
 	     

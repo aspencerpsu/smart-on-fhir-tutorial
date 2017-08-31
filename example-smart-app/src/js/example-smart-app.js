@@ -24,8 +24,6 @@
                     }
                   });
 	
-	var conditions = smart.patient.api.fetchAll({type: 'Condition'});
-	console.warn("Conditions for patients are: ", conditions);
 
         var care = smart.patient.api.fetchAll({
                     type:'CarePlan',
@@ -35,12 +33,14 @@
                       }
                     }
         });
+	
+	var conditions = smart.patient.api.fetchAll({type: 'Condition'});
 
-        $.when(pt, obv, care).fail(onError);
+        $.when(pt, obv, care, conditions).fail(onError);
 
-        $.when(pt, obv, care).done(function(patient, obv, care){
+        $.when(pt, obv, care, conditions).done(function(patient, obv, care){
           console.log(patient);
-
+	  console.warn("Conditions for patients are: ", conditions);
           var actives_draft = [];
 
           if (care && typeof care !== 'undefined'){

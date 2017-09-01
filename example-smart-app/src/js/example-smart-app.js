@@ -25,7 +25,6 @@
                   });
 	
 
-	/*
         var care = smart.patient.api.fetchAll({
                     type:'CarePlan',
                     query: {
@@ -34,25 +33,22 @@
                       }
                     }
         });
-	*/
 	
 	var conditions = smart.patient.api.fetchAll({type: 'Condition'});
 
-        $.when(pt, obv, conditions).fail(onError);
+        $.when(pt, obv, care, conditions).fail(onError);
 
-        $.when(pt, obv, conditions).done(function(patient, obv, care, conditions){
+        $.when(pt, obv, care, conditions).done(function(patient, obv, care){
           console.log(patient);
 	  console.warn("Conditions for patients are: ", conditions);
           var actives_draft = [];
 
-	 /*
           if (care && typeof care !== 'undefined'){
             care.reduce(function(prev,cv,ci, array){
               cv.status == 'completed' ? prev : cv.status == 'cancelled' ? prev : prev.push(cv);
               return prev
             }, actives_draft);
           }
-	*/
           
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;

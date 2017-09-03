@@ -34,7 +34,13 @@
                     }
         });
 	
-	var conditions = smart.patient.api.fetchAll({type: 'Condition'});
+	var conditions = smart.patient.api.fetchAll({type: 'Condition', 
+						     query:{
+								code: {
+								 $or: ['active']
+							       }
+							   }
+							});
 
         $.when(pt, obv, care, conditions).fail(onError);
 

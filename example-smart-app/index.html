@@ -100,6 +100,8 @@
 	  box-shadow: inset 0px 0px 0px 30px #bb0707;
 	}
       }
+      .responseBox {
+	}
     </style>
   </head>
   <body>
@@ -216,8 +218,12 @@
       <tbody>
       </tbody>
     </table>
+
     <div class="responseBox">
-      <div class="trail"></div>
+      <button class="expand">+</button>
+      <button class="minus">-</button>
+      <div class="audits"></div>
+      <div class="COC"></div>
     </div>
 
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>
@@ -238,6 +244,7 @@
     <script>
         console.log(CryptoJS);
         var plansReady; //when plans are compiled, we can run the function;
+		
         
         extractData().then(function(data){
         //Display Patient Demographics and Observations if extractData was success
@@ -438,7 +445,7 @@
 
 	 $("svg").click((e)=> $("#closePad #anchor").trigger("click"));
 	     
-          $('.status > select').on('focus', function(){
+         $('.status > select').on('focus', function(){
             previous = this.value;
             }).change(function(){
               $select = $(this);
@@ -455,12 +462,12 @@
                     previous = this.value;
                   };
                 };
-            });
-        
-          $('.trigsub').submit(function(event){
-            event.preventDefault();
-            console.log($('textarea').text());
           });
+
+       $('.responseBox').css({'right': '12px', 'background-color': 'rgb(240, 240, 240)', 
+			      'text-align': 'end', 'padding-top': '5px', position: 'absolute',
+			      'width': '175px', height: '30px', 'padding-left': '5px',
+			     });
       },
         //Display 'Failed to call FHIR Service' if extractData failed
         function(){

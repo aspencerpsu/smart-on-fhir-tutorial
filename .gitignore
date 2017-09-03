@@ -1,5 +1,6 @@
 .~lock.SMART on FHIR test patients.docx#
 SMART on FHIR test patients.docx
+./.DS_STORE
 ./lib/mymodule.js
 mymodule.js
 node_modules/ 

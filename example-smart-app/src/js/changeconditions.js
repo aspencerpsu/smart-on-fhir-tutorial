@@ -32,8 +32,8 @@
 					   || resp.statusCode == 201){
 						sessionStorage['tokenResponse'] = JSON.stringify(resp);
 						} else {
-							alert("Incorrect refresh token, please consult with Consultant,
-								May have admin revoke your token");	
+							alert("Incorrect refresh token, please consult with Consultant"+
+								"Admin may have revoked your token");	
 						};
 					}).catch((err)=>{console.error(err);});
    };

@@ -37,7 +37,8 @@
 	var conditions = smart.patient.api.fetchAll({type: 'Condition', 
 						     query:{
 								code: {
-								 $or: ['active']
+								 $or: ['active'],
+								 $not: ['entered-in-error']
 							       }
 							   }
 							});
@@ -55,7 +56,10 @@
               return prev
             }, actives_draft);
           }
-          
+	  
+	  var conditions = conditions.filter((e)=>e.verificationStatus!='entered-in-error');
+          console.log(conditions); 
+	  conditions = conditions.slice(0,5);
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
           var dob = new Date(patient.birthDate);
@@ -147,7 +151,7 @@
         p.ldl = getQuantityValueAndUnit(ldl[0]);
 
 
-        ret.resolve(p);
+        ret.resolve(p, conditions);
       });
       } else {
         onError();
@@ -258,7 +262,7 @@
     }
   }
 
-  window.drawVisualization = function(p) {
+  window.drawVisualization = function(p, conditions) {
    $('#holder').show();
    $('#loading').hide();
    $('#fname').html(p.fname);
@@ -284,7 +288,7 @@
    };
    if (p.plans.value !== ''){
      console.debug(p.plans);
-     return p.plans;
+     return [p.plans, conditions];
    } else {
      console.warn('no plans for the patient...');
    };

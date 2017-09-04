@@ -12,7 +12,7 @@
 	var client_id = storage.client.client_id;
 	var token_uri = storage.provider.oauth2.token_uri;
 	var data = {
-			grant_type: "refresh_token&refresh_token=".concat(refresh_token),
+			grant_type: "refresh_token",
 			client_id: client_id,
 			client_secret: client_secret,
 			refresh_token: refresh_token
@@ -23,16 +23,20 @@
 			  "method": "POST",
 			  "data": data,
 			  "dataType": "json"
-			}; 
+			};
 	$.ajax(settings).done((resp)=>{console.log(resp); 
-					if(resp.statusCode == 200
-					   || resp.statusCode == 201){
-						sessionStorage['tokenResponse'] = JSON.stringify(resp);
-						} else {
-							alert("Incorrect refresh token, please consult with Consultant"+
-								"Admin may have revoked your token");	
-						};
-					}).catch((err)=>{console.error(err);});
+					sessionStorage['tokenResponse'] = JSON.stringify(resp);
+				      }).catch((err)=>{console.error(err); alert("Could not refresh your token, admin may have revoked privileges, contact href")});
    };
-  
+   window.changeCondition(
+   window.addCondition = function(condition){
+	var conditionFHIR = {id: condition.id, 
+			     category: condition.category.coding[0].code, 
+			     categoryTitle: condition.category.text,
+			     code: condition.code.coding[0].code, 
+			     text: condition.code.text, 
+			     clinicalstat: condition.clinicalStatus };
+	$(".conditions > tbody").append("<tr><td><button id=\'"+condition.id+"'>"+condition.id+"</button><div style='display:none'><br>"+
+					JSON.stringify(condititionFHIR)+"<br></div></td></tr>");
+   };
 }).call(window);

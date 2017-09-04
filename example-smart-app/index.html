@@ -28,10 +28,20 @@
         text-align: center;
         margin: auto;
         width: 100%;
-        background-color: rgba(248, 246, 244, 1);
+        background-color: rgba(248, 246, 244, 0.75);
         padding: 50px;
         position: fixed;
       }
+
+      .submitconditionchange{
+	display: none;
+	text-align: center;
+	margin: auto;
+	width: 100%;
+	background-color: rgba(248, 246, 244, 0.75);
+	padding: 50px
+	position: fixed;
+     }
 
       textarea {
         font-family: 'Roboto Slab', serif;
@@ -118,6 +128,45 @@
         <input type='submit' name='completed' value='completed?'/>
         <input type='submit' name='afas' value='callback?'/>
       </div>
+    </div>
+    <div class='submitconditionchange'>
+	<b>*NOTICE*</b>
+	<p>If you're changing the code of the condition,</p>
+	<p>please follow the snowmed nomenclacture</p>
+	<a href='https://www.hl7.org/fhir/valueset-condition-code.html'>https://www.hl7.org/fhir/valueset-condition-code.html</a>
+	<form method="POST" action="./" name="COC">
+	  <label>ID_:</label>
+	  <input name="id" value="" disabled/>
+	  <label>Category:</label>
+	  
+	  <fieldset>
+		  <legend>http://argonaut.hl7.org</legend>
+		  <input name="category" type="radio" value="problem">Problem<br>
+		  <input name="category" type="radio" value="diagnosis">Diagnosis<br>
+	  </fieldset>
+
+	  <label>Code Type (Please Refere To Classes Above)</label>
+	  <input name="code" value="">
+	  <label>Custom Category Title</label>
+	  <input name="title" value="">
+	  <label>Description Of Condition</label>
+	  <textarea name="description" wrap=hard></textarea>
+	  <label>Clinical Status</label>
+	  <select name='clinicalstatus'>
+		<!--active | recurrence | inactive | remission | resolved-->
+		<option value="active" selected>active</option>
+		<option value="recurrence">recurrence</option>
+		<option value="inactive">inactive</option>
+		<option value="resolved">resolved</option>
+		<option value="remission">remission</option>
+	  </select>
+	  <input type="submit" value="Process"/>
+	</form>
+	
+	<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+          <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+	  <path class="checkmark__check" fill="none" d="M16 16 36 36 M36 16 16 36" />
+	</svg>
     </div>
     <div id='errors'>
     </div>
@@ -218,13 +267,27 @@
       <tbody>
       </tbody>
     </table>
+   
+    <h2>Conditions</h2> 
+     <p>From the sandbox, the query is capped to 5 condition readings</p>
+     <p>To change the conditions, select the condition id and change</p>
+     <p>the field values to submit to AFAS</p>
+    <table class="conditions">
+      <thead>
+        <tr>
+ 	 <th>Condition ID</th>
+	</tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    
 
     <div class="responseBox">
       <button class="expand">+</button>
       <button class="minus">-</button>
       Messages
       <div class="audits"></div>
-      <div class="COC"></div>
     </div>
 
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>
@@ -247,7 +310,7 @@
         var plansReady; //when plans are compiled, we can run the function;
 		
         
-        extractData().then(function(data){
+        extractData().then(function(data,conditions){
         //Display Patient Demographics and Observations if extractData was success
             plans = drawVisualization(data);
             plansReady = findCarePlans(plans); //add the patients plans to the table above

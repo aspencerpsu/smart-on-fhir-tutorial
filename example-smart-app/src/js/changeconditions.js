@@ -22,10 +22,9 @@
 			  "url": token_uri,
 			  "method": "POST",
 			  "headers": {
-			    "Accept": "application/json",
-			    "Content-Type": "application/x-www-form-urlencoded"
+			    "accept": "application/json",
+			    "content-type": "application/x-www-form-urlencoded"
 			   },
-			  "processData": false,
 			  "data": JSON.stringify(data)
 			}; 
 	$.ajax(settings).done((resp)=>{console.log(resp); 

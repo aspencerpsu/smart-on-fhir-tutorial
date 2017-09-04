@@ -9,7 +9,7 @@
 	var refresh_token = params.refresh_token;
 	var client_secret = null;
 	var storage = JSON.parse(sessionStorage[params.state]);
-	var client_id = storage.client_id;
+	var client_id = storage.client.client_id;
 	var token_uri = storage.provider.oauth2.token_uri;
 	var data = {
 			grant_type: "refresh_token&refresh_token=".concat(refresh_token),

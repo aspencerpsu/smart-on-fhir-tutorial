@@ -22,7 +22,7 @@
 			  "url": token_uri,
 			  "method": "POST",
 			  "data": data,
-			  "dataType": json
+			  "dataType": "json"
 			}; 
 	$.ajax(settings).done((resp)=>{console.log(resp); 
 					if(resp.statusCode == 200

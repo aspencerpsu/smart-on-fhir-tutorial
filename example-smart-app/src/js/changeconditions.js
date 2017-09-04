@@ -22,7 +22,8 @@
 			  "url": token_uri,
 			  "method": "POST",
 			  "headers": {
-			    "content-type": "application/json"
+			    "Accept": "application/json",
+			    "Content-Type": "application/x-www-form-urlencoded"
 			   },
 			  "processData": false,
 			  "data": JSON.stringify(data)
@@ -38,5 +39,4 @@
 					}).catch((err)=>{console.error(err);});
    };
   
-  setInterval(refreshToken, 1000*60*9);
 }).call(window);

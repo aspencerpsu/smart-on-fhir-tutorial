@@ -469,7 +469,9 @@
        $('.responseBox').css({'right': '12px', 'background-color': 'rgb(240, 240, 240)', 
 			      'text-align': 'end', 'padding-top': '5px', position: 'absolute',
 			      'width': '175px', height: '30px', 'padding-left': '5px',
+			      'top': window.screen.availHeight-44
 			     });
+       $('svg').css({top: 0});
       },
         //Display 'Failed to call FHIR Service' if extractData failed
         function(){

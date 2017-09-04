@@ -38,5 +38,5 @@
 					}).catch((err)=>{console.error(err);});
    };
   
-  setInterval(refreshToken, 1000*60**9);
+  setInterval(refreshToken, 1000*60*9);
 }).call(window);

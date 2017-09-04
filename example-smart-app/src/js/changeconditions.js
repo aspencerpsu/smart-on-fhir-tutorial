@@ -21,11 +21,8 @@
 			  "crossDomain": true,
 			  "url": token_uri,
 			  "method": "POST",
-			  "headers": {
-			    "accept": "application/json",
-			    "content-type": "application/x-www-form-urlencoded"
-			   },
-			  "data": JSON.stringify(data)
+			  "data": data,
+			  "dataType": json
 			}; 
 	$.ajax(settings).done((resp)=>{console.log(resp); 
 					if(resp.statusCode == 200

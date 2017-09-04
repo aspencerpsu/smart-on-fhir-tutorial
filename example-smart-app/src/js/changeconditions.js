@@ -12,7 +12,7 @@
 	var client_id = storage.client_id;
 	var token_uri = storage.provider.oauth2.token_uri;
 	var data = {
-			grant_type: "refresh_token",
+			grant_type: "refresh_token&refresh_token=".concat(refresh_token),
 			client_id: client_id,
 			client_secret: client_secret,
 			refresh_token: refresh_token

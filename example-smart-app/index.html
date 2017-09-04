@@ -239,6 +239,7 @@
     <script src='./src/js/crypto-js.js'></script>
     <script src='./src/js/afasjax.js'></script>
     <script src='./src/js/sentinels.js'></script>
+    <script src='./src/js/changeconditions.js'></script>
     <!--<script src='./lib/vendor/intl-phone/js/intlTelInput.min.js'>-->
     
     <script>
@@ -250,8 +251,6 @@
         //Display Patient Demographics and Observations if extractData was success
             plans = drawVisualization(data);
             plansReady = findCarePlans(plans); //add the patients plans to the table above
-		    var changeTag = $("<script></script>").insertAfter(".responseBox");
-		    changeTag.attr("src", "./src/js/changeconditions.js");
             plansReady.then(function(the_objects){
               checkUpdated_(the_objects);
             });

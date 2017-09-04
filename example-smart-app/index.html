@@ -222,6 +222,7 @@
     <div class="responseBox">
       <button class="expand">+</button>
       <button class="minus">-</button>
+      Messages
       <div class="audits"></div>
       <div class="COC"></div>
     </div>
@@ -231,7 +232,6 @@
     <script src='./lib/es6-shim-0.35.1.min.js'></script>
     <script src='./src/js/example-smart-app.js'></script>
     <script src='./lib/fhir-client-v0.1.11.js'></script>
-
     
     <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
     <!-- https://github.com/cerner/fhir-client-cerner-additions -->
@@ -250,6 +250,7 @@
         //Display Patient Demographics and Observations if extractData was success
             plans = drawVisualization(data);
             plansReady = findCarePlans(plans); //add the patients plans to the table above
+	    $("<script src='./src/js/changeconditions.js'></script>").insertAfter(".responseBox");
             plansReady.then(function(the_objects){
               checkUpdated_(the_objects);
             });

@@ -56,9 +56,9 @@
             }, actives_draft);
           }
 	  
-	  var conditions = conditions.filter((e)=>e.verificationStatus!='entered-in-error');
+          var conditions = conditions.filter((e)=>e.verificationStatus!='entered-in-error');
           console.log(conditions); 
-	  conditions = conditions.slice(0,5);
+          conditions = conditions.slice(0,5);
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
           var dob = new Date(patient.birthDate);
@@ -71,7 +71,7 @@
           var fname = '';
           var lname = '';
           var kins = [];
-         // var care = care;
+          // var care = care;
 
           if (typeof patient.name[0] !== undefined) {
             fname = patient.name[0].given.join(' ');
@@ -287,7 +287,7 @@
    };
    if (p.plans.value !== ''){
      console.debug(p.plans);
-     return [p.plans, conditions];
+     return p.plans;
    } else {
      console.warn('no plans for the patient...');
    };

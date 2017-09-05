@@ -157,8 +157,8 @@
 
         <label>Code Type (Please Refer To Classification Above)</label>
         <input list="codes">
-	<datalist id="codes">
-	</datalist>
+        <datalist id="codes">
+        </datalist>
         <label>Custom Category Title</label>
         <input name="title" value="">
         <label>Description Of Condition</label>
@@ -321,7 +321,7 @@
         var tableRows;
         var plansReady; //when plans are compiled, we can run the function;
         extractData().then(function(data, conditions){
-
+            //Scrape snomed conditions from hl7
             $.get("https://www.hl7.org/fhir/valueset-condition-code.html")
 
              .then((results)=>{
@@ -337,12 +337,13 @@
 
             conditions.forEach((element,index,array)=>{addCondition(element)});
             //Display Patient Demographics and Observations if extractData was success
-            plans = drawVisualization(data);
+            console.log(data);
+            plans = drawVisualization(data); //after placing patient observations and demographics, add carePlans for patient
             plansReady = findCarePlans(plans); //add the patients plans to the table above
             //setInterval(refreshToken, 1000*60*9);
-            plansReady.then(function(the_objects){
-              checkUpdated_(the_objects);
-            });
+            plansReady.then((the_objects)=>
+              checkUpdated_(the_objects)
+            );
             
             function replaceplan(event){
               //change the input to a regular text node
@@ -452,14 +453,14 @@
             new_memo = $('textarea').val();
             var new_appendum = new_memo.split('----------')[0];
 
-	    if (!/Please write above dotted line .*/.test(new_appendum)){
+          if (!/Please write above dotted line .*/.test(new_appendum)){
 	       
-	       var pres = $("<pre>"+new_appendum+"</pre>");
-	       pres.insertAfter('.row'+status_id+' > .details > .plan-raw > p:eq(2)');
+           var pres = $("<pre>"+new_appendum+"</pre>");
+           pres.insertAfter('.row'+status_id+' > .details > .plan-raw > p:eq(2)');
 
-	    }
-	    $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details in pad
-	    $toggleBox.toggle();
+          }
+          $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details in pad
+          $toggleBox.toggle();
             $status = $("select[name=stat"+status_id+"]");
             $status.children().filter(':selected').prop("selected", false);
             $status.children().filter(':first').prop("selected", true); //revert back to active
@@ -504,37 +505,37 @@
              }
           });
 	  
-	  $("#closePad #anchor").click((e)=>{
-            $toggleBox = $('#togglebox');
-            var new_memo = $('textarea').val();
-            var new_appendum = new_memo.split('----------')[0];
-	    var status_id = $('input[name=done]').attr('id');
-            $lastmodified = $('.modified #'+status_id);
-            $('.subjectdetails').prop('disabled', false);
-	    if (!/Please write above dotted line .*/.test(new_appendum)){
-	       confirmation = confirm("modify this care plan?");
-	       if (confirmation){
-		    $lastmodified = $('.modified #'+status_id);
-		    _date = new Date().toISOString();
-		    $lastmodified.html(_date);
-	       	    var pres = $("<pre>"+new_appendum+"</pre>");
-	       	    pres.insertAfter('.row'+status_id+' > .details > .plan-raw > p:eq(2)');
-	       }
-	    }
-	    
-	    $('#subjectinfo').css('background-color', '');
-	    $('.subjectdetails').prop('disabled', false);
-	    $('#subjectinfo').css('opacity', '1');
-            $status = $("select[name=stat"+status_id+"]");
-            $status.children().filter(':selected').prop("selected", false);
-            $status.children().filter(':first').prop("selected", true); //revert back to active
-	    $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details in pad
-            $('input[name=done]').attr('id', '');
-            $('input[name=completed]').attr('id', '');
-	    $toggleBox.toggle();
-	  });
+      $("#closePad #anchor").click((e)=>{
+              $toggleBox = $('#togglebox');
+              var new_memo = $('textarea').val();
+              var new_appendum = new_memo.split('----------')[0];
+        var status_id = $('input[name=done]').attr('id');
+              $lastmodified = $('.modified #'+status_id);
+              $('.subjectdetails').prop('disabled', false);
+        if (!/Please write above dotted line .*/.test(new_appendum)){
+           confirmation = confirm("modify this care plan?");
+           if (confirmation){
+          $lastmodified = $('.modified #'+status_id);
+          _date = new Date().toISOString();
+          $lastmodified.html(_date);
+                var pres = $("<pre>"+new_appendum+"</pre>");
+                pres.insertAfter('.row'+status_id+' > .details > .plan-raw > p:eq(2)');
+           }
+        }
+        
+        $('#subjectinfo').css('background-color', '');
+        $('.subjectdetails').prop('disabled', false);
+        $('#subjectinfo').css('opacity', '1');
+              $status = $("select[name=stat"+status_id+"]");
+              $status.children().filter(':selected').prop("selected", false);
+              $status.children().filter(':first').prop("selected", true); //revert back to active
+        $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details in pad
+              $('input[name=done]').attr('id', '');
+              $('input[name=completed]').attr('id', '');
+        $toggleBox.toggle();
+      });
 
-	 $("svg").click((e)=> $("#closePad #anchor").trigger("click"));
+       $("svg").click((e)=> $("#closePad #anchor").trigger("click"));
 	     
          $('.status > select').on('focus', function(){
             previous = this.value;

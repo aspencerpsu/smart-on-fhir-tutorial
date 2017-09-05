@@ -2,7 +2,7 @@
 //periodically refresh the token, WHICH is not advisable 
 //following oauth2 documentation, but is essential
 //for capturing condition changes
-(function(window){
+(function(){
   window.refreshToken = function(){
     var params = JSON.parse(sessionStorage.tokenResponse);
     var state = params.state;

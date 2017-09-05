@@ -318,7 +318,7 @@
     <!--<script src='./lib/vendor/intl-phone/js/intlTelInput.min.js'>-->
     
     <script>
-	var = tableRows;
+        var tableRows;
         var plansReady; //when plans are compiled, we can run the function;
 	$.get("https://www.hl7.org/fhir/valueset-condition-code.html").then((results)=>{tableRows= results.match(/<table class=\"codes\">(<tr>\S+<\/tr>){1}(.*)<\/table>/i);}).catch((err)=>console.log("an error occured")); 
 		

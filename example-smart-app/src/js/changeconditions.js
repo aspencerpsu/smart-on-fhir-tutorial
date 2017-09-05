@@ -41,9 +41,10 @@
     var id = form.children("input[name=id]").val();
     var catType = form.children("input[name=category]").val();
     var textDescription = form.children("textarea").text();
-    var code = form.children("input[name=code]").val();
     var title = form.chidlren("input[name=title]").val();
-    var select = form.children("select > option:selected").val();
+    var snoCode = form.children("datalist > option:selected").text();
+    var snoDescription = form.children("datalist > option:selected").val();
+    var clinicalSelection = form.children("select > option:selected").val();
     var params = JSON.parse(sessionStorage.tokenResponse);
     var state = params.state;
     var storage = JSON.parse(sessionStorage[state]);
@@ -52,9 +53,10 @@
     var originalConditionCluster = JSON.parse($(`.conditions > tbody > #${id} > .originalCondition`).text().trim());
     originalConditionCluster.category.coding[0].code = catType;
     originalConditionCluster.category.text = title;
-    originalConditionCluster.code.coding[0].code = code;
+    originalConditionCluster.code.coding[0].code = snoCode;
+    originalConditionCluster.code.coding[0].display = snoDescription;
     originalConditionCluster.code.text = textDescription;
-    originalConditionCluster.clinicalStatus = select;
+    originalConditionCluster.clinicalStatus = clinicalSelection;
 
     $.ajax(server.concat(`Condition/${id}`),
            {
@@ -76,9 +78,10 @@
                                                         'text-align': 'center',
                                                         color: '#ffffff'
                                                        });
-                            $(".conditionReaction").show().fadeOut(3000); 
+                            $(".conditionReaction").show().fadeOut(3000);
          })
-           .catch((err, statsheet)=>{console.error(err); 
+
+         .catch((err, statsheet)=>{console.error(err); 
                                      $(".conditionReaction").text("Error, Could not change the condition for the ID specified...");
                                      $(".conditionReaction").css({'background-color': '#cc0c1b',
                                                                   height: '80px',
@@ -91,10 +94,26 @@
     };
 
     window.addCondition = function(condition){
+	//some conditions may not be predefined with a SNOMED CT
+	//index, see https://www.hl7.org/fhir/condition.html#9.2.3.3
+	//for more information
+	if (condition.code.coding == undefined){
+		condition.code.coding = [];
+		condition.code.coding.push({});
+		condition.code.coding[0].code = "";
+		condition.code.coding[0].system = "http://snomed.info/sct";
+		condition.code.coding[0].display = "";
+		condition.code.coding[0].userSelected = false;
+	} else {
+		//TODO;
+		//Continue on, we may need to clarify additional details for conditions
+	};
+
         var conditionFHIR = {id: condition.id, 
                              category: condition.category.coding[0].code, 
                              categoryTitle: condition.category.text,
                              code: condition.code.coding[0].code, 
+			     codeDisplay: condition.code.coding[0].display,
                              text: condition.code.text, 
                              clinicalstat: condition.clinicalStatus 
                             };

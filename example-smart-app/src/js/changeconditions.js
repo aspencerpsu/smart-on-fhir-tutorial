@@ -2,7 +2,7 @@
 //periodically refresh the token, WHICH is not advisable 
 //following oauth2 documentation, but is essential
 //for capturing condition changes
-(function(){
+(function(window){
   window.refreshToken = function(){
     var params = JSON.parse(sessionStorage.tokenResponse);
     var state = params.state;
@@ -71,18 +71,18 @@
         )
          .then((results)=>{ 
                            $(".conditionReaction").text("Success! Condition changed!");
-                           $(".conditionReaction").css({background-color: '#00d970',
+                           $(".conditionReaction").css({'background-color': '#00d970',
                                                         height:'80px',
-                                                        text-align: 'center',
+                                                        'text-align': 'center',
                                                         color: '#ffffff'
                                                        });
                             $(".conditionReaction").show().fadeOut(3000); 
          })
            .catch((err, statsheet)=>{console.error(err); 
                                      $(".conditionReaction").text("Error, Could not change the condition for the ID specified...");
-                                     $(".conditionReaction").css({background-color: '#cc0c1b',
+                                     $(".conditionReaction").css({'background-color': '#cc0c1b',
                                                                   height: '80px',
-                                                                  text-align: 'center',
+                                                                  'text-align': 'center',
                                                                   color: '#ffffff'
                                                                 });
                                      $(".conditionReaction").show().fadeOut(3000);

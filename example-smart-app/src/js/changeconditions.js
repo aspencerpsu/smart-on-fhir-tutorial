@@ -35,7 +35,7 @@
    return results;
   };
 
-  window.changeCondition() = function(){
+  window.changeCondition = function(){
     var form = $("form[name=COC]");
     var tokens = refreshToken();
     var id = form.children("input[name=id]").val();
@@ -49,7 +49,7 @@
     var storage = JSON.parse(sessionStorage[state]);
     var server = storage.server;
     
-    var originalConditionCluster = JSON.parse($(`.conditions > tbody > #${id} > div`).text().trim());
+    var originalConditionCluster = JSON.parse($(`.conditions > tbody > #${id} > .originalCondition`).text().trim());
     originalConditionCluster.category.coding[0].code = catType;
     originalConditionCluster.category.text = title;
     originalConditionCluster.code.coding[0].code = code;
@@ -97,6 +97,7 @@
                              clinicalstat: condition.clinicalStatus 
                             };
         $(".conditions > tbody").append("<tr><td id='"+condition.id+"'>"+"<button>"+condition.id+"</button><div style='display:none'><br>"+
-                JSON.stringify(condititionFHIR)+"<br></div></td></tr>");
+                JSON.stringify(condititionFHIR)+"<br></div><div class='originalCondition' style='display: none'>"+JSON.stringify(condition)+
+		"</div></td></tr>");
     };
 }).call(window);

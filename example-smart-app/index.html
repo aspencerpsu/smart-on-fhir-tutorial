@@ -446,7 +446,7 @@
           });
 
           $("form[name=COC]").submit((e)=>{changeCondition();});
-          $(".conditions > tbody > tr > td > button").click((e)=>{console.log(e); $(".submitconditionchange").animate()});;
+          $(".conditions > tbody > tr > td > button").click((e)=>{console.log(e); $(".submitconditionchange").show().fadeIn(2000);});;
 
           $('input[name=done]').click(function(event){
             event.preventDefault();
@@ -463,8 +463,11 @@
              pres.insertAfter('.row'+status_id+' > .details > .plan-raw > p:eq(2)');
 
             }
+
             $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details in pad
+
             $toggleBox.toggle();
+
             $status = $("select[name=stat"+status_id+"]");
             $status.children().filter(':selected').prop("selected", false);
             $status.children().filter(':first').prop("selected", true); //revert back to active
@@ -530,17 +533,17 @@
               $('#subjectinfo').css('background-color', '');
               $('.subjectdetails').prop('disabled', false);
               $('#subjectinfo').css('opacity', '1');
-                    $status = $("select[name=stat"+status_id+"]");
-                    $status.children().filter(':selected').prop("selected", false);
-                    $status.children().filter(':first').prop("selected", true); //revert back to active
+              $status = $("select[name=stat"+status_id+"]");
+              $status.children().filter(':selected').prop("selected", false);
+              $status.children().filter(':first').prop("selected", true); //revert back to active
               $('#togglebox > .plan-raw').remove(); //erase everything from the patient activity details in pad
-                    $('input[name=done]').attr('id', '');
-                    $('input[name=completed]').attr('id', '');
+              $('input[name=done]').attr('id', '');
+              $('input[name=completed]').attr('id', '');
               $toggleBox.toggle();
        });
 
        $("#closeSVG").click((e)=> $("#closePad #anchor").trigger("click"));
-       $("#closeForm").click((e)=> $(".submitconditionchange").fade(2000));
+       $("#closeForm").click((e)=> $(".submitconditionchange").fadeOut(2000));
 	     
        $('.status > select').on('focus', function(){
             previous = this.value;

@@ -10,6 +10,9 @@
     <link rel='stylesheet' type='text/css' href='./src/css/screen.css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet'/>
     <style>
+      .conditionReaction {
+        display: none;
+      }
       .pending {
         color:  #3b584b;
       }
@@ -33,14 +36,14 @@
         position: fixed;
       }
 
-      .submitconditionchange{
-	display: none;
-	text-align: center;
-	margin: auto;
-	width: 100%;
-	background-color: rgba(248, 246, 244, 0.75);
-	padding: 50px
-	position: fixed;
+     .submitconditionchange {
+        display: none;
+        text-align: center;
+        margin: auto;
+        width: 100%;
+        background-color: rgba(248, 246, 244, 0.75);
+        padding: 50px;
+        position: fixed;
      }
 
       textarea {
@@ -52,77 +55,81 @@
         position: fixed;
         background: #bb0707;
         padding: 4px 6px;
-	color: white;
+        color: white;
         right: 0;
         top: 20;
         z-index: 9001;
         width: 195px;
-	height: 50px;
+        height: 50px;
       }
       .checkmark__circle {
-	stroke-dasharray: 166;
-	stroke-dashoffset: 166;
-	stroke-width: 2;
-	stroke-miterlimit: 10;
-	stroke: #bb0707;
-	fill: none;
-	animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        stroke-width: 2;
+        stroke-miterlimit: 10;
+        stroke: #bb0707;
+        fill: none;
+        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
       }
 
       .checkmark {
-	position: fixed;
-        right: 0;
-	top: 35;
-	width: 56px;
-	height: 56px;
-	border-radius: 50%;
-	display: block;
-	stroke-width: 2;
-	stroke: #fff;
-	stroke-miterlimit: 10;
-	margin: 10% auto;
-	box-shadow: inset 0px 0px 0px #bb0707;
-	animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+          position: fixed;
+                right: 0;
+          top: 35;
+          width: 56px;
+          height: 56px;
+          border-radius: 50%;
+          display: block;
+          stroke-width: 2;
+          stroke: #fff;
+          stroke-miterlimit: 10;
+          margin: 10% auto;
+          box-shadow: inset 0px 0px 0px #bb0707;
+          animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
       }
 
      .checkmark__check {
-	transform-origin: 50% 50%;
-	stroke-dasharray: 29;
-	stroke-dashoffset: 29;
-	animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        transform-origin: 50% 50%;
+        stroke-dasharray: 29;
+        stroke-dashoffset: 29;
+        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
       }
 
       @keyframes stroke {
-	100% {
-	   stroke-dashoffset: 0;
-	}
+        100% {
+           stroke-dashoffset: 0;
+        }
       }
       @keyframes scale {
-	0%, 100% {
-	 transform: none;
-	}
-	50% {
-	  transform: scale3d(1.1, 1.1, 1);
-	}
-      }
-      @keyframes fill {
+        0%, 100% {
+          transform: none;
+        }
+
+        50% {
+          transform: scale3d(1.1, 1.1, 1);
+        }
+    }
+
+    @keyframes fill {
        100% {
-	  box-shadow: inset 0px 0px 0px 30px #bb0707;
-	}
-      }
-      .responseBox {
-	}
+          box-shadow: inset 0px 0px 0px 30px #bb0707;
+       }
+    }
+
+   .responseBox {
+    }
     </style>
   </head>
   <body>
+    <div class="conditionReaction"></div>
     <div id='subjectinfo'>
       <div id="togglebox">
         <div id="closePad">
-	   <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-	      <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-	      <path class="checkmark__check" fill="none" d="M16 16 36 36 M36 16 16 36" />
-	   </svg>
-	   <a href="#" id="anchor">close</a>
+         <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+            <path class="checkmark__check" fill="none" d="M16 16 36 36 M36 16 16 36" />
+         </svg>
+         <a href="#" id="anchor">close</a>
         </div>
         <input type='submit' name='done' value='done?'/>
         <input type='submit' name='completed' value='completed?'/>
@@ -130,43 +137,43 @@
       </div>
     </div>
     <div class='submitconditionchange'>
-	<b>*NOTICE*</b>
-	<p>If you're changing the code of the condition,</p>
-	<p>please follow the snowmed nomenclacture</p>
-	<a href='https://www.hl7.org/fhir/valueset-condition-code.html'>https://www.hl7.org/fhir/valueset-condition-code.html</a>
-	<form method="POST" action="./" name="COC">
-	  <label>ID_:</label>
-	  <input name="id" value="" disabled/>
-	  <label>Category:</label>
-	  
-	  <fieldset>
-		  <legend>http://argonaut.hl7.org</legend>
-		  <input name="category" type="radio" value="problem">Problem<br>
-		  <input name="category" type="radio" value="diagnosis">Diagnosis<br>
-	  </fieldset>
+      <b>*NOTICE*</b>
+      <p>If you're changing the code of the condition,</p>
+      <p>please follow the snowmed nomenclacture</p>
+      <a href='https://www.hl7.org/fhir/valueset-condition-code.html'>https://www.hl7.org/fhir/valueset-condition-code.html</a>
+      <form method="POST" action="./" name="COC">
+        <label>ID_:</label>
+        <input name="id" value="" disabled/>
+        <label>Category:</label>
+        
+        <fieldset>
+          <legend>http://argonaut.hl7.org</legend>
+          <input name="category" type="radio" value="problem">Problem<br>
+          <input name="category" type="radio" value="diagnosis">Diagnosis<br>
+        </fieldset>
 
-	  <label>Code Type (Please Refere To Classes Above)</label>
-	  <input name="code" value="">
-	  <label>Custom Category Title</label>
-	  <input name="title" value="">
-	  <label>Description Of Condition</label>
-	  <textarea name="description" wrap=hard></textarea>
-	  <label>Clinical Status</label>
-	  <select name='clinicalstatus'>
-		<!--active | recurrence | inactive | remission | resolved-->
-		<option value="active" selected>active</option>
-		<option value="recurrence">recurrence</option>
-		<option value="inactive">inactive</option>
-		<option value="resolved">resolved</option>
-		<option value="remission">remission</option>
-	  </select>
-	  <input type="submit" value="Process"/>
-	</form>
-	
-	<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-          <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-	  <path class="checkmark__check" fill="none" d="M16 16 36 36 M36 16 16 36" />
-	</svg>
+        <label>Code Type (Please Refere To Classes Above)</label>
+        <input name="code" value="">
+        <label>Custom Category Title</label>
+        <input name="title" value="">
+        <label>Description Of Condition</label>
+        <textarea name="description" wrap=hard></textarea>
+        <label>Clinical Status</label>
+        <select name='clinicalstatus'>
+        <!--active | recurrence | inactive | remission | resolved-->
+        <option value="active" selected>active</option>
+        <option value="recurrence">recurrence</option>
+        <option value="inactive">inactive</option>
+        <option value="resolved">resolved</option>
+        <option value="remission">remission</option>
+        </select>
+        <input type="submit" value="Process"/>
+      </form>
+      
+      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+              <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+        <path class="checkmark__check" fill="none" d="M16 16 36 36 M36 16 16 36" />
+      </svg>
     </div>
     <div id='errors'>
     </div>
@@ -272,17 +279,17 @@
      <p>From the sandbox, the query is capped to 5 condition readings</p>
      <p>To change the conditions, select the condition id and change</p>
      <p>the field values to submit to AFAS</p>
+
     <table class="conditions">
       <thead>
         <tr>
- 	 <th>Condition ID</th>
-	</tr>
+          <th>Condition ID</th>
+        </tr>
       </thead>
       <tbody>
       </tbody>
     </table>
     
-
     <div class="responseBox">
       <button class="expand">+</button>
       <button class="minus">-</button>
@@ -310,8 +317,9 @@
         var plansReady; //when plans are compiled, we can run the function;
 		
         
-        extractData().then(function(data,conditions){
-        //Display Patient Demographics and Observations if extractData was success
+        extractData().then(function(data, conditions){
+            conditions.forEach((element,index,array)=>{addCondition(element)});
+            //Display Patient Demographics and Observations if extractData was success
             plans = drawVisualization(data);
             plansReady = findCarePlans(plans); //add the patients plans to the table above
             //setInterval(refreshToken, 1000*60*9);

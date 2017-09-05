@@ -15,12 +15,12 @@
                       callback: nugget.callback,
                       message: nugget.message,
                       urgency: nugget.urgency,
-		      patient: nugget.patient,
-		      contacts: JSON.stringify(nugget.contacts), 
+                      patient: nugget.patient,
+                      contacts: JSON.stringify(nugget.contacts), 
                   },
               contentType: 'application/x-www-form-urlencoded',
               dataType: 'json',
-	      crossDomain: true
+              crossDomain: true
             }
             ).done(function(msg) {
               alert(msg);

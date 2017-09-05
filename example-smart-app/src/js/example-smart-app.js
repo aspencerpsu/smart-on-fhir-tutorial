@@ -34,20 +34,19 @@
                     }
         });
 	
-	var conditions = smart.patient.api.fetchAll({type: 'Condition', 
-						     query:{
-								code: {
-								 $or: ['active'],
-								 $not: ['entered-in-error']
-							       }
-							   }
-							});
+        var conditions = smart.patient.api.fetchAll({type: 'Condition', 
+                             query:{
+                                  code: {
+                                   $or: ['active'],
+                                  }
+                             }
+                        });
 
         $.when(pt, obv, care, conditions).fail(onError);
 
         $.when(pt, obv, care, conditions).done(function(patient, obv, care, conditions){
           console.log(patient);
-	  console.warn("Conditions for patients are: ", conditions);
+          console.warn("Conditions for patients are: ", conditions);
           var actives_draft = [];
 
           if (care && typeof care !== 'undefined'){

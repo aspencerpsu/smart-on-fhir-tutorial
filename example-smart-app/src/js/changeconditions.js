@@ -88,6 +88,8 @@
                                      $(".conditionReaction").show().fadeOut(3000);
                                    });
 
+    };
+
     window.addCondition = function(condition){
         var conditionFHIR = {id: condition.id, 
                              category: condition.category.coding[0].code, 

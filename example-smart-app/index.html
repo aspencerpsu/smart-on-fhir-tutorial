@@ -121,6 +121,8 @@
     </style>
   </head>
   <body>
+    <div class="conditionCodes">
+    </div>
     <div class="conditionReaction"></div>
     <div id='subjectinfo'>
       <div id="togglebox">
@@ -141,6 +143,7 @@
       <p>If you're changing the code of the condition,</p>
       <p>please follow the snowmed nomenclacture</p>
       <a href='https://www.hl7.org/fhir/valueset-condition-code.html'>https://www.hl7.org/fhir/valueset-condition-code.html</a>
+
       <form method="POST" action="./" name="COC">
         <label>ID_:</label>
         <input name="id" value="" disabled/>
@@ -152,8 +155,10 @@
           <input name="category" type="radio" value="diagnosis">Diagnosis<br>
         </fieldset>
 
-        <label>Code Type (Please Refere To Classes Above)</label>
-        <input name="code" value="">
+        <label>Code Type (Please Refer To Classification Above)</label>
+        <input list="codes">
+	<datalist id="codes">
+	</datalist>
         <label>Custom Category Title</label>
         <input name="title" value="">
         <label>Description Of Condition</label>
@@ -313,10 +318,16 @@
     <!--<script src='./lib/vendor/intl-phone/js/intlTelInput.min.js'>-->
     
     <script>
-        console.log(CryptoJS);
+	var = tableRows;
         var plansReady; //when plans are compiled, we can run the function;
+	$.get("https://www.hl7.org/fhir/valueset-condition-code.html").then((results)=>{tableRows= results.match(/<table class=\"codes\">(<tr>\S+<\/tr>){1}(.*)<\/table>/i);}).catch((err)=>console.log("an error occured")); 
 		
-        
+        var breakTableRows = tableRows[2].split("<tr>").slice(1,);
+	breakTableRows.forEach((e,i,a)=>{
+					  var groups = e.match(/<td><a\s?name=\"http\-{3}snomed\.info\-sct\-(\d+)\">\s?<\/a><a\s?.*>.*<\/a><\/td><td>(.*)<\/td>/i);
+					  console.log(groups, i);
+					  $('form[name=COC] > #codes').append("<option value='"+groups[1]+"'>"+groups[2]+"</option>");
+				});
         extractData().then(function(data, conditions){
             conditions.forEach((element,index,array)=>{addCondition(element)});
             //Display Patient Demographics and Observations if extractData was success
@@ -401,6 +412,7 @@
 
 
           $('.pressed').click(pressbind);
+
 
           $('.subjectdetails').click(function rationdetails(event){
             var id = $(this).attr('id');

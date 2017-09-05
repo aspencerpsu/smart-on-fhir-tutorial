@@ -118,7 +118,7 @@
                              clinicalstat: condition.clinicalStatus 
                             };
         $(".conditions > tbody").append("<tr><td id='"+condition.id+"'>"+"<button>"+condition.id+"</button><div style='display:none'><br>"+
-                JSON.stringify(condititionFHIR)+"<br></div><div class='originalCondition' style='display: none'>"+JSON.stringify(condition)+
+                JSON.stringify(conditionFHIR)+"<br></div><div class='originalCondition' style='display: none'>"+JSON.stringify(condition)+
 		"</div></td></tr>");
     };
 }).call(window);

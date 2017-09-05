@@ -326,11 +326,9 @@
 
              .then((results)=>{
                       tableRows= results.match(/<table class=\"codes\">(<tr>\S+<\/tr>){1}(.*)<\/table>/i)
-                      console.log(tableRows);	
                       var breakTableRows = tableRows[2].split("<tr>").slice(1,);
                       breakTableRows.forEach((e,i,a)=>{
                         var groups = e.match(/<td><a\s?name=\"http\-{3}snomed\.info\-sct\-(\d+)\">\s?<\/a><a\s?.*>.*<\/a><\/td><td>(.*)<\/td>/i);
-                        console.log(groups, i);
                         $('form[name=COC] > #codes').append("<option value='"+groups[1]+"'>"+groups[2]+"</option>");
                       });
              })

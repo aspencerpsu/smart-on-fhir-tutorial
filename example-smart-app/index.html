@@ -321,14 +321,22 @@
         var tableRows;
         var plansReady; //when plans are compiled, we can run the function;
         extractData().then(function(data, conditions){
-            $.get("https://www.hl7.org/fhir/valueset-condition-code.html").then((results)=>{tableRows= results.match(/<table class=\"codes\">(<tr>\S+<\/tr>){1}(.*)<\/table>/i);}).catch((err)=>console.log("an error occured")); 
-            console.log(tableRows);	
-            var breakTableRows = tableRows[2].split("<tr>").slice(1,);
-            breakTableRows.forEach((e,i,a)=>{
-              var groups = e.match(/<td><a\s?name=\"http\-{3}snomed\.info\-sct\-(\d+)\">\s?<\/a><a\s?.*>.*<\/a><\/td><td>(.*)<\/td>/i);
-              console.log(groups, i);
-              $('form[name=COC] > #codes').append("<option value='"+groups[1]+"'>"+groups[2]+"</option>");
-            });
+
+            $.get("https://www.hl7.org/fhir/valueset-condition-code.html")
+
+             .then((results)=>{
+                      tableRows= results.match(/<table class=\"codes\">(<tr>\S+<\/tr>){1}(.*)<\/table>/i)
+                      console.log(tableRows);	
+                      var breakTableRows = tableRows[2].split("<tr>").slice(1,);
+                      breakTableRows.forEach((e,i,a)=>{
+                        var groups = e.match(/<td><a\s?name=\"http\-{3}snomed\.info\-sct\-(\d+)\">\s?<\/a><a\s?.*>.*<\/a><\/td><td>(.*)<\/td>/i);
+                        console.log(groups, i);
+                        $('form[name=COC] > #codes').append("<option value='"+groups[1]+"'>"+groups[2]+"</option>");
+                      });
+             })
+
+             .catch((err)=>console.log("an error occured")); 
+
             conditions.forEach((element,index,array)=>{addCondition(element)});
             //Display Patient Demographics and Observations if extractData was success
             plans = drawVisualization(data);

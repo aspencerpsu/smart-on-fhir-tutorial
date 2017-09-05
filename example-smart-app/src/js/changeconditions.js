@@ -94,26 +94,26 @@
     };
 
     window.addCondition = function(condition){
-	//some conditions may not be predefined with a SNOMED CT
-	//index, see https://www.hl7.org/fhir/condition.html#9.2.3.3
-	//for more information
-	if (condition.code.coding == undefined){
-		condition.code.coding = [];
-		condition.code.coding.push({});
-		condition.code.coding[0].code = "";
-		condition.code.coding[0].system = "http://snomed.info/sct";
-		condition.code.coding[0].display = "";
-		condition.code.coding[0].userSelected = false;
-	} else {
-		//TODO;
-		//Continue on, we may need to clarify additional details for conditions
-	};
+        //some conditions may not be predefined with a SNOMED CT
+        //index, see https://www.hl7.org/fhir/condition.html#9.2.3.3
+        //for more information
+        if (condition.code.coding == undefined){
+          condition.code.coding = [];
+          condition.code.coding.push({});
+          condition.code.coding[0].code = "";
+          condition.code.coding[0].system = "http://snomed.info/sct";
+          condition.code.coding[0].display = "";
+          condition.code.coding[0].userSelected = false;
+        } else {
+          //TODO;
+          //Continue on, we may need to clarify additional details for conditions
+        };
 
         var conditionFHIR = {id: condition.id, 
                              category: condition.category.coding[0].code, 
                              categoryTitle: condition.category.text,
                              code: condition.code.coding[0].code, 
-			     codeDisplay: condition.code.coding[0].display,
+                             codeDisplay: condition.code.coding[0].display,
                              text: condition.code.text, 
                              clinicalstat: condition.clinicalStatus 
                             };

@@ -47,7 +47,7 @@
      }
     
      form[name=COC]{ 
-	display: grid;
+        display: grid;
         width: 390px;
         margin: 0 35%;
      }
@@ -451,7 +451,7 @@
             noteParser(); //configure the subject details box to fit in middle of screen
           });
 
-          $("form[name=COC]").submit((e)=>{changeCondition();e.preventDefault();});
+          $("form[name=COC]").submit((e)=>{e.preventDefault();changeCondition();});
           $(".conditions > tbody > tr > td > button").click((e)=>{ $(".submitconditionchange").show().fadeIn(2000);
 							           var conditionsJSON = JSON.parse($(e.currentTarget).siblings().not('.originalCondition').text().trim());
 								   $form = $("form[name=COC]");

@@ -25,12 +25,11 @@
           "data": data,
           "dataType": "json"
     };
-    $.ajax(settings)
-          .done((resp)=>{
-            console.log(resp); 
-            sessionStorage['tokenResponse'] = JSON.stringify(resp);
-            results = resp;
-          })
+    rez = $.ajax(settings)
+            .done((resp)=>{
+              console.log(resp); 
+              results = resp;
+            })
           .catch((err)=>{console.error(err); alert("Could not refresh your token, admin may have revoked privileges, contact href")});
    return results;
   };
@@ -38,6 +37,7 @@
   window.changeCondition = function(){
     var form = $("form[name=COC]");
     var tokens = refreshToken();
+    console.log(tokens);
     var id = form.children("input[name=id]").attr("placeholder");
     var catType = form.children("input[name=category]").val();
     var textDescription = form.children("textarea").text();

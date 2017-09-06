@@ -41,7 +41,7 @@
     var id = form.children("input[name=id]").attr("placeholder");
     var catType = form.children("input[name=category]").val();
     var textDescription = form.children("textarea").text();
-    var title = form.chidlren("input[name=title]").val();
+    var title = form.children("input[name=title]").val();
     var snoCode = form.children("datalist > option:selected").text();
     var snoDescription = form.children("datalist > option:selected").val();
     var clinicalSelection = form.children("select > option:selected").val();
@@ -72,6 +72,7 @@
            }
         )
          .then((results)=>{ 
+                           console.log(results);
                            $(".conditionReaction").text("Success! Condition changed!");
                            $(".conditionReaction").css({'background-color': '#00d970',
                                                         height:'80px',

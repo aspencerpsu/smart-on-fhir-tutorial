@@ -50,7 +50,7 @@
     var storage = JSON.parse(sessionStorage[state]);
     var server = storage.server;
     
-    var originalConditionCluster = JSON.parse($(`.conditions > tbody > #${id} > .originalCondition`).text().trim());
+    var originalConditionCluster = JSON.parse($(`.conditions > tbody > tr > #${id} > .originalCondition`).text().trim());
     originalConditionCluster.category.coding[0].code = catType;
     originalConditionCluster.category.text = title;
     originalConditionCluster.code.coding[0].code = snoCode;

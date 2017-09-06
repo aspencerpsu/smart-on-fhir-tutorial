@@ -45,8 +45,14 @@
         padding: 50px;
         position: fixed;
      }
+    
+     .form[name=COC] { 
+	display: grid;
+        width: 390px;
+        margin: 0 35%;
+     }
 
-      textarea {
+     textarea {
         font-family: 'Roboto Slab', serif;
         line-height: 225%;
       }
@@ -445,8 +451,18 @@
             noteParser(); //configure the subject details box to fit in middle of screen
           });
 
-          $("form[name=COC]").submit((e)=>{changeCondition();});
-          $(".conditions > tbody > tr > td > button").click((e)=>{console.log(e); $(".submitconditionchange").show().fadeIn(2000);});;
+          $("form[name=COC]").submit((e)=>{changeCondition();e.preventDefault();});
+          $(".conditions > tbody > tr > td > button").click((e)=>{ $(".submitconditionchange").show().fadeIn(2000);
+							           var conditionsJSON = JSON.parse($(e.currentTarget).siblings().not('.originalCondition').text().trim());
+								   $form = $("form[name=COC]");
+								   $form.children("input[name=id]").attr("placeholder", conditionsJSON.id);
+								   $form.children("input[name=category]").val(conditionsJSON.category);
+								   $form.children("textarea").text(conditionsJSON.text);
+								   $form.children("input[name=title]").val(conditionsJSON.categoryTitle);
+								   $form.children("input[list=codes]").val(conditionsJSON.code);
+								 }
+							     );
+							
 
           $('input[name=done]').click(function(event){
             event.preventDefault();

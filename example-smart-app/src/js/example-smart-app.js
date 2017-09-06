@@ -34,7 +34,7 @@
                     }
               }),
 	
-            conditions = smart.patient.api.fetchAll({type: 'Condition', 
+             conditions = smart.patient.api.fetchAll({type: 'Condition', 
                              query:{
                                   code: {
                                    $or: ['active'],
@@ -64,7 +64,6 @@
               dob = new Date(patient.birthDate),
               day = dob.getDate(),
               contacts = patient.contact,
-              console.debug(contacts),
               monthIndex = dob.getMonth() + 1,
               year = dob.getFullYear(),
               dobStr = monthIndex + '/' + day + '/' + year,
@@ -72,6 +71,8 @@
               lname = '',
               kins = [];
           // var care = care;
+
+          console.debug(contacts), //for debugging purposes
 
           if (typeof patient.name[0] !== undefined) {
             fname = patient.name[0].given.join(' ');

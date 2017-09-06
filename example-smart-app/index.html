@@ -173,11 +173,13 @@
         <label>Clinical Status</label>
         <select name='clinicalstatus'>
         <!--active | recurrence | inactive | remission | resolved-->
-        <option value="active" selected>active</option>
-        <option value="recurrence">recurrence</option>
-        <option value="inactive">inactive</option>
-        <option value="resolved">resolved</option>
-        <option value="remission">remission</option>
+        <option value="active" selected>Active</option>
+        <option value="resolved">Resolved</option>
+        <option value="relapse">Relapse</option>
+        <!--STU3 codes only!! uncomment to activate
+          <option value="inactive">Inactivate</option>-->
+          <!--<option value="recurrence">recurrence</option>-->
+        <option value="remission">Remission</option>
         </select>
         <input type="submit" value="Process"/>
       </form>

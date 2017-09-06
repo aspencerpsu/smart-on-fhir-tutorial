@@ -46,14 +46,14 @@
             category = catType=="diagnosis"?"Diagnosis":"Problem",
             textDescription = form.children("textarea").text(),
             title = form.children("input[name=title]").val(),
-            snoCode = form.children("datalist > option:selected").text(),
+            snoCode = form.children("input[list=codes]").val(),
             snoDescription = form.children("datalist > option:selected").val(),
-            clinicalSelection = form.children("select > option:selected").val(),
+            clinicalSelection = form.children("select").children("option:selected").val(),
             params = JSON.parse(sessionStorage.tokenResponse),
             state = params.state,
             storage = JSON.parse(sessionStorage[state]),
             server = storage.server;
-        console.log(id, catType, category, textDescription, title, snoCode, snoDescription, clinicalSelection);
+        console.debug(id, catType, category, textDescription, title, snoCode, snoDescription, clinicalSelection);
         var originalConditionCluster = JSON.parse($(`.conditions > tbody > tr > #${id} > .originalCondition`).text().trim());
         console.debug(originalConditionCluster);
         originalConditionCluster.category.coding[0].code = catType;

@@ -90,7 +90,7 @@
                                 $(".conditionReaction").show().fadeOut(3000);
              })
 
-             .catch((err, statsheet)=>{console.error(err); 
+             .fail((err, statsheet)=>{console.error(err); 
                                          $(".conditionReaction").text("Error, Could not change the condition for the ID specified...");
                                          $(".conditionReaction").css({'background-color': '#cc0c1b',
                                                                       height: '80px',
@@ -118,14 +118,14 @@
           //Continue on, we may need to clarify additional details for conditions
         };
 
-        var conditionFHIR = {id: condition.id, 
-                             category: condition.category.coding[0].code, 
-                             categoryTitle: condition.category.text,
-                             code: condition.code.coding[0].code, 
-                             codeDisplay: condition.code.coding[0].display,
-                             text: condition.code.text, 
-                             clinicalstat: condition.clinicalStatus 
-                            };
+          var conditionFHIR = {id: condition.id, 
+                               category: condition.category.coding[0].code, 
+                               categoryTitle: condition.category.text,
+                               code: condition.code.coding[0].code, 
+                               codeDisplay: condition.code.coding[0].display,
+                               text: condition.code.text, 
+                               clinicalstat: condition.clinicalStatus 
+                              };
         $(".conditions > tbody").append("<tr><td id='"+condition.id+"'>"+"<button>"+condition.id+"</button><div style='display:none'><br>"+
                 JSON.stringify(conditionFHIR)+"<br></div><div class='originalCondition' style='display: none'>"+JSON.stringify(condition)+
 		"</div></td></tr>");

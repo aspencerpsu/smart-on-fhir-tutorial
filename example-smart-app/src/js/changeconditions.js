@@ -4,6 +4,7 @@
 //for capturing condition changes
 (function(){
   window.refreshToken = function(){
+    var a_defer = $.Deferred()
     var params = JSON.parse(sessionStorage.tokenResponse);
     var state = params.state;
     var refresh_token = params.refresh_token;
@@ -25,73 +26,76 @@
           "data": data,
           "dataType": "json"
     };
-    rez = $.ajax(settings)
+    $.ajax(settings)
             .done((resp)=>{
               console.log(resp); 
               results = resp;
+              a_defer.resolve(results);
             })
           .catch((err)=>{console.error(err); alert("Could not refresh your token, admin may have revoked privileges, contact href")});
-   return results;
+     return a_defer.promise();
   };
 
   window.changeCondition = function(){
     var form = $("form[name=COC]");
     var tokens = refreshToken();
     console.log(tokens);
-    var id = form.children("input[name=id]").attr("placeholder");
-    var catType = form.children("input[name=category]").val();
-    var textDescription = form.children("textarea").text();
-    var title = form.children("input[name=title]").val();
-    var snoCode = form.children("datalist > option:selected").text();
-    var snoDescription = form.children("datalist > option:selected").val();
-    var clinicalSelection = form.children("select > option:selected").val();
-    var params = JSON.parse(sessionStorage.tokenResponse);
-    var state = params.state;
-    var storage = JSON.parse(sessionStorage[state]);
-    var server = storage.server;
-    
-    var originalConditionCluster = JSON.parse($(`.conditions > tbody > tr > #${id} > .originalCondition`).text().trim());
-    originalConditionCluster.category.coding[0].code = catType;
-    originalConditionCluster.category.text = title;
-    originalConditionCluster.code.coding[0].code = snoCode;
-    originalConditionCluster.code.coding[0].display = snoDescription;
-    originalConditionCluster.code.text = textDescription;
-    originalConditionCluster.clinicalStatus = clinicalSelection;
+    tokens.done((rez)=>{
 
-    $.ajax(server.concat(`Condition/${id}`),
-           {
-            dataType: "json",
-            crossDomain: true,
-            method: "PUT",
-            headers: {
-              accept: "application/json+fhir",
-              authorization: "Bearer "+tokens.access_token,
-            },
-            contentType: "application/json+fhir",
-            data: originalConditionCluster
-           }
-        )
-         .then((results)=>{ 
-                           console.log(results);
-                           $(".conditionReaction").text("Success! Condition changed!");
-                           $(".conditionReaction").css({'background-color': '#00d970',
-                                                        height:'80px',
-                                                        'text-align': 'center',
-                                                        color: '#ffffff'
-                                                       });
-                            $(".conditionReaction").show().fadeOut(3000);
-         })
+        var id = form.children("input[name=id]").attr("placeholder");
+        var catType = form.children("input[name=category]").val();
+        var textDescription = form.children("textarea").text();
+        var title = form.children("input[name=title]").val();
+        var snoCode = form.children("datalist > option:selected").text();
+        var snoDescription = form.children("datalist > option:selected").val();
+        var clinicalSelection = form.children("select > option:selected").val();
+        var params = JSON.parse(sessionStorage.tokenResponse);
+        var state = params.state;
+        var storage = JSON.parse(sessionStorage[state]);
+        var server = storage.server;
 
-         .catch((err, statsheet)=>{console.error(err); 
-                                     $(".conditionReaction").text("Error, Could not change the condition for the ID specified...");
-                                     $(".conditionReaction").css({'background-color': '#cc0c1b',
-                                                                  height: '80px',
-                                                                  'text-align': 'center',
-                                                                  color: '#ffffff'
-                                                                });
-                                     $(".conditionReaction").show().fadeOut(3000);
-                                   });
+        var originalConditionCluster = JSON.parse($(`.conditions > tbody > tr > #${id} > .originalCondition`).text().trim());
+        originalConditionCluster.category.coding[0].code = catType;
+        originalConditionCluster.category.text = title;
+        originalConditionCluster.code.coding[0].code = snoCode;
+        originalConditionCluster.code.coding[0].display = snoDescription;
+        originalConditionCluster.code.text = textDescription;
+        originalConditionCluster.clinicalStatus = clinicalSelection;
 
+        $.ajax(server.concat(`/Condition/${id}`),
+               {
+                dataType: "json",
+                crossDomain: true,
+                method: "PUT",
+                headers: {
+                  accept: "application/json+fhir",
+                  authorization: "Bearer "+rez.access_token,
+                },
+                contentType: "application/json+fhir",
+                data: originalConditionCluster
+               }
+            )
+             .then((results)=>{ 
+                               console.log(results);
+                               $(".conditionReaction").text("Success! Condition changed!");
+                               $(".conditionReaction").css({'background-color': '#00d970',
+                                                            height:'80px',
+                                                            'text-align': 'center',
+                                                            color: '#ffffff'
+                                                           });
+                                $(".conditionReaction").show().fadeOut(3000);
+             })
+
+             .catch((err, statsheet)=>{console.error(err); 
+                                         $(".conditionReaction").text("Error, Could not change the condition for the ID specified...");
+                                         $(".conditionReaction").css({'background-color': '#cc0c1b',
+                                                                      height: '80px',
+                                                                      'text-align': 'center',
+                                                                      color: '#ffffff'
+                                                                    });
+                                         $(".conditionReaction").show().fadeOut(3000);
+                                       });
+             }).fail((err)=>console.error(err));
     };
 
     window.addCondition = function(condition){

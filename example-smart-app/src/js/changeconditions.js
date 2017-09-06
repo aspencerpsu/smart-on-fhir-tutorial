@@ -76,7 +76,7 @@
                   "Content-Type": "application/json+fhir"
                 },
                 contentType: "application/json+fhir",
-                data: originalConditionCluster
+                data: JSON.stringify(originalConditionCluster)
                }
             )
              .then((results)=>{ 

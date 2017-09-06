@@ -42,8 +42,8 @@
     tokens.done((rez)=>{
 
         var id = form.children("input[name=id]").attr("placeholder"),
-            catType = form.children("input[name=category]").filter(":checked").val(),
-            category = form.children("input[name=category]").filter(":checked").text(),
+            catType = form.children("fieldset").children("input[name=category]").filter(":checked").val(),
+            category = catType=="diagnosis"?"Diagnosis":"Problem",
             textDescription = form.children("textarea").text(),
             title = form.children("input[name=title]").val(),
             snoCode = form.children("datalist > option:selected").text(),
@@ -53,8 +53,9 @@
             state = params.state,
             storage = JSON.parse(sessionStorage[state]),
             server = storage.server;
-
+        console.log(id, catType, category, textDescription, title, snoCode, snoDescription, clinicalSelection);
         var originalConditionCluster = JSON.parse($(`.conditions > tbody > tr > #${id} > .originalCondition`).text().trim());
+        console.debug(originalConditionCluster);
         originalConditionCluster.category.coding[0].code = catType;
         originalConditionCluster.category.coding[0].display = category;
         originalConditionCluster.category.text = title;

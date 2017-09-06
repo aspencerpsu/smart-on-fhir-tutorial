@@ -70,7 +70,8 @@
                 headers: {
                   accept: "application/json+fhir",
                   authorization: "Bearer "+rez.access_token,
-                  "If-Match": "W/\"".concat(originalConditionCluster.meta.versionId.concat("\""))
+                  "If-Match": "W/".concat(originalConditionCluster.meta.versionId),
+                  "Content-Type": "application/json+fhir"
                 },
                 contentType: "application/json+fhir",
                 data: originalConditionCluster

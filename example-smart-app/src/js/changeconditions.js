@@ -61,7 +61,7 @@
         originalConditionCluster.code.coding[0].display = snoDescription;
         originalConditionCluster.code.text = textDescription;
         originalConditionCluster.clinicalStatus = clinicalSelection;
-
+        console.log(originalConditionCluster.meta.versionId);
         $.ajax(server.concat(`/Condition/${id}`),
                {
                 dataType: "json",

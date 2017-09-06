@@ -79,7 +79,7 @@
                 data: JSON.stringify(originalConditionCluster)
                }
             )
-             .then((results)=>{ 
+             .done((results)=>{ 
                                console.log(results);
                                $(".conditionReaction").text("Success! Condition changed!");
                                $(".conditionReaction").css({'background-color': '#00d970',

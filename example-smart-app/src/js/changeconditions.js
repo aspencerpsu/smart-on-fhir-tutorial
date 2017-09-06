@@ -4,28 +4,28 @@
 //for capturing condition changes
 (function(){
   window.refreshToken = function(){
-    var a_defer = $.Deferred()
-    var params = JSON.parse(sessionStorage.tokenResponse);
-    var state = params.state;
-    var refresh_token = params.refresh_token;
-    var client_secret = null;
-    var storage = JSON.parse(sessionStorage[params.state]);
-    var client_id = storage.client.client_id;
-    var token_uri = storage.provider.oauth2.token_uri;
-    var results;
-    var data = {
+    var a_defer = $.Deferred(),
+        params = JSON.parse(sessionStorage.tokenResponse),
+        state = params.state,
+        refresh_token = params.refresh_token,
+        client_secret = null,
+        storage = JSON.parse(sessionStorage[params.state]),
+        client_id = storage.client.client_id,
+        token_uri = storage.provider.oauth2.token_uri,
+        results,
+        data = {
             grant_type: "refresh_token",
             client_id: client_id,
             client_secret: client_secret,
             refresh_token: refresh_token
-    };
-    var settings = {
+        },
+        settings = {
           "crossDomain": true,
           "url": token_uri,
           "method": "POST",
           "data": data,
           "dataType": "json"
-    };
+        };
     $.ajax(settings)
             .done((resp)=>{
               console.log(resp); 
@@ -33,29 +33,30 @@
               a_defer.resolve(results);
             })
           .catch((err)=>{console.error(err); alert("Could not refresh your token, admin may have revoked privileges, contact href")});
-     return a_defer.promise();
+    return a_defer.promise();
   };
 
   window.changeCondition = function(){
     var form = $("form[name=COC]");
-    var tokens = refreshToken();
-    console.log(tokens);
+        tokens = refreshToken();
     tokens.done((rez)=>{
 
-        var id = form.children("input[name=id]").attr("placeholder");
-        var catType = form.children("input[name=category]").val();
-        var textDescription = form.children("textarea").text();
-        var title = form.children("input[name=title]").val();
-        var snoCode = form.children("datalist > option:selected").text();
-        var snoDescription = form.children("datalist > option:selected").val();
-        var clinicalSelection = form.children("select > option:selected").val();
-        var params = JSON.parse(sessionStorage.tokenResponse);
-        var state = params.state;
-        var storage = JSON.parse(sessionStorage[state]);
-        var server = storage.server;
+        var id = form.children("input[name=id]").attr("placeholder"),
+            catType = form.children("input[name=category]").filter(":checked").val(),
+            category = form.children("input[name=category]").filter(":checked").text(),
+            textDescription = form.children("textarea").text(),
+            title = form.children("input[name=title]").val(),
+            snoCode = form.children("datalist > option:selected").text(),
+            snoDescription = form.children("datalist > option:selected").val(),
+            clinicalSelection = form.children("select > option:selected").val(),
+            params = JSON.parse(sessionStorage.tokenResponse),
+            state = params.state,
+            storage = JSON.parse(sessionStorage[state]),
+            server = storage.server;
 
         var originalConditionCluster = JSON.parse($(`.conditions > tbody > tr > #${id} > .originalCondition`).text().trim());
         originalConditionCluster.category.coding[0].code = catType;
+        originalConditionCluster.category.coding[0].display = category;
         originalConditionCluster.category.text = title;
         originalConditionCluster.code.coding[0].code = snoCode;
         originalConditionCluster.code.coding[0].display = snoDescription;

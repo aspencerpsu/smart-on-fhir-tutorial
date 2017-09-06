@@ -11,9 +11,9 @@
       console.log(smart);
       console.log(FHIR);
       if (smart.hasOwnProperty('patient')) {
-        var patient = smart.patient;
-        var pt = patient.read();
-        var obv = smart.patient.api.fetchAll({
+        var patient = smart.patient,
+            pt = patient.read(),
+            obv = smart.patient.api.fetchAll({
                     type: 'Observation',
                     query: {
                       code: {
@@ -22,19 +22,19 @@
                               'http://loinc.org|2089-1', 'http://loinc.org|55284-4']
                       }
                     }
-                  });
+                  }),
 	
 
-        var care = smart.patient.api.fetchAll({
+             care = smart.patient.api.fetchAll({
                     type:'CarePlan',
                     query: {
                       status: {
                         $or: 'http://hl7.org/fhir/care-plan-status|active'
                       }
                     }
-        });
+              }),
 	
-        var conditions = smart.patient.api.fetchAll({type: 'Condition', 
+            conditions = smart.patient.api.fetchAll({type: 'Condition', 
                              query:{
                                   code: {
                                    $or: ['active'],
@@ -59,18 +59,18 @@
           var conditions = conditions.filter((e)=>e.verificationStatus!='entered-in-error');
           console.log(conditions); 
           conditions = conditions.slice(0,5);
-          var byCodes = smart.byCodes(obv, 'code');
-          var gender = patient.gender;
-          var dob = new Date(patient.birthDate);
-          var day = dob.getDate();
-          var contacts = patient.contact;
-          console.debug(contacts);
-          var monthIndex = dob.getMonth() + 1;
-          var year = dob.getFullYear();
-          var dobStr = monthIndex + '/' + day + '/' + year;
-          var fname = '';
-          var lname = '';
-          var kins = [];
+          var byCodes = smart.byCodes(obv, 'code'),
+              gender = patient.gender,
+              dob = new Date(patient.birthDate),
+              day = dob.getDate(),
+              contacts = patient.contact,
+              console.debug(contacts),
+              monthIndex = dob.getMonth() + 1,
+              year = dob.getFullYear(),
+              dobStr = monthIndex + '/' + day + '/' + year,
+              fname = '',
+              lname = '',
+              kins = [];
           // var care = care;
 
           if (typeof patient.name[0] !== undefined) {
@@ -78,12 +78,12 @@
             lname = patient.name[0].family.join(' ');
           }
 
-          var height = byCodes('8302-2');
-          var systolicbp = getBloodPressureValue(byCodes('55284-4'),'8480-6');
-          var diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4');
-          var hdl = byCodes('2085-9');
-          var ldl = byCodes('2089-1');
-          var person;
+          var height = byCodes('8302-2'),
+              systolicbp = getBloodPressureValue(byCodes('55284-4'),'8480-6'),
+              diastolicbp = getBloodPressureValue(byCodes('55284-4'),'8462-4'),
+              hdl = byCodes('2085-9'),
+              ldl = byCodes('2089-1'),
+              person;
 
           var p = defaultPatient();
           p.birthdate = dobStr;
